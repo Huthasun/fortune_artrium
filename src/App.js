@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React from 'react'
+import { BrowserRouter as Router, Routes,} from "react-router-dom";
+import { MantineProvider } from '@mantine/core'
+import MainLayout from './MainLayout/MainLayout'
+import Register from './Components/Register'
+import Departure from './Components/Departure'
+import { Route } from 'react-router-dom'
+import HouseKepping from './Components/HouseKeeping/HouseKepping'
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <MantineProvider>
+         <MainLayout/>
+
+        {/* <Register/> */}
+  
+        {/* <Departure/> */}
+        
+        
+      </MantineProvider>
+     
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
