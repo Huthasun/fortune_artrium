@@ -612,13 +612,30 @@ const Departure = () => {
       <SimpleGrid cols={3} style={{ display: 'grid', placeItems: "center", paddingLeft: '20px', paddingRight: "20px" }}>
         {Object.values(bookingData).map((room) => (
           <div key={room.roomNo}>
-            <Button
+            {/* <Button
               style={{ backgroundColor: getButtonColor(room.roomNo), width: "100px", height: "40px", border: selectedButton === room.roomNo ? '2px solid #00000040' : 'none' }}
               onClick={() => handleButtonClick(room.roomNo)}
             >
-              <Text fz="sm" style={{ display: "grid", placeItems: "center", alignItems: "center", justifyContent: "center", margin: 0 }}>{room.roomNo}</Text>
+             <div>
+               <Text fz="sm" style={{ display: "grid", placeItems: "center", alignItems: "center", justifyContent: "center", margin: 0 }}>{room.roomNo}</Text>
+             </div>
             </Button>
-            {getButtonText(room.roomNo)}
+            {getButtonText(room.roomNo)} */}
+             <Button
+              style={{
+                backgroundColor: getButtonColor(room.roomNo),
+                width: '100px',
+                height: '40px',
+                border: selectedButton === room.roomNo ? '2px solid #00000040' : 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              onClick={() => handleButtonClick(room.roomNo)}
+            >
+              <Text fz="sm" style={{ margin: 0 }}>{room.roomNo}</Text>
+            </Button>
+            <div style={{ textAlign: 'center', marginTop: '5px' }}>{getButtonText(room.roomNo)}</div>
           </div>
         ))}
       </SimpleGrid>

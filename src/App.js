@@ -25,7 +25,7 @@ const App = () => {
         {/* <HouseKepping/> */}
         {/* <RegisterationCard/> */}
         {/* <PendigCard/> */}
-        <CompletedCard/>
+        {/* <CompletedCard/> */}
         {/* <Header/> */}
         {/* <UpdateBokkings/> */}
         
