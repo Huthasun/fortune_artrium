@@ -9,7 +9,7 @@ const bookingData =[
     },
     {
       roomNo: 102,
-      status: "completed",
+      status: "pending",
       name: "Alice Smith",
       deptDate: "2024-05-12",
       totalAmount: 600,
@@ -25,7 +25,7 @@ const bookingData =[
     },
     {
       roomNo: 104,
-      status: "completed",
+      status: "pending",
       name: "Emma Brown",
       deptDate: "2024-05-20",
       totalAmount: 800,
@@ -49,7 +49,7 @@ const bookingData =[
     },
     {
       roomNo: 107,
-      status: "completed",
+      status: "pending",
       name: "William ",
       deptDate: "2024-06-02",
       totalAmount: 1100,
@@ -57,7 +57,7 @@ const bookingData =[
     },
     {
       roomNo: 108,
-      status: "completed",
+      status: "pending",
       name: "Olivia Lopez",
       deptDate: "2024-06-05",
       totalAmount: 1200,
