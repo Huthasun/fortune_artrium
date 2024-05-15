@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { TextInput, Button, Image ,PasswordInput} from '@mantine/core';
 import Fortune from '../assets/fj.jpg'
 import '../../src/Styling.css'
@@ -7,10 +8,13 @@ import '../../src/Styling.css'
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = () => {
     // Perform login logic here
     console.log('Logging in with username:', username, 'and password:', password);
+
+    navigate('/bookings')
   };
 
   const handleForgotPassword = () => {

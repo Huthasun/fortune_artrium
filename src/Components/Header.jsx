@@ -30,10 +30,10 @@ const Header = () => {
     <div
       style={{
         backgroundColor: '#fff',
-        display: 'flex',
-        justifyContent: 'space-between',
+        // display: 'flex',
+        // justifyContent: 'space-between',
         alignItems: 'center', // Center elements vertically
-        padding: '6px', // Add padding for better spacing
+        padding: '5px', // Add padding for better spacing
         boxShadow: '0px 0px 35px rgba(0, 0, 0, 0.1)',
         width:"auto"
       }}
@@ -43,11 +43,11 @@ const Header = () => {
         alt='logo'
         style={{
           height: '50px', // Adjust image height for responsiveness
-          width: 'calc(25% - 15px)', // Use calc() for flexible width
+          width: 'calc(21% - 15px)', // Use calc() for flexible width
           
         }}
       />
-      <Avatar color="orange" radius="xl" size={60} style={{ marginLeft: 'auto' }} /> {/* Auto margin for right alignment */}
+      {/* <Avatar color="orange" radius="xl" size={60} style={{ marginLeft: 'auto' }} /> Auto margin for right alignment */}
     </div>
   );
 };

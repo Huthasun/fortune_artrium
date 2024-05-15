@@ -1,10 +1,183 @@
-    import React, { useState } from 'react';
-import Header from './Header'
+//     import React, { useState } from 'react';
+// import Header from './Header'
 
 
-import { Card, Text,TextInput ,SimpleGrid,Button} from '@mantine/core';
+// import { Card, Text,TextInput ,SimpleGrid,Button} from '@mantine/core';
 
-const UpdateBokkings = () => {
+// const UpdateBokkings = () => {
+//   const [formData, setFormData] = useState({
+//     name: '',
+//     bookingType: '',
+//     roomNumber: '',
+//     guests: '',
+//     checkInDate: '',
+//     checkInTime: '',
+//     duration: 1,
+//     price: 0,
+//     gender: '',
+//     phoneNumber: '',
+//     identityProof: '',
+//     idNumber: '',
+//     address: '',
+//     numberOfAdults: '',
+//     numberOfKids: '',
+//     checkOutDate: '',
+//     checkOutTime: '',
+//     amount: '',
+//   });
+//     const [selectedOption, setSelectedOption] = useState(null);
+
+//     const handleInputChange = (field, value) => {
+//       setFormData({ ...formData, [field]: value });
+//     };
+  
+
+
+//   return (
+//     <div>
+//       <Header/>
+//       <div style={{width:"375px",height:"50px",borderBottom:"2px solid #D3D3D3",display:"flex",alignItems:"center",justifyContent:"space-around",backgroundColor:"ffff"}}>
+//       <Text fz="xl"
+//       style={{color: selectedOption === 'Booking' ? 'red' : 'inherit'}}
+//       onClick={() => setSelectedOption('Booking')}
+//       >
+//         Booking
+//         </Text>
+//       <Text fz="xl"
+//        style={{ color: selectedOption === 'Accommodation' ? 'red' : 'inherit' }}
+//        onClick={() => setSelectedOption('Accommodation')}
+//       >
+//         Accomdation
+//         </Text>
+//       <Text fz="xl"
+//         style={{ color: selectedOption === 'Extend' ? 'red' : 'inherit' }}
+//         onClick={() => setSelectedOption('Extend')}
+//       >
+//         Extend
+//         </Text>
+
+
+//       </div>
+//       <div style={{display:"flex",margin:"20px",borderRadius:"5px",justifyContent:"space-between",height:"34px",border:" 3px solid #FE000099",}}>
+//       <p style={{marginTop:"6px",marginLeft:"8px"}}>Room.No-101</p>
+//       <p style={{marginTop:"6px",marginRight:"8px"}}>Pending</p>
+//       </div>    
+//       <div style={{display:"flex",flexDirection:'column'}}>
+//       <div>
+//             <label style={{fontWeight:"500",marginLeft:"25px"}}>resverd date</label>
+//         </div>
+//         <div style={{ display: 'flex', flexDirection: 'row',justifyContent:"space-around",padding:"10px" }}>
+//           <TextInput
+
+//             label=""
+//             placeholder="YYYY-MM-DD"
+//             pattern="\d{4}-\d{2}-\d{2}"
+//             value={formData.checkInDate}
+//             onChange={(event) => handleInputChange('checkInDate', event.target.value)}
+//             required
+//             style={{width:'40%'}}
+//           />
+//           <TextInput
+//             label=""
+//             placeholder="HH:MM"
+//             pattern="\d{2}:\d{2}"
+//             value={formData.checkInTime}
+//             onChange={(event) => handleInputChange('checkInTime', event.target.value)}
+//             required
+//             style={{width:'40%'}}
+//           />
+//           </div>
+//         </div>
+//         <div style={{display:"flex",flexDirection:"row",justifyContent:"space-around",padding:"10px"}}>
+//           <TextInput
+//             label=" Total Number of Days "
+//             placeholder="Enter number of days"
+//             type="number"
+//             min={1}
+//             value={formData.duration}
+//             onChange={(event) => handleInputChange('duration', parseInt(event.target.value))}
+//             // required
+//             style={{width:'40%'}}
+//           />
+//           <TextInput
+//             label="Tarrif"
+//             placeholder="Amount"
+//             value={formData.amount}
+//             onChange={(event) => handleInputChange('amount', event.target.value)}
+//             // required
+//             style={{width:'40%'}}
+//           />
+//           </div>
+//           <TextInput
+//             label="Total Amount"
+//             placeholder="Amount"
+//             value={formData.amount}
+//             onChange={(event) => handleInputChange('amount', event.target.value)}
+//             // required
+//             style={{width:"85%",marginLeft:"7%"}}
+//           />
+//           <div style={{paddingTop:"10px"}}>
+//           <label style={{fontWeight:"500",marginLeft:"25px",}}>Payment details</label>
+//           <Card>
+//           <SimpleGrid cols={2}>
+//         <div  style={{display:"flex",justifyContent:"space-between",flexDirection:"column",marginLeft:"10px",height:"120px"}}>
+
+        
+//       <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+//         Name 
+//        </Text>
+      
+//       <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+//          Dept Date
+//       </Text>
+      
+//       <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+//         Total Amount
+//       </Text>
+      
+//       <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+//         Pending Amount
+//       </Text>
+     
+      
+//       </div>
+//       <div  style={{display:"flex",justifyContent:"flex-end",flexDirection:"column",marginLeft:"84px",top:"0"}}>
+//       <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+//          sunny
+//       </Text>
+//       <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+//         12/06/2002
+//       </Text>
+//       <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+//         5000
+//       </Text>
+//        <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+//         1000
+//       </Text>
+
+
+//       </div>
+//       </SimpleGrid>
+//       <div style={{display:"flex",alignItems:"center",justifyContent:"center",padding:"10px"}}>
+//       <Button style={{width:"105px",height:"34px",backgroundColor:"#FE0000",marginTop:'0px'}}>Submit</Button> 
+ 
+//       </div>
+//           </Card>
+//           </div>
+
+//     </div>
+//   )
+// }
+
+// export default UpdateBokkings
+import React, { useState } from 'react';
+import { Card, Text, TextInput, SimpleGrid, Button } from '@mantine/core';
+import Header from './Header';
+import bookingData from './databooking';
+
+
+const UpdateBookings = () => {
+  const [selectedOption, setSelectedOption] = useState('Booking');
   const [formData, setFormData] = useState({
     name: '',
     bookingType: '',
@@ -25,148 +198,147 @@ const UpdateBokkings = () => {
     checkOutTime: '',
     amount: '',
   });
-    const [selectedOption, setSelectedOption] = useState(null);
-
-    const handleInputChange = (field, value) => {
-      setFormData({ ...formData, [field]: value });
+  const [selectedRoom, setSelectedRoom] = useState(null); // Define selectedRoom state
+  const UpdateBookings = () => {
+    // const { selectedRoom } = props;
+    // const navigate = useNavigate();
+  
+    // const handleModifyClick = () => {
+      // navigate("/updatebooking");
     };
   
 
+  const handleInputChange = (field, value) => {
+    setFormData({ ...formData, [field]: value });
+  };
+
+  const handleRoomSelection = (roomNo) => {
+    // Logic to handle room selection
+    const room = bookingData.find((room) => room.roomNo === roomNo);
+    setSelectedRoom(room);
+  };
 
   return (
     <div>
-      <Header/>
-      <div style={{width:"375px",height:"50px",borderBottom:"2px solid #D3D3D3",display:"flex",alignItems:"center",justifyContent:"space-around",backgroundColor:"ffff"}}>
-      <Text fz="xl"
-      style={{color: selectedOption === 'Booking' ? 'red' : 'inherit'}}
-      onClick={() => setSelectedOption('Booking')}
-      >
-        Booking
+      <Header />
+      <div style={{ width: "375px", height: "50px", borderBottom: "2px solid #D3D3D3", display: "flex", alignItems: "center", justifyContent: "space-around", backgroundColor: "ffff" }}>
+        <Text fz="xl"
+          style={{ color: selectedOption === 'Booking' ? 'red' : 'inherit' }}
+          onClick={() => setSelectedOption('Booking')}
+        >
+          Booking
         </Text>
-      <Text fz="xl"
-       style={{ color: selectedOption === 'Accommodation' ? 'red' : 'inherit' }}
-       onClick={() => setSelectedOption('Accommodation')}
-      >
-        Accomdation
+        <Text fz="xl"
+          style={{ color: selectedOption === 'Accommodation' ? 'red' : 'inherit' }}
+          onClick={() => setSelectedOption('Accommodation')}
+        >
+          Accommodation
         </Text>
-      <Text fz="xl"
-        style={{ color: selectedOption === 'Extend' ? 'red' : 'inherit' }}
-        onClick={() => setSelectedOption('Extend')}
-      >
-        Extend
+        <Text fz="xl"
+          style={{ color: selectedOption === 'Depart' ? 'red' : 'inherit' }}
+          onClick={() => setSelectedOption('Depart')}
+        >
+          Depart
         </Text>
-
-
       </div>
-      <div style={{display:"flex",margin:"20px",borderRadius:"5px",justifyContent:"space-between",height:"34px",border:" 3px solid #FE000099",}}>
-      <p style={{marginTop:"6px",marginLeft:"8px"}}>Room.No-101</p>
-      <p style={{marginTop:"6px",marginRight:"8px"}}>Pending</p>
-      </div>    
-      <div style={{display:"flex",flexDirection:'column'}}>
-      <div>
-            <label style={{fontWeight:"500",marginLeft:"25px"}}>resverd date</label>
+      <div style={{ display: "flex", margin: "20px", borderRadius: "5px", justifyContent: "space-between", height: "34px", border: " 3px solid #FE000099" }}>
+        <p style={{ marginTop: "6px", marginLeft: "8px" }}>Room.No-{selectedRoom ? selectedRoom.roomNo : ''}</p>
+        <p style={{ marginTop: "6px", marginRight: "8px" }}>{selectedRoom ? selectedRoom.status : ''}</p>
+      </div>
+      <div style={{ display: "flex", flexDirection: 'column' }}>
+        <div>
+          <label style={{ fontWeight: "500", marginLeft: "25px" }}>Reversed date</label>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'row',justifyContent:"space-around",padding:"10px" }}>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: "space-around", padding: "10px" }}>
           <TextInput
-
             label=""
             placeholder="YYYY-MM-DD"
+            type="number"
             pattern="\d{4}-\d{2}-\d{2}"
             value={formData.checkInDate}
             onChange={(event) => handleInputChange('checkInDate', event.target.value)}
             required
-            style={{width:'40%'}}
+            style={{ width: '40%' }}
           />
           <TextInput
             label=""
             placeholder="HH:MM"
+            type="number"
             pattern="\d{2}:\d{2}"
             value={formData.checkInTime}
             onChange={(event) => handleInputChange('checkInTime', event.target.value)}
             required
-            style={{width:'40%'}}
+            style={{ width: '40%' }}
           />
-          </div>
         </div>
-        <div style={{display:"flex",flexDirection:"row",justifyContent:"space-around",padding:"10px"}}>
-          <TextInput
-            label=" Total Number of Days "
-            placeholder="Enter number of days"
-            type="number"
-            min={1}
-            value={formData.duration}
-            onChange={(event) => handleInputChange('duration', parseInt(event.target.value))}
-            // required
-            style={{width:'40%'}}
-          />
-          <TextInput
-            label="Tarrif"
-            placeholder="Amount"
-            value={formData.amount}
-            onChange={(event) => handleInputChange('amount', event.target.value)}
-            // required
-            style={{width:'40%'}}
-          />
-          </div>
-          <TextInput
-            label="Total Amount"
-            placeholder="Amount"
-            value={formData.amount}
-            onChange={(event) => handleInputChange('amount', event.target.value)}
-            // required
-            style={{width:"85%",marginLeft:"7%"}}
-          />
-          <div style={{paddingTop:"10px"}}>
-          <label style={{fontWeight:"500",marginLeft:"25px",}}>Payment details</label>
-          <Card>
+      </div>
+      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", padding: "10px" }}>
+        <TextInput
+          label="Total Number of Days"
+          placeholder="Enter number of days"
+          type="number"
+          min={1}
+          value={formData.duration}
+          onChange={(event) => handleInputChange('duration', parseInt(event.target.value))}
+          style={{ width: '40%' }}
+        />
+        <TextInput
+          label="Tariff"
+          type="number"
+          placeholder="Amount"
+          value={formData.amount}
+          onChange={(event) => handleInputChange('amount', event.target.value)}
+          style={{ width: '40%' }}
+        />
+      </div>
+      <TextInput
+        label="Total Amount"
+        type="number"
+        placeholder="Amount"
+        value={formData.amount}
+        onChange={(event) => handleInputChange('amount', event.target.value)}
+        style={{ width: "85%", marginLeft: "7%" }}
+      />
+      <div style={{ paddingTop: "10px" }}>
+        <label style={{ fontWeight: "500", marginLeft: "25px" }}>Payment details</label>
+        <Card>
           <SimpleGrid cols={2}>
-        <div  style={{display:"flex",justifyContent:"space-between",flexDirection:"column",marginLeft:"10px",height:"120px"}}>
-
-        
-      <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-        Name 
-       </Text>
-      
-      <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-         Dept Date
-      </Text>
-      
-      <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-        Total Amount
-      </Text>
-      
-      <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-        Pending Amount
-      </Text>
-     
-      
-      </div>
-      <div  style={{display:"flex",justifyContent:"flex-end",flexDirection:"column",marginLeft:"84px",top:"0"}}>
-      <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-         sunny
-      </Text>
-      <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-        12/06/2002
-      </Text>
-      <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-        5000
-      </Text>
-       <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-        1000
-      </Text>
-
-
-      </div>
-      </SimpleGrid>
-      <div style={{display:"flex",alignItems:"center",justifyContent:"center",padding:"10px"}}>
-      <Button style={{width:"105px",height:"34px",backgroundColor:"#FE0000",marginTop:'0px'}}>Submit</Button> 
- 
-      </div>
-          </Card>
+            <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "column", marginLeft: "10px", height: "120px" }}>
+              <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+                Name
+              </Text>
+              <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+                Dept Date
+              </Text>
+              <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+                Total Amount
+              </Text>
+              <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+                Pending Amount
+              </Text>
+            </div>
+            <div style={{ display: "flex", justifyContent: "flex-end", flexDirection: "column", marginLeft: "84px", top: "0" }}>
+              <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+                sunny
+              </Text>
+              <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+                12/06/2002
+              </Text>
+              <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+                5000
+              </Text>
+              <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+                1000
+              </Text>
+            </div>
+          </SimpleGrid>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "10px" }}>
+            <Button style={{ width: "105px", height: "34px", backgroundColor: "#FE0000", marginTop: '0px' }}>Submit</Button>
           </div>
-
+        </Card>
+      </div>
     </div>
   )
 }
 
-export default UpdateBokkings
+export default UpdateBookings;

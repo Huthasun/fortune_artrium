@@ -87,6 +87,7 @@ const PendingCard = (props) => {
   };
 
   return (
+    
     <Card
       shadow="sm"
       style={{
@@ -98,9 +99,9 @@ const PendingCard = (props) => {
         borderRadius: '8px',
       }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0px', margin: '0px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0px', margin: '0px',height:"33px" }}>
         <p style={{ margin: '0px' }}>Room.No-{selectedRoom.roomNo}</p>
-        <p style={{ margin: '0px', marginRight: '40px' }}>{selectedRoom.status}</p>
+        <p style={{ margin: '0px', marginRight: '5px' }}>{selectedRoom.status}</p>
       </div>
       <SimpleGrid cols={2}>
         <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column', marginLeft: '10px' }}>
@@ -132,7 +133,7 @@ const PendingCard = (props) => {
           </Text>
         </div>
       </SimpleGrid>
-      <Button style={{ width: '94px', height: '28px', backgroundColor: '#FE0000', marginTop: '0px' }} onClick={handleModifyClick}>Modify</Button>
+      <Button style={{ width: '94px', height: '31px', backgroundColor: '#FE0000', marginTop: '0px' ,padding:"3px"}} onClick={handleModifyClick}>Modify</Button>
     </Card>
   );
 };

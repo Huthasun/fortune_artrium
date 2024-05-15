@@ -536,53 +536,161 @@
 // export default Departure;
  
 
+// import React, { useState } from 'react';
+// import { SimpleGrid, Button, Text } from '@mantine/core';
+// import Header from './Header';
+// import bookingData from './databooking';
+// // import PendingCard from './Cards/PendingCard'; // Corrected import name
+// import PendigCard from './Cards/PendigCard';
+// import { useNavigate } from 'react-router-dom';
+
+// const Departure = () => {
+//   const [selectedButton, setSelectedButton] = useState(null);
+//   const [showPendingCard, setShowPendingCard] = useState(false);
+//   const [selectedRoom, setSelectedRoom] = useState(null);
+//   const navigate = useNavigate();
+
+//   const handleButtonClick = (roomNo) => {
+//     setSelectedButton(roomNo);
+//     setShowPendingCard(false);
+//     setSelectedRoom(null);
+
+//     const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
+
+//     if (room) {
+//       setSelectedRoom(room);
+
+//       if (room.status === 'completed') {
+//         handleRegisterClick(); // Navigate to register page for "Vacant" rooms
+//       } else if (room.status === 'pending') {
+//         setShowPendingCard(true);
+//       }
+//     }
+//   };
+
+//   const getButtonText = (roomNo) => {
+//     const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
+//     if (room) {
+//       switch (room.status) {
+//         case 'pending':
+//           return 'Occupied';
+//         case 'completed':
+//           return 'Vacant';
+//         default:
+//           return 'Housekeeping';
+//       }
+//     }
+//     return 'Housekeeping';
+//   };
+
+//   const getButtonColor = (roomNo) => {
+//     const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
+//     if (room) {
+//       switch (room.status) {
+//         case 'pending':
+//           return '#FE0000';
+//         case 'completed':
+//           return '#03C03C';
+//         default:
+//           return '#E1C16E';
+//       }
+//     }
+//     return '#E1C16E';
+//   };
+
+//   const handleRegisterClick = () => {
+//     navigate('/register');
+//   };
+  
+
+//   return (
+//     <div>
+//       <Header />
+//       <div style={{ maxWidth: 350, margin: '0 auto', alignItems: "center", padding: "0px", paddingTop: "0px" }}>
+//         <h1 style={{ display: "flex", justifyContent: "center", }}>Availability</h1>
+//       </div>
+//       <SimpleGrid cols={3} style={{ display: 'grid', placeItems: "center", paddingLeft: '20px', paddingRight: "20px" }}>
+//         {Object.values(bookingData).map((room) => (
+//           <div key={room.roomNo}>
+//             {/* <Button
+//               style={{ backgroundColor: getButtonColor(room.roomNo), width: "100px", height: "40px", border: selectedButton === room.roomNo ? '2px solid #00000040' : 'none' }}
+//               onClick={() => handleButtonClick(room.roomNo)}
+//             >
+//              <div>
+//                <Text fz="sm" style={{ display: "grid", placeItems: "center", alignItems: "center", justifyContent: "center", margin: 0 }}>{room.roomNo}</Text>
+//              </div>
+//             </Button>
+//             {getButtonText(room.roomNo)} */}
+//              <Button
+//               style={{
+//                 backgroundColor: getButtonColor(room.roomNo),
+//                 width: '100px',
+//                 height: '40px',
+//                 border: selectedButton === room.roomNo ? '2px solid #00000040' : 'none',
+//                 display: 'flex',
+//                 alignItems: 'center',
+//                 justifyContent: 'center',
+//               }}
+//               onClick={() => handleButtonClick(room.roomNo)}
+//             >
+//               <Text fz="sm" style={{ margin: 0 }}>{room.roomNo}</Text>
+//             </Button>
+//             <div style={{ textAlign: 'center', marginTop: '5px' }}>{getButtonText(room.roomNo)}</div>
+//           </div>
+//         ))}
+//       </SimpleGrid>
+
+//       <div style={{ padding: "20px" }}>
+//         {showPendingCard && selectedRoom && (
+//           <div>
+//             <PendigCard selectedRoom={selectedRoom} />
+//           </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Departure;
 import React, { useState } from 'react';
-import { SimpleGrid, Button, Text } from '@mantine/core';
+import { SimpleGrid, Button, Text, Modal } from '@mantine/core';
 import Header from './Header';
 import bookingData from './databooking';
-// import PendingCard from './Cards/PendingCard'; // Corrected import name
 import PendigCard from './Cards/PendigCard';
 import { useNavigate } from 'react-router-dom';
 
 const Departure = () => {
   const [selectedButton, setSelectedButton] = useState(null);
-  const [showPendingCard, setShowPendingCard] = useState(false);
+  const [showPendingModal, setShowPendingModal] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const navigate = useNavigate();
 
   const handleButtonClick = (roomNo) => {
     setSelectedButton(roomNo);
-    setShowPendingCard(false);
     setSelectedRoom(null);
 
     const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
 
-    if (room) {
+    if (room && room.status === 'pending') {
       setSelectedRoom(room);
-
-      if (room.status === 'completed') {
-        handleRegisterClick(); // Navigate to register page for "Vacant" rooms
-      } else if (room.status === 'pending') {
-        setShowPendingCard(true);
-      }
+      setShowPendingModal(true);
     }
   };
-
   const getButtonText = (roomNo) => {
-    const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
-    if (room) {
-      switch (room.status) {
-        case 'pending':
-          return 'Occupied';
-        case 'completed':
-          return 'Vacant';
-        default:
-          return 'Housekeeping';
-      }
-    }
-    return 'Housekeeping';
-  };
-
+        const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
+        if (room) {
+          switch (room.status) {
+            case 'pending':
+              return 'Occupied';
+            case 'completed':
+              return 'Vacant';
+            default:
+              return 'Housekeeping';
+          }
+        }
+        return 'Housekeeping';
+      };
+    
   const getButtonColor = (roomNo) => {
     const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
     if (room) {
@@ -601,7 +709,10 @@ const Departure = () => {
   const handleRegisterClick = () => {
     navigate('/register');
   };
-  
+
+  const handleCloseModal = () => {
+    setShowPendingModal(false);
+  };
 
   return (
     <div>
@@ -612,16 +723,7 @@ const Departure = () => {
       <SimpleGrid cols={3} style={{ display: 'grid', placeItems: "center", paddingLeft: '20px', paddingRight: "20px" }}>
         {Object.values(bookingData).map((room) => (
           <div key={room.roomNo}>
-            {/* <Button
-              style={{ backgroundColor: getButtonColor(room.roomNo), width: "100px", height: "40px", border: selectedButton === room.roomNo ? '2px solid #00000040' : 'none' }}
-              onClick={() => handleButtonClick(room.roomNo)}
-            >
-             <div>
-               <Text fz="sm" style={{ display: "grid", placeItems: "center", alignItems: "center", justifyContent: "center", margin: 0 }}>{room.roomNo}</Text>
-             </div>
-            </Button>
-            {getButtonText(room.roomNo)} */}
-             <Button
+            <Button
               style={{
                 backgroundColor: getButtonColor(room.roomNo),
                 width: '100px',
@@ -640,13 +742,16 @@ const Departure = () => {
         ))}
       </SimpleGrid>
 
-      <div style={{ padding: "20px" }}>
-        {showPendingCard && selectedRoom && (
-          <div>
-            <PendigCard selectedRoom={selectedRoom}/>
-          </div>
+      <Modal // Modal for displaying pending card
+        opened={showPendingModal}
+        onClose={handleCloseModal}
+        title="Pending Card"
+        style={{display:"flex",justifyContent:"center"}}
+      >
+        {selectedRoom && (
+          <PendigCard selectedRoom={selectedRoom} />
         )}
-      </div>
+      </Modal>
     </div>
   );
 };
