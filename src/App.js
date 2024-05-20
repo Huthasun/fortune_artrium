@@ -10,7 +10,10 @@ import RegisterationCard from './Components/Cards/RegisterationCard';
 import PendigCard from './Components/Cards/PendigCard';
 import CompletedCard from './Components/Cards/CompletedCard';
 import Header from './Components/Header';
-import UpdateBokkings from './Components/UpdateBokkings';
+import UpdatedBookings from './Components/UpdateBookings/UpadatedBookings';
+import Newregiter from './Components/UpdateBookings/Newregiter';
+import SubmitDetails from './Components/UpdateBookings/SubmitDetails';
+
 // import Footer from './Components/Footer';
 const App = () => {
   return (
@@ -27,15 +30,20 @@ const App = () => {
         {/* <PendigCard/> */}
         {/* <CompletedCard/> */}
         {/* <Header/> */}
-        {/* <UpdateBokkings/> */}
+        {/* <UpdatedBookings/> */}
+        {/* <Newregiter/> */}
+        {/* <SubmitDetails/> */}
         
         
         <Router>
           <Routes>
           <Route exact path="/" element={<LoginForm/>} />
-          <Route path="/register" element={<Register/>} />
+          {/* <Route path="/register" element={<Register/>} /> */}
           <Route path="/bookings" element={<Departure/>} />
-          <Route path="/updatebooking" element={<UpdateBokkings/>} />
+          <Route path="/updatebooking" element={<UpdatedBookings/>} />
+          <Route path="/guestdetails" element={<RegisterationCard/>}/>
+          <Route path="/register" element={<Newregiter/>}/>
+          <Route path="/submitdetails" element={<SubmitDetails/>}/>
 
           </Routes>
          

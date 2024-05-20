@@ -652,12 +652,238 @@
 // };
 
 // export default Departure;
+// import React, { useState } from 'react';
+// import { SimpleGrid, Button, Text, Modal } from '@mantine/core';
+// import Header from './Header';
+// import bookingData from './databooking';
+// import PendigCard from './Cards/PendigCard';
+// import { useNavigate } from 'react-router-dom';
+
+// const Departure = () => {
+//   const [selectedButton, setSelectedButton] = useState(null);
+//   const [showPendingModal, setShowPendingModal] = useState(false);
+//   const [selectedRoom, setSelectedRoom] = useState(null);
+//   const navigate = useNavigate();
+
+//   const handleButtonClick = (roomNo) => {
+//     setSelectedButton(roomNo);
+//     setSelectedRoom(null);
+
+//     const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
+
+//     if (room && room.status === 'pending') {
+//       setSelectedRoom(room);
+//       setShowPendingModal(true);
+//     }
+//   };
+//   const getButtonText = (roomNo) => {
+//         const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
+//         if (room) {
+//           switch (room.status) {
+//             case 'pending':
+//               return 'Occupied';
+//             case 'completed':
+//               return 'Vacant';
+//             default:
+//               return 'Housekeeping';
+//           }
+//         }
+//         return 'Housekeeping';
+//       };
+    
+//   const getButtonColor = (roomNo) => {
+//     const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
+//     if (room) {
+//       switch (room.status) {
+//         case 'pending':
+//           return '#FE0000';
+//         case 'completed':
+//           return '#03C03C';
+//         default:
+//           return '#E1C16E';
+//       }
+//     }
+//     return '#E1C16E';
+//   };
+
+//   const handleRegisterClick = () => {
+//     navigate('/register');
+//   };
+
+//   const handleCloseModal = () => {
+//     setShowPendingModal(false);
+//   };
+
+//   return (
+//     <div>
+//       <Header />
+//       <div style={{ maxWidth: 350, margin: '0 auto', alignItems: "center", padding: "0px", paddingTop: "0px" }}>
+//         <h1 style={{ display: "flex", justifyContent: "center", }}>Availability</h1>
+//       </div>
+//       <SimpleGrid cols={3} style={{ display: 'grid', placeItems: "center", paddingLeft: '20px', paddingRight: "20px" }}>
+//         {Object.values(bookingData).map((room) => (
+//           <div key={room.roomNo}>
+//             <Button
+//               style={{
+//                 backgroundColor: getButtonColor(room.roomNo),
+//                 width: '100px',
+//                 height: '40px',
+//                 border: selectedButton === room.roomNo ? '2px solid #00000040' : 'none',
+//                 display: 'flex',
+//                 alignItems: 'center',
+//                 justifyContent: 'center',
+//               }}
+//               onClick={() => handleButtonClick(room.roomNo)}
+//             >
+//               <Text fz="sm" style={{ margin: 0 }}>{room.roomNo}</Text>
+//             </Button>
+//             <div style={{ textAlign: 'center', marginTop: '5px' }}>{getButtonText(room.roomNo)}</div>
+//           </div>
+//         ))}
+//       </SimpleGrid>
+
+//       <Modal // Modal for displaying pending card
+//         opened={showPendingModal}
+//         onClose={handleCloseModal}
+//         title="Pending Card"
+//         style={{display:"flex",justifyContent:"center"}}
+//       >
+//         {selectedRoom && (
+//           <PendigCard selectedRoom={selectedRoom} />
+//         )}
+//       </Modal>
+//     </div>
+//   );
+// };
+
+// export default Departure;
+
+
+// import React, { useState } from 'react';
+// import { SimpleGrid, Button, Text, Modal } from '@mantine/core';
+// import Header from './Header';
+// import bookingData from './databooking';
+// import PendigCard from './Cards/PendigCard';
+// import { useNavigate } from 'react-router-dom';
+
+// const Departure = () => {
+//   const [selectedButton, setSelectedButton] = useState(null);
+//   const [showPendingModal, setShowPendingModal] = useState(false);
+//   const [selectedRoom, setSelectedRoom] = useState(null);
+//   const navigate = useNavigate();
+
+//   const handleButtonClick = (roomNo) => {
+//     setSelectedButton(roomNo);
+//     setSelectedRoom(null);
+
+//     const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
+
+//     if (room) {
+//       if (room.status === 'pending') {
+//         setSelectedRoom(room);
+//         setShowPendingModal(true);
+//       } else if (room.status === 'completed') {
+//         navigate('/register');
+//       }
+//     }
+//   };
+
+//   const getButtonText = (roomNo) => {
+//     const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
+//     if (room) {
+//       switch (room.status) {
+//         case 'pending':
+//           return 'Occupied';
+//         case 'completed':
+//           return 'Vacant';
+//         default:
+//           return 'Housekeeping';
+//       }
+//     }
+//     return 'Housekeeping';
+//   };
+
+//   const getButtonColor = (roomNo) => {
+//     const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
+//     if (room) {
+//       switch (room.status) {
+//         case 'pending':
+//           return '#FE0000';
+//         case 'completed':
+//           return '#03C03C';
+//         default:
+//           return '#E1C16E';
+//       }
+//     }
+//     return '#E1C16E';
+//   };
+
+//   const handleRegisterClick = () => {
+//     navigate('/register');
+//   };
+
+//   const handleCloseModal = () => {
+//     setShowPendingModal(false);
+//   };
+
+//   return (
+//     <div>
+//       <Header />
+//       <div style={{ maxWidth: 350, margin: '0 auto', alignItems: "center", padding: "0px", paddingTop: "0px" }}>
+//         <h1 style={{ display: "flex", justifyContent: "center", }}>Availability</h1>
+//       </div>
+//       <SimpleGrid cols={3} style={{ display: 'grid', placeItems: "center", paddingLeft: '20px', paddingRight: "20px" }}>
+//         {Object.values(bookingData).map((room) => (
+//           <div key={room.roomNo}>
+//             <Button
+//               style={{
+//                 backgroundColor: getButtonColor(room.roomNo),
+//                 width: '100px',
+//                 height: '40px',
+//                 border: selectedButton === room.roomNo ? '2px solid #00000040' : 'none',
+//                 display: 'flex',
+//                 alignItems: 'center',
+//                 justifyContent: 'center',
+//               }}
+//               onClick={() => handleButtonClick(room.roomNo)}
+//             >
+//               <Text fz="sm" style={{ margin: 0 }}>{room.roomNo}</Text>
+//             </Button>
+//             <div style={{ textAlign: 'center', marginTop: '5px' }}>{getButtonText(room.roomNo)}</div>
+//           </div>
+//         ))}
+//       </SimpleGrid>
+
+//       <Modal
+//   opened={showPendingModal}
+//   onClose={handleCloseModal}
+//   overlayOpacity={0}
+//   styles={{
+//     overlay: { backgroundColor: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+//     modal: { backgroundColor: 'transparent', border: 'none', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }
+//   }}
+// >
+//         {selectedRoom && (
+//           <PendigCard selectedRoom={selectedRoom} />
+//         )}
+//       </Modal>
+//     </div>
+//   );
+// };
+
+// export default Departure;
+
 import React, { useState } from 'react';
 import { SimpleGrid, Button, Text, Modal } from '@mantine/core';
 import Header from './Header';
 import bookingData from './databooking';
 import PendigCard from './Cards/PendigCard';
 import { useNavigate } from 'react-router-dom';
+import UpdateBokkings from './UpdateBookings/UpadatedBookings';
+import UpdatedBookings from './UpdateBookings/UpadatedBookings';
+import { useRecoilState } from 'recoil';
+import { roomAtom } from '../Store/Store';
+
 
 const Departure = () => {
   const [selectedButton, setSelectedButton] = useState(null);
@@ -665,32 +891,42 @@ const Departure = () => {
   const [selectedRoom, setSelectedRoom] = useState(null);
   const navigate = useNavigate();
 
+  const [ roomDetails, setRoomDetails] = useRecoilState(roomAtom)
+console.log(roomDetails);
+ 
   const handleButtonClick = (roomNo) => {
     setSelectedButton(roomNo);
     setSelectedRoom(null);
 
     const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
+   
 
-    if (room && room.status === 'pending') {
-      setSelectedRoom(room);
-      setShowPendingModal(true);
+    if (room) {
+setRoomDetails(room)
+      if (room.status === 'pending') {
+        setSelectedRoom(room);
+        setShowPendingModal(true);
+      } else if (room.status === 'completed') {
+        navigate('/register');
+      }
     }
   };
+
   const getButtonText = (roomNo) => {
-        const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
-        if (room) {
-          switch (room.status) {
-            case 'pending':
-              return 'Occupied';
-            case 'completed':
-              return 'Vacant';
-            default:
-              return 'Housekeeping';
-          }
-        }
-        return 'Housekeeping';
-      };
-    
+    const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
+    if (room) {
+      switch (room.status) {
+        case 'pending':
+          return 'Occupied';
+        case 'completed':
+          return 'Vacant';
+        default:
+          return 'Housekeeping';
+      }
+    }
+    return 'Housekeeping';
+  };
+
   const getButtonColor = (roomNo) => {
     const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
     if (room) {
@@ -713,6 +949,7 @@ const Departure = () => {
   const handleCloseModal = () => {
     setShowPendingModal(false);
   };
+  
 
   return (
     <div>
@@ -742,16 +979,24 @@ const Departure = () => {
         ))}
       </SimpleGrid>
 
-      <Modal // Modal for displaying pending card
-        opened={showPendingModal}
-        onClose={handleCloseModal}
-        title="Pending Card"
-        style={{display:"flex",justifyContent:"center"}}
-      >
-        {selectedRoom && (
-          <PendigCard selectedRoom={selectedRoom} />
-        )}
-      </Modal>
+      {showPendingModal && (
+       <Modal
+       opened={true}
+       onClose={handleCloseModal}
+       centered
+       xOffset={-10}
+       size={350}
+     >
+      {/* <UpdatedBookings room={'10'}/> */}
+          {selectedRoom && (
+           
+            <PendigCard selectedRoom={selectedRoom} 
+            
+            
+            />
+          )}
+        </Modal>
+      )}
     </div>
   );
 };

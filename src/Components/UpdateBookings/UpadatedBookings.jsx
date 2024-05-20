@@ -1,5 +1,7 @@
-//     import React, { useState } from 'react';
+// import React, { useState } from 'react';
 // import Header from './Header'
+// import bookingData from './databooking';
+
 
 
 // import { Card, Text,TextInput ,SimpleGrid,Button} from '@mantine/core';
@@ -59,7 +61,7 @@
 
 //       </div>
 //       <div style={{display:"flex",margin:"20px",borderRadius:"5px",justifyContent:"space-between",height:"34px",border:" 3px solid #FE000099",}}>
-//       <p style={{marginTop:"6px",marginLeft:"8px"}}>Room.No-101</p>
+//       <p style={{marginTop:"6px",marginLeft:"8px"}}>Room.No</p>
 //       <p style={{marginTop:"6px",marginRight:"8px"}}>Pending</p>
 //       </div>    
 //       <div style={{display:"flex",flexDirection:'column'}}>
@@ -98,7 +100,7 @@
 //             onChange={(event) => handleInputChange('duration', parseInt(event.target.value))}
 //             // required
 //             style={{width:'40%'}}
-//           />
+//           />UpdateBokkings
 //           <TextInput
 //             label="Tarrif"
 //             placeholder="Amount"
@@ -169,54 +171,33 @@
 //   )
 // }
 
-// export default UpdateBokkings
+// export default 
 import React, { useState } from 'react';
 import { Card, Text, TextInput, SimpleGrid, Button } from '@mantine/core';
-import Header from './Header';
-import bookingData from './databooking';
+import Header from '../Header';
+import bookingData from '../databooking';
+import { roomAtom } from '../../Store/Store';
+import { useRecoilValue } from 'recoil';
 
 
-const UpdateBookings = () => {
-  const [selectedOption, setSelectedOption] = useState('Booking');
-  const [formData, setFormData] = useState({
-    name: '',
-    bookingType: '',
-    roomNumber: '',
-    guests: '',
-    checkInDate: '',
-    checkInTime: '',
-    duration: 1,
-    price: 0,
-    gender: '',
-    phoneNumber: '',
-    identityProof: '',
-    idNumber: '',
-    address: '',
-    numberOfAdults: '',
-    numberOfKids: '',
-    checkOutDate: '',
-    checkOutTime: '',
-    amount: '',
-  });
-  const [selectedRoom, setSelectedRoom] = useState(null); // Define selectedRoom state
-  const UpdateBookings = () => {
-    // const { selectedRoom } = props;
-    // const navigate = useNavigate();
-  
-    // const handleModifyClick = () => {
-      // navigate("/updatebooking");
-    };
+
+const UpdatedBookings = () => {
+
+       const roomDetails = useRecoilValue(roomAtom)
+       const [selectedOption, setSelectedOption] = useState('Booking');
+  console.log(roomDetails);
+
   
 
   const handleInputChange = (field, value) => {
-    setFormData({ ...formData, [field]: value });
+    // setFormData({ ...formData, [field]: value });
   };
 
-  const handleRoomSelection = (roomNo) => {
-    // Logic to handle room selection
-    const room = bookingData.find((room) => room.roomNo === roomNo);
-    setSelectedRoom(room);
-  };
+  // const handleRoomSelection = (roomNo) => {
+  //   // Logic to handle room selection
+  //   const room = bookingData.find((room) => room.roomNo === roomNo);
+  //   setSelectedRoom(room);
+  // };
 
   return (
     <div>
@@ -242,20 +223,20 @@ const UpdateBookings = () => {
         </Text>
       </div>
       <div style={{ display: "flex", margin: "20px", borderRadius: "5px", justifyContent: "space-between", height: "34px", border: " 3px solid #FE000099" }}>
-        <p style={{ marginTop: "6px", marginLeft: "8px" }}>Room.No-{selectedRoom ? selectedRoom.roomNo : ''}</p>
-        <p style={{ marginTop: "6px", marginRight: "8px" }}>{selectedRoom ? selectedRoom.status : ''}</p>
+        <p style={{ marginTop: "6px", marginLeft: "8px" }}>Room.No-{roomDetails.roomNo}</p>
+        <p style={{ marginTop: "6px", marginRight: "8px" }}>{roomDetails.status}</p>
       </div>
       <div style={{ display: "flex", flexDirection: 'column' }}>
         <div>
-          <label style={{ fontWeight: "500", marginLeft: "25px" }}>Reversed date</label>
+          <Text style={{ fontWeight: "480", marginLeft: "25px" }}>Reversed date</Text>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: "space-around", padding: "10px" }}>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: "space-around", padding: "6px" }}>
           <TextInput
             label=""
             placeholder="YYYY-MM-DD"
             type="number"
             pattern="\d{4}-\d{2}-\d{2}"
-            value={formData.checkInDate}
+            // value={formData.checkInDate}
             onChange={(event) => handleInputChange('checkInDate', event.target.value)}
             required
             style={{ width: '40%' }}
@@ -265,7 +246,7 @@ const UpdateBookings = () => {
             placeholder="HH:MM"
             type="number"
             pattern="\d{2}:\d{2}"
-            value={formData.checkInTime}
+            // value={formData.checkInTime}
             onChange={(event) => handleInputChange('checkInTime', event.target.value)}
             required
             style={{ width: '40%' }}
@@ -278,7 +259,7 @@ const UpdateBookings = () => {
           placeholder="Enter number of days"
           type="number"
           min={1}
-          value={formData.duration}
+          // value={formData.duration}
           onChange={(event) => handleInputChange('duration', parseInt(event.target.value))}
           style={{ width: '40%' }}
         />
@@ -286,7 +267,7 @@ const UpdateBookings = () => {
           label="Tariff"
           type="number"
           placeholder="Amount"
-          value={formData.amount}
+          // value={formData.amount}
           onChange={(event) => handleInputChange('amount', event.target.value)}
           style={{ width: '40%' }}
         />
@@ -295,7 +276,7 @@ const UpdateBookings = () => {
         label="Total Amount"
         type="number"
         placeholder="Amount"
-        value={formData.amount}
+        // value={formData.amount}
         onChange={(event) => handleInputChange('amount', event.target.value)}
         style={{ width: "85%", marginLeft: "7%" }}
       />
@@ -317,18 +298,18 @@ const UpdateBookings = () => {
                 Pending Amount
               </Text>
             </div>
-            <div style={{ display: "flex", justifyContent: "flex-end", flexDirection: "column", marginLeft: "84px", top: "0" }}>
+            <div style={{ display: "flex", justifyContent: "flex-end", flexDirection: "column", marginLeft: "81px", top: "0" }}>
               <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-                sunny
+                {roomDetails.name}
               </Text>
               <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-                12/06/2002
+               {roomDetails.deptDate}
               </Text>
               <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-                5000
+                {roomDetails.totalAmount}
               </Text>
               <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-                1000
+                {roomDetails.pendingAmount}
               </Text>
             </div>
           </SimpleGrid>
@@ -341,4 +322,4 @@ const UpdateBookings = () => {
   )
 }
 
-export default UpdateBookings;
+export default UpdatedBookings;

@@ -77,12 +77,20 @@
 import React from 'react';
 import { Card, Text, Button, SimpleGrid } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
+import UpdatedBookings from '../UpdateBookings/UpadatedBookings';
+
 
 const PendingCard = (props) => {
   const { selectedRoom } = props;
   const navigate = useNavigate();
+ 
+
+ 
+
 
   const handleModifyClick = () => {
+    
+
     navigate("/updatebooking");
   };
 
@@ -91,7 +99,7 @@ const PendingCard = (props) => {
     <Card
       shadow="sm"
       style={{
-        border: '3px solid #FE000099',
+        // border: '3px solid #FE000099',
         maxWidth: '100%',
         margin: 'auto',
         padding: '10px',
@@ -133,7 +141,9 @@ const PendingCard = (props) => {
           </Text>
         </div>
       </SimpleGrid>
+     
       <Button style={{ width: '94px', height: '31px', backgroundColor: '#FE0000', marginTop: '0px' ,padding:"3px"}} onClick={handleModifyClick}>Modify</Button>
+     
     </Card>
   );
 };

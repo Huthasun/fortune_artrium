@@ -35,7 +35,8 @@ const Header = () => {
         alignItems: 'center', // Center elements vertically
         padding: '5px', // Add padding for better spacing
         boxShadow: '0px 0px 35px rgba(0, 0, 0, 0.1)',
-        width:"auto"
+        width:"auto",
+        zIndex:100
       }}
     >
       <Image
@@ -43,7 +44,8 @@ const Header = () => {
         alt='logo'
         style={{
           height: '50px', // Adjust image height for responsiveness
-          width: 'calc(21% - 15px)', // Use calc() for flexible width
+          width: 'calc(17% - 10px)', // Use calc() for flexible width
+        
           
         }}
       />
