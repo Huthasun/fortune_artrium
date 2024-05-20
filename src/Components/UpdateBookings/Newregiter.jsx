@@ -106,7 +106,7 @@ const Newregiter = () => {
   return (
     <div style={{ maxWidth: '100%', boxSizing: 'border-box' }}>
       <Header />
-      <div  style={{ maxWidth: '500px', margin: '21px auto',}}>
+      <div  style={{ maxWidth: '500px', margin: '21px auto',padding: '19px'}}>
         <form>
           <Select
             label="Booking Type"
