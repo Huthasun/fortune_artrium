@@ -93,11 +93,15 @@ import React, { useState } from 'react';
 import { Card, TextInput, Select, Textarea, Radio, Text, Button } from '@mantine/core';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../Header';
+import { useRecoilValue } from 'recoil';
+import { roomAtom } from '../../Store/Store';
 
 const RegistrationCard = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { numGuests } = location.state || { numGuests: 1 }; // Default to 1 if not provided
+
+  
 
   const [formData, setFormData] = useState(
     Array.from({ length: numGuests }, () => ({
@@ -110,11 +114,17 @@ const RegistrationCard = () => {
     }))
   );
 
-  const handleInputChange = (index, field, value) => {
-    const newFormData = [...formData];
-    newFormData[index][field] = value;
-    setFormData(newFormData);
-  };
+  // const handleInputChange = (index, field, value) => {
+  //   const newFormData = [...formData];
+  //   newFormData[index][field] = value;
+  //   setFormData(newFormData);
+  // };
+  const roomDetails = useRecoilValue(roomAtom)
+  const [selectedOption, setSelectedOption] = useState('Booking');
+console.log(roomDetails);
+const handleInputChange = (field, value) => {
+// setFormData({ ...formData, [field]: value });
+};
 
   const handleSubmit = () => {
     console.log(formData);
@@ -125,7 +135,7 @@ const RegistrationCard = () => {
   return (
     <div style={{ maxWidth: '100%', boxSizing: 'border-box' }}>
       <Header />
-      
+      <h3 style={{marginLeft:"6%"}}>Room.No-{roomDetails.roomNo}</h3>
         <form>
         {formData.map((guest, index) => (
         <Card key={index} style={{ backgroundColor: "transparent", marginBottom: '' }}>
@@ -193,7 +203,7 @@ const RegistrationCard = () => {
           />
         </Card>
           ))}
-        <Button onClick={handleSubmit} style={{ marginTop: '0px', width: "35%",marginLeft:"13px" }}>Next</Button>
+        <Button onClick={handleSubmit} style={{ marginTop: '0px', width: "35%",marginLeft:"13px",backgroundColor:"#FE0000" }}>Next</Button>
         </form>
     
     </div>

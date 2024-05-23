@@ -81,6 +81,9 @@ import React, { useState } from 'react';
 import { TextInput, Select, Button } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header';
+import { useRecoilValue } from 'recoil';
+import { roomAtom } from '../../Store/Store';
+
 
 const Newregiter = () => {
   const [bookingType, setBookingType] = useState('');
@@ -90,7 +93,16 @@ const Newregiter = () => {
   const [numKids, setNumKids] = useState(0);
 
   const navigate = useNavigate();
+  const roomDetails = useRecoilValue(roomAtom)
+       const [selectedOption, setSelectedOption] = useState('Booking');
+  console.log(roomDetails);
+  const handleInputChange = (field, value) => {
+    // setFormData({ ...formData, [field]: value });
+  };
 
+
+
+ 
   const handleSubmit = () => {
     // Perform validation here if needed
     console.log({
@@ -106,6 +118,7 @@ const Newregiter = () => {
   return (
     <div style={{ maxWidth: '100%', boxSizing: 'border-box' }}>
       <Header />
+      <h3 style={{marginLeft:"6%"}}>Room.No-{roomDetails.roomNo}</h3>
       <div  style={{ maxWidth: '500px', margin: '21px auto',padding: '19px'}}>
         <form>
           <Select
@@ -116,13 +129,13 @@ const Newregiter = () => {
             placeholder="Select booking type"
             required
           />
-          <TextInput
+          {/* <TextInput
             label="Room Number"
             value={roomNumber}
             onChange={event => setRoomNumber(event.currentTarget.value)}
             placeholder="Enter room number"
             required
-          />
+          /> */}
           <TextInput
             label="Number of Guests"
             value={numGuests}
@@ -144,7 +157,7 @@ const Newregiter = () => {
             placeholder="Enter number of kids"
             required
           />
-          <Button onClick={handleSubmit} style={{ marginTop: '17px', width: "35%" }}>Next</Button>
+          <Button onClick={handleSubmit} style={{ marginTop: '17px', width: "35%" ,backgroundColor:"#FE0000"}}>Next</Button>
         </form>
       </div>
     </div>

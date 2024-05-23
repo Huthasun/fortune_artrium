@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import { TextInput,  Button } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header';
+import { useRecoilValue } from 'recoil';
+import { roomAtom } from '../../Store/Store';
 
 const SubmitDetails = () => {
     const navigate = useNavigate();
+    const [roomNumber, setRoomNumber] = useState('');
+    const [bookingType, setBookingType] = useState('');
     
         const [formData, setFormData] = useState({
             checkOutDate: '',
@@ -14,9 +18,15 @@ const SubmitDetails = () => {
             paidamount:'',
             balanceamount:'',
         })
-        const handleInputChange = (field, value) => {
-          setFormData({ ...formData, [field]: value });
-        };
+        // const handleInputChange = (field, value) => {
+        //   setFormData({ ...formData, [field]: value });
+        // };
+        const roomDetails = useRecoilValue(roomAtom)
+       const [selectedOption, setSelectedOption] = useState('Booking');
+  console.log(roomDetails);
+  const handleInputChange = (field, value) => {
+    // setFormData({ ...formData, [field]: value });
+  };
       
         const handleSubmit = () => {
           console.log(formData);
@@ -26,6 +36,7 @@ const SubmitDetails = () => {
   return (
     <div style={{ maxWidth: '100%',  boxSizing: 'border-box' }}>
         <Header/>
+        <h3 style={{marginLeft:"6%"}}>Room.No-{roomDetails.roomNo}</h3>
         <div style={{ maxWidth: '500px', margin: '21px auto',padding: '17px' }}>
         <div style={{ display: 'flex', flexDirection: 'row', }}>
           <TextInput
@@ -92,7 +103,7 @@ const SubmitDetails = () => {
           required
           style={{ marginBottom: 15 }}
         />
-        <Button onClick={handleSubmit} style={{ marginTop: '13px',width:"35%" }}>Submit</Button>
+        <Button onClick={handleSubmit} style={{ marginTop: '13px',width:"35%",backgroundColor:"#FE0000" }}>Submit</Button>
     </div>
     </div>
   )
