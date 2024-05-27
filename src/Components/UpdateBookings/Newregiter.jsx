@@ -78,11 +78,12 @@
 // export default Newregiter
 
 import React, { useState } from 'react';
-import { TextInput, Select, Button } from '@mantine/core';
+import { TextInput, Select, Button, ActionIcon, Text, Card, Group } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header';
 import { useRecoilValue } from 'recoil';
 import { roomAtom } from '../../Store/Store';
+import { BiArrowBack } from 'react-icons/bi';
 
 
 const Newregiter = () => {
@@ -116,11 +117,20 @@ const Newregiter = () => {
   };
 
   return (
-    <div style={{ maxWidth: '100%', boxSizing: 'border-box' }}>
+    <div style={{ maxWidth: '100%', boxSizing: 'border-box', boxShadow:"" }}>
       <Header />
-      <h3 style={{marginLeft:"6%"}}>Room.No-{roomDetails.roomNo}</h3>
-      <div  style={{ maxWidth: '500px', margin: '21px auto',padding: '19px'}}>
+
+      <div style={{padding:"1rem",paddingBottom:0}}>
+        <Group>
+      {/* <ActionIcon size={"sm"} onClick={()=>navigate(-1)}><BiArrowBack/></ActionIcon> */}
+      <Text fz={22} fw={600}>Registration</Text>
+      </Group>
+      </div>
+     
+      <div  style={{ maxWidth: '500px',padding: '1rem'}}>
+      
         <form>
+        <Text fz={18} fw={600}pb={15}>Room.No-{roomDetails.roomNo}</Text>
           <Select
             label="Booking Type"
             data={['Single', 'Double', 'Suite']}
@@ -128,6 +138,7 @@ const Newregiter = () => {
             onChange={setBookingType}
             placeholder="Select booking type"
             required
+            style={{marginBottom:15}}
           />
           {/* <TextInput
             label="Room Number"
@@ -142,6 +153,7 @@ const Newregiter = () => {
             onChange={event => setNumGuests(event.currentTarget.value)}
             placeholder="Enter number of guests"
             required
+            style={{marginBottom:15}}
           />
           <TextInput
             label="Number of Adults"
@@ -149,6 +161,7 @@ const Newregiter = () => {
             onChange={event => setNumAdults(event.currentTarget.value)}
             placeholder="Enter number of adults"
             required
+            style={{marginBottom:15}}
           />
           <TextInput
             label="Number of Kids"
@@ -156,6 +169,7 @@ const Newregiter = () => {
             onChange={event => setNumKids(event.currentTarget.value)}
             placeholder="Enter number of kids"
             required
+            style={{marginBottom:15}}
           />
           <Button onClick={handleSubmit} style={{ marginTop: '17px', width: "35%" ,backgroundColor:"#FE0000"}}>Next</Button>
         </form>

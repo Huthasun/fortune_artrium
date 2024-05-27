@@ -903,7 +903,7 @@ console.log(roomDetails);
 
     if (room) {
 setRoomDetails(room)
-      if (room.status === 'pending') {
+      if (room.status === 'Pending') {
         setSelectedRoom(room);
         setShowPendingModal(true);
       } else if (room.status === 'completed') {
@@ -916,7 +916,7 @@ setRoomDetails(room)
     const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
     if (room) {
       switch (room.status) {
-        case 'pending':
+        case 'Pending':
           return 'Occupied';
         case 'completed':
           return 'Vacant';
@@ -931,7 +931,7 @@ setRoomDetails(room)
     const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
     if (room) {
       switch (room.status) {
-        case 'pending':
+        case 'Pending':
           return '#FE0000';
         case 'completed':
           return '#03C03C';
@@ -950,6 +950,7 @@ setRoomDetails(room)
     setShowPendingModal(false);
   };
   
+  
 
   return (
     <div>
@@ -963,16 +964,18 @@ setRoomDetails(room)
             <Button
               style={{
                 backgroundColor: getButtonColor(room.roomNo),
-                width: '100px',
-                height: '40px',
-                border: selectedButton === room.roomNo ? '2px solid #00000040' : 'none',
+                width: '100%',
+                height: 'auto',
+                minWidth:"100px",
+                minHeight:"45px",
+                border: selectedButton === room.roomNo ? '2px solid gray' : 'none',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
               onClick={() => handleButtonClick(room.roomNo)}
             >
-              <Text fz="sm" style={{ margin: 0 }}>{room.roomNo}</Text>
+              <Text fz="sm" style={{ margin: 0 ,fontSize:"1.5rem"}}>{room.roomNo}</Text>
             </Button>
             <div style={{ textAlign: 'center', marginTop: '5px' }}>{getButtonText(room.roomNo)}</div>
           </div>
@@ -986,6 +989,7 @@ setRoomDetails(room)
        centered
        xOffset={-10}
        size={350}
+     
      >
       {/* <UpdatedBookings room={'10'}/> */}
           {selectedRoom && (

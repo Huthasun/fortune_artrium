@@ -173,11 +173,12 @@
 
 // export default 
 import React, { useState } from 'react';
-import { Card, Text, TextInput, SimpleGrid, Button } from '@mantine/core';
+import { Card, Text, TextInput, SimpleGrid, Button ,Tabs} from '@mantine/core';
 import Header from '../Header';
 import bookingData from '../databooking';
 import { roomAtom } from '../../Store/Store';
 import { useRecoilValue } from 'recoil';
+import { DateInput } from '@mantine/dates';
 
 
 
@@ -202,7 +203,7 @@ const UpdatedBookings = () => {
   return (
     <div>
       <Header />
-      <div style={{ width: "375px", height: "50px", borderBottom: "2px solid #D3D3D3", display: "flex", alignItems: "center", justifyContent: "space-around", backgroundColor: "ffff" }}>
+      {/* <div style={{ width: "375px", height: "50px", borderBottom: "2px solid #D3D3D3", display: "flex", alignItems: "center", justifyContent: "space-around", backgroundColor: "ffff" }}>
         <Text fz="xl"
           style={{ color: selectedOption === 'Booking' ? 'red' : 'inherit' }}
           onClick={() => setSelectedOption('Booking')}
@@ -221,20 +222,35 @@ const UpdatedBookings = () => {
         >
           Depart
         </Text>
-      </div>
+      </div> */}
+      <div style={{ padding: '13px 0px' }}>
+        <Tabs defaultValue="first" color='red'  >
+      <Tabs.List position='apart' pl={10}pr={10} >
+        <Tabs.Tab value="first" style={{fontSize:"1rem",fontWeight:"bold",fontFamily:"Arial", color: selectedOption === 'Booking' ? 'red' : 'inherit',}}
+        onClick={() => setSelectedOption('Booking')}
+        >Bookings
+        </Tabs.Tab>
+        <Tabs.Tab value="second" style={{fontSize:"1rem",fontWeight:"bold",fontFamily:"Arial",color: selectedOption === 'Accommodation' ? 'red' : 'inherit' }}
+         onClick={() => setSelectedOption('Accommodation')}
+        >Accomdation</Tabs.Tab>
+        <Tabs.Tab value="third" style={{fontSize:"1rem",fontWeight:"bold",fontFamily:"Arial",color: selectedOption === 'Depart' ? 'red' : 'inherit' }}
+        onClick={() => setSelectedOption('Depart')}
+        >Depart</Tabs.Tab>
+      </Tabs.List>
+    </Tabs>
+    </div>
       <div style={{ display: "flex", margin: "20px", borderRadius: "5px", justifyContent: "space-between", height: "34px", border: " 3px solid #FE000099" }}>
         <p style={{ marginTop: "6px", marginLeft: "8px" }}>Room.No-{roomDetails.roomNo}</p>
         <p style={{ marginTop: "6px", marginRight: "8px" }}>{roomDetails.status}</p>
       </div>
       <div style={{ display: "flex", flexDirection: 'column' }}>
         <div>
-          <Text style={{ fontWeight: "480", marginLeft: "25px" }}>Reversed date</Text>
+          <Text style={{ fontWeight: "500", marginLeft: "25px",fontSize:"0.875rem" }}>Revised Check-out Date</Text>
         </div>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: "space-around", padding: "6px" }}>
-          <TextInput
+          <DateInput
             label=""
             placeholder="YYYY-MM-DD"
-            type="number"
             pattern="\d{4}-\d{2}-\d{2}"
             // value={formData.checkInDate}
             onChange={(event) => handleInputChange('checkInDate', event.target.value)}
@@ -276,11 +292,12 @@ const UpdatedBookings = () => {
         label="Total Amount"
         type="number"
         placeholder="Amount"
+
         // value={formData.amount}
         onChange={(event) => handleInputChange('amount', event.target.value)}
         style={{ width: "85%", marginLeft: "7%" }}
       />
-      <div style={{ paddingTop: "10px" }}>
+      <div style={{ paddingTop: "18px" }}>
         <label style={{ fontWeight: "500", marginLeft: "25px" }}>Payment details</label>
         <Card>
           <SimpleGrid cols={2}>
@@ -298,20 +315,20 @@ const UpdatedBookings = () => {
                 Pending Amount
               </Text>
             </div>
-            <div style={{ display: "flex", justifyContent: "flex-end", flexDirection: "column", marginLeft: "81px", top: "0" }}>
-              <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-                {roomDetails.name}
-              </Text>
-              <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-               {roomDetails.deptDate}
-              </Text>
-              <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-                {roomDetails.totalAmount}
-              </Text>
-              <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-                {roomDetails.pendingAmount}
-              </Text>
-            </div>
+            <div style={{ display: "flex", justifyContent: "flex-end", flexDirection: "column", marginLeft: "30%", top: "0" }}>
+                <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+                  {roomDetails.name}
+                </Text>
+                <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+                  {roomDetails.deptDate}
+                </Text>
+                <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+                  {roomDetails.totalAmount}
+                </Text>
+                <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+                  {roomDetails.pendingAmount}
+                </Text>
+              </div>
           </SimpleGrid>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "10px" }}>
             <Button style={{ width: "105px", height: "34px", backgroundColor: "#FE0000", marginTop: '0px' }}>Submit</Button>

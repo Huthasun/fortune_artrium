@@ -75,7 +75,7 @@
 
 
 import React from 'react';
-import { Card, Text, Button, SimpleGrid } from '@mantine/core';
+import { Card, Text, Button, SimpleGrid, Space } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import UpdatedBookings from '../UpdateBookings/UpadatedBookings';
 
@@ -95,8 +95,8 @@ const PendingCard = (props) => {
   };
 
   return (
-    
-    <Card
+    <>
+    {/* <Card
       shadow="sm"
       style={{
         // border: '3px solid #FE000099',
@@ -106,13 +106,18 @@ const PendingCard = (props) => {
         display: 'grid',
         borderRadius: '8px',
       }}
-    >
-      <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0px', margin: '0px',height:"33px" }}>
-        <p style={{ margin: '0px' }}>Room.No-{selectedRoom.roomNo}</p>
-        <p style={{ margin: '0px', marginRight: '5px' }}>{selectedRoom.status}</p>
-      </div>
+    > */}
+      {/* <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0px', margin: '0px',height:"33px" }}>
+       
+      </div> */}
       <SimpleGrid cols={2}>
+     
         <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column', marginLeft: '10px' }}>
+        <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+            Room.No- {selectedRoom.roomNo}
+          </Text>
+       
+
           <Text size="md" weight={500} style={{ marginBottom: 10 }}>
             Name
           </Text>
@@ -127,6 +132,7 @@ const PendingCard = (props) => {
           </Text>
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end', flexDirection: 'column', marginLeft: '43px', top: '0' }}>
+        <Text size="md" weight={500} style={{ marginBottom: 10 }}>{selectedRoom.status}</Text>
           <Text size="md" weight={500} style={{ marginBottom: 10 }}>
             {selectedRoom.name}
           </Text>
@@ -141,10 +147,11 @@ const PendingCard = (props) => {
           </Text>
         </div>
       </SimpleGrid>
+     <Space h={"1rem"} />
+      <Button style={{ width: '94px', height: '31px', backgroundColor: '#FE0000', marginTop: '0px' ,padding:"3px",marginLeft:"8px"}} onClick={handleModifyClick}>Modify</Button>
      
-      <Button style={{ width: '94px', height: '31px', backgroundColor: '#FE0000', marginTop: '0px' ,padding:"3px"}} onClick={handleModifyClick}>Modify</Button>
-     
-    </Card>
+    {/* </Card> */}
+    </>
   );
 };
 
