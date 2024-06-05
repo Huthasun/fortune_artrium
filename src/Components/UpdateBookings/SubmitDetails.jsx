@@ -139,14 +139,14 @@
 
 // export default SubmitDetails
 
-import React, { useState } from 'react';
+import React, { useState, } from 'react';
 import { TextInput, Button, ActionIcon, Group, Card, Text } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header';
 import { useRecoilValue } from 'recoil';
 import { roomAtom } from '../../Store/Store';
 import { BiArrowBack } from 'react-icons/bi';
-import { DateInput } from '@mantine/dates';
+import { DateInput, DatePickerInput, TimeInput } from '@mantine/dates';
 
 const SubmitDetails = () => {
   const navigate = useNavigate();
@@ -159,7 +159,7 @@ const SubmitDetails = () => {
     checkInDate: '',
     checkInTime: '',
     paidamount: '',
-    balanceamount: '',
+    balanceamount: '', 
     tarrif: '', // Added tarrif field
   });
 
@@ -182,59 +182,110 @@ const SubmitDetails = () => {
   const handleSubmit = () => {
     console.log(formData);
     // Further processing logic here
+    window.localStorage.clear();
     navigate('/bookings');
   };
+  const [value, setValue] = useState()
 
   return (
     <div style={{ maxWidth: '100%', boxSizing: 'border-box' }}>
       <Header />
       <div style={{ padding: "1rem", paddingBottom: 0 }}>
         <Group>
-          <Text fz={22} fw={600}>Submitdetails</Text>
+          <Text fz={22} fw={600}>Accommidation details</Text>
         </Group>
       </div>
       <div style={{ padding: "1rem", paddingBottom: 0 }}>
-        <Text fz={18} fw={700}>Room.No-{roomDetails.roomNo}</Text>
+        <Text fz={18} fw={600}>Room.No-{window.localStorage.getItem('roomNo')}</Text>
       </div>
       <div style={{ maxWidth: '500px', margin: '8px auto', padding: '17px' }}>
 
         <div style={{ display: 'flex', flexDirection: 'row', }}>
-          <DateInput
+          {/* <DateInput
             valueFormat="YYYY MMM DD"
             label="Check-in Date"
             placeholder="Date input"
             maw={400}
             mx="auto"
             onChange={(date) => handleInputChange('checkInDate', date)}
+          /> */}
+          <DatePickerInput
+            label="Check-in Date"
+            placeholder="YYYY-MM-DD"
+            value={value}
+            onChange={(date) => handleInputChange('checkInDate', date)}
+            style={{ width: '55%' }}
+            required
+            // mx="auto"
+            // maw={600}
           />
-          <TextInput
+          {/* <TextInput
             label="Check-in Time"
             placeholder="HH:MM"
             pattern="\d{2}:\d{2}"
             value={formData.checkInTime}
             onChange={(event) => handleInputChange('checkInTime', event.target.value)}
             required
-            style={{ marginLeft: "4px" }}
+            style={{ marginLeft: "4px",width:"55%" }}
+          /> */}
+          <TimeInput
+            label="Check-in Time"
+            // placeholder="HH:MM"
+            // type="number" 
+            // pattern="\d{2}:\d{2}"
+            // // value={formData.checkInTime}
+            // onChange={(value) => handleInputChange('checkInTime', value)}
+            // required
+            style={{ marginLeft: "4px",width:"55%", }}
+                    
+             
+              // placeholder="HH:MM"
+              withAsterisk
           />
         </div>
         <div style={{ display: 'flex', flexDirection: 'row', marginTop: "10px" }}>
-          <DateInput
+          {/* <DateInput
             valueFormat="YYYY MMM DD"
             label="Check-out Date"
             placeholder="Date input"
             maw={400}
             mx="auto"
             onChange={(date) => handleInputChange('checkOutDate', date)}
+          /> */}
+           <DatePickerInput
+            label="Check-out Date"
+            placeholder="YYYY-MM-DD"
+            value={value}
+            onChange={(date) => handleInputChange('checkOutDate', date)}
+            style={{ width: '55%' }}
+            required
+            // mx="auto"
+            // maw={600}
           />
-          <TextInput
+          {/* <TextInput
             label="Check-out Time"
             placeholder="HH:MM"
             pattern="\d{2}:\d{2}"
             value={formData.checkOutTime}
             onChange={(event) => handleInputChange('checkOutTime', event.target.value)}
             required
-            style={{ marginLeft: "4px", marginBottom: 15 }}
+            style={{ marginLeft: "4px", marginBottom: 15,width:"55%" }}
+          /> */}
+           <TimeInput
+            label="Check-out Time"
+            // placeholder="HH:MM"
+            // type="number" 
+            // pattern="\d{2}:\d{2}"
+            // // value={formData.checkInTime}
+            // onChange={(value) => handleInputChange('checkInTime', value)}
+            // required
+            style={{ marginLeft: "4px",width:"55%",marginBottom: 15 }}
+                    
+             
+              // placeholder="HH:MM"
+              withAsterisk
           />
+
         </div>
         <TextInput
           label="Tarrif"

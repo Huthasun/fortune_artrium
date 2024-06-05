@@ -873,36 +873,41 @@
 
 // export default Departure;
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SimpleGrid, Button, Text, Modal } from '@mantine/core';
 import Header from './Header';
 import bookingData from './databooking';
 import PendigCard from './Cards/PendigCard';
 import { useNavigate } from 'react-router-dom';
-import UpdateBokkings from './UpdateBookings/UpadatedBookings';
-import UpdatedBookings from './UpdateBookings/UpadatedBookings';
 import { useRecoilState } from 'recoil';
 import { roomAtom } from '../Store/Store';
-
 
 const Departure = () => {
   const [selectedButton, setSelectedButton] = useState(null);
   const [showPendingModal, setShowPendingModal] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const navigate = useNavigate();
+  const [roomDetails, setRoomDetails] = useRecoilState(roomAtom);
 
-  const [ roomDetails, setRoomDetails] = useRecoilState(roomAtom)
-console.log(roomDetails);
- 
+  // Retrieve roomNo from local storage on mount
+  useEffect(() => {
+    const storedRoomNo = localStorage.getItem('roomNo');
+    if (storedRoomNo) {
+      const room = Object.values(bookingData).find((room) => room.roomNo === storedRoomNo);
+      if (room) {
+        setRoomDetails(room);
+        setSelectedButton(storedRoomNo);
+      }
+    }
+  }, [setRoomDetails]);
+
   const handleButtonClick = (roomNo) => {
     setSelectedButton(roomNo);
-    setSelectedRoom(null);
+    localStorage.setItem('roomNo', roomNo); // Save roomNo to local storage
 
     const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
-   
-
     if (room) {
-setRoomDetails(room)
+      setRoomDetails(room);
       if (room.status === 'Pending') {
         setSelectedRoom(room);
         setShowPendingModal(true);
@@ -942,15 +947,9 @@ setRoomDetails(room)
     return '#E1C16E';
   };
 
-  const handleRegisterClick = () => {
-    navigate('/register');
-  };
-
   const handleCloseModal = () => {
     setShowPendingModal(false);
   };
-  
-  
 
   return (
     <div>
@@ -983,21 +982,15 @@ setRoomDetails(room)
       </SimpleGrid>
 
       {showPendingModal && (
-       <Modal
-       opened={true}
-       onClose={handleCloseModal}
-       centered
-       xOffset={-10}
-       size={350}
-     
-     >
-      {/* <UpdatedBookings room={'10'}/> */}
+        <Modal
+          opened={true}
+          onClose={handleCloseModal}
+          centered
+          xOffset={-10}
+          size={350}
+        >
           {selectedRoom && (
-           
-            <PendigCard selectedRoom={selectedRoom} 
-            
-            
-            />
+            <PendigCard selectedRoom={selectedRoom} />
           )}
         </Modal>
       )}

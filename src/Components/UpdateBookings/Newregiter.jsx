@@ -86,6 +86,7 @@ import { roomAtom } from '../../Store/Store';
 import { BiArrowBack } from 'react-icons/bi';
 
 
+
 const Newregiter = () => {
   const [bookingType, setBookingType] = useState('');
   const [roomNumber, setRoomNumber] = useState('');
@@ -130,7 +131,7 @@ const Newregiter = () => {
       <div  style={{ maxWidth: '500px',padding: '1rem'}}>
       
         <form>
-        <Text fz={18} fw={600}pb={15}>Room.No-{roomDetails.roomNo}</Text>
+        <Text fz={18} fw={600}pb={15}>Room.No-{window.localStorage.getItem('roomNo')}</Text>
           <Select
             label="Booking Type"
             data={['Single', 'Double', 'Suite']}

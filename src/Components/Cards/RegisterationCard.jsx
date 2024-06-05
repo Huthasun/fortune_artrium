@@ -269,9 +269,9 @@ const RegistrationCard = () => {
           <Text fz={22} fw={600}>Guest details</Text>
         </Group>
       </div>
-      <Card style={{ backgroundColor: "transparent", marginBottom: '' }}>
+      <Card style={{ backgroundColor: "transparent", marginBottom: '',paddingBottom:'10px ' }}>
         <form>
-          <Text fz={18} fw={600} pb={15}>Room.No-{roomDetails.roomNo}</Text>
+          <Text fz={18} fw={600} pb={15}>Room.No-{window.localStorage.getItem('roomNo')}</Text>
           {formData.map((guest, index) => (
             <div key={index}>
               <TextInput
