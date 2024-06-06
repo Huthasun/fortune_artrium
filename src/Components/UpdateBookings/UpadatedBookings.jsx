@@ -375,7 +375,7 @@ const UpdatedBookings = () => {
               onClick={() => setSelectedOption('Booking')}
             >Bookings
             </Tabs.Tab>
-            <Tabs.Tab value="second" style={{fontSize:"1rem",fontWeight:"bold",fontFamily:"Arial",color: selectedOption === 'Accommidation' ? 'red' : 'inherit' }}
+            <Tabs.Tab value="second" style={{fontSize:"1rem",fontWeight:"bold",fontFamily:"Arial",color: selectedOption === 'Accommi dation' ? 'red' : 'inherit' }}
               onClick={() => setSelectedOption('Accommidation')}
             >Accommidation</Tabs.Tab>
             <Tabs.Tab value="third" style={{fontSize:"1rem",fontWeight:"bold",fontFamily:"Arial",color: selectedOption === 'Depart' ? 'red' : 'inherit' }}
