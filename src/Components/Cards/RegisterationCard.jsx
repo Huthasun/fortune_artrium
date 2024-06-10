@@ -234,6 +234,9 @@ const RegistrationCard = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { numGuests } = location.state || { numGuests: 1 }; // Default to 1 if not provided
+  const [error, setError] = useState('');
+  
+
   
   const [formData, setFormData] = useState(
     Array.from({ length: numGuests }, () => ({
@@ -255,8 +258,16 @@ const RegistrationCard = () => {
   };
 
   const handleSubmit = () => {
-    console.log(formData);
+   
     // Further processing logic here
+    for (let i = 0; i < formData.length; i++) {
+      const { guestName, gender, phoneNumber, identityProof, idNumber, address } = formData[i];
+      if (!guestName || !gender || !phoneNumber || !identityProof || !idNumber || !address) {
+        setError(`Please fill out all fields for guest ${i + 1}.`);
+        return;
+      }
+    }
+    console.log(formData);
     navigate('/submitdetails');
   };
 
@@ -266,12 +277,13 @@ const RegistrationCard = () => {
       <div style={{ padding: "1rem", paddingBottom: 0 }}>
         <Group>
           {/* <ActionIcon size={"sm"} onClick={()=>navigate(-1)}><BiArrowBack/></ActionIcon> */}
-          <Text fz={22} fw={600}>Guest details</Text>
+          <Text fz={22} fw={600}>Guest Details</Text>
         </Group>
       </div>
       <Card style={{ backgroundColor: "transparent", marginBottom: '',paddingBottom:'10px ' }}>
         <form>
           <Text fz={18} fw={600} pb={15}>Room.No-{window.localStorage.getItem('roomNo')}</Text>
+          {error && <Text color="red" pb={15}>{error}</Text>}
           {formData.map((guest, index) => (
             <div key={index}>
               <TextInput
@@ -318,6 +330,7 @@ const RegistrationCard = () => {
                   { label: 'Passport', value: 'passport' },
                   { label: 'National ID', value: 'national_id' },
                 ]}
+                required
                 style={{ marginBottom: 15 }}
               />
               <TextInput

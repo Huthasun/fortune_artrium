@@ -375,7 +375,7 @@ const UpdatedBookings = () => {
               onClick={() => setSelectedOption('Booking')}
             >Bookings
             </Tabs.Tab>
-            <Tabs.Tab value="second" style={{fontSize:"1rem",fontWeight:"bold",fontFamily:"Arial",color: selectedOption === 'Accommi dation' ? 'red' : 'inherit' }}
+            <Tabs.Tab value="second" style={{fontSize:"1rem",fontWeight:"bold",fontFamily:"Arial",color: selectedOption === 'Accommidation' ? 'red' : 'inherit' }}
               onClick={() => setSelectedOption('Accommidation')}
             >Accommidation</Tabs.Tab>
             <Tabs.Tab value="third" style={{fontSize:"1rem",fontWeight:"bold",fontFamily:"Arial",color: selectedOption === 'Depart' ? 'red' : 'inherit' }}
@@ -390,7 +390,7 @@ const UpdatedBookings = () => {
       </div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div>
-          <Text style={{ fontWeight: '500', marginLeft: '25px',fontSize:'0.875rem' }}>Revised Check-out Date</Text>
+          <Text style={{ fontWeight: '500', marginLeft: '25px',fontSize:'0.875rem' }}>Revised Check-out Date & Time</Text>
         </div>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', padding: '6px' }}>
           {/* <DatePickerInput
@@ -410,12 +410,13 @@ const UpdatedBookings = () => {
       value={value}
       onChange={setValue}
       style={{ width: '40%',appearance:"none" }}
+      required
       // mx="auto"
       // maw={400}
     />
           
           <TimeInput
-            // label=""
+            // label="Check-out"
             // placeholder="HH:MM"
             // type="number" 
             // pattern="\d{2}:\d{2}"
@@ -440,6 +441,7 @@ const UpdatedBookings = () => {
           value={formData.duration}
           onChange={(value) => handleInputChange('duration', value)}
           style={{ width: '40%' }}
+          
         />
         <TextInput
           label="Tariff"

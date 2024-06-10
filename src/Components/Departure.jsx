@@ -881,6 +881,7 @@ import PendigCard from './Cards/PendigCard';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { roomAtom } from '../Store/Store';
+import Footer1 from './Footer1';
 
 const Departure = () => {
   const [selectedButton, setSelectedButton] = useState(null);
@@ -994,8 +995,10 @@ const Departure = () => {
           )}
         </Modal>
       )}
+       {/* <Footer1/> */}
+ 
     </div>
-  );
+     );
 };
 
 export default Departure;

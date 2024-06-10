@@ -24,9 +24,9 @@ const LoginForm = () => {
 
   return (
     <div style={{ maxWidth: 400, margin: 'auto', marginTop: 100 }}>
-      <div style={{ textAlign: 'start' }} >
-        <div id='logo'>
-        <Image src={Fortune} alt='logo' style={{height:'100'}}/>
+      <div style={{ }} >
+        <div style={{display:"flex",justifyContent:"center",width:"100%"}}>
+        <Image src={Fortune} alt='logo' style={{width:200}}/>
 
 
         </div>

@@ -30,12 +30,13 @@ const Header = () => {
     <div
       style={{
         backgroundColor: '#fff',
-        // display: 'flex',
-        // justifyContent: 'space-between',
-        alignItems: 'center', // Center elements vertically
-        padding: '5px', // Add padding for better spacing
+        display: 'flex',
+        flexDirection:"column",
+        // justifyContent: "flex-start",
+        // alignItems: 'center', // Center elements vertically
+        padding: '10px', // Add padding for better spacing
         boxShadow: '0px 0px 35px rgba(0, 0, 0, 0.1)',
-        width:"auto",
+        // width:"auto",
         zIndex:100
       }}
     >
@@ -43,8 +44,9 @@ const Header = () => {
         src={Fortune}
         alt='logo'
         style={{
-          height: '50px', // Adjust image height for responsiveness
-          width: 'calc(17% - 10px)', // Use calc() for flexible width
+          // height: '50px', // Adjust image height for responsiveness
+          // width: 'calc(17% - 10px)', // Use calc() for flexible width
+          width:"55px"
         
           
         }}

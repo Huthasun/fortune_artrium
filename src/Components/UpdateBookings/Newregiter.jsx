@@ -93,6 +93,7 @@ const Newregiter = () => {
   const [numGuests, setNumGuests] = useState(1);
   const [numAdults, setNumAdults] = useState(1);
   const [numKids, setNumKids] = useState(0);
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
   const roomDetails = useRecoilValue(roomAtom)
@@ -107,6 +108,10 @@ const Newregiter = () => {
  
   const handleSubmit = () => {
     // Perform validation here if needed
+    if (!bookingType || !numGuests || !numAdults || !numKids) {
+      setError('Please fill out all fields.');
+      return;
+    } 
     console.log({
       bookingType,
       roomNumber,
@@ -124,7 +129,7 @@ const Newregiter = () => {
       <div style={{padding:"1rem",paddingBottom:0}}>
         <Group>
       {/* <ActionIcon size={"sm"} onClick={()=>navigate(-1)}><BiArrowBack/></ActionIcon> */}
-      <Text fz={22} fw={600}>Registration</Text>
+      <Text fz={22} fw={600}>Customer Registration</Text>
       </Group>
       </div>
      
@@ -132,6 +137,7 @@ const Newregiter = () => {
       
         <form>
         <Text fz={18} fw={600}pb={15}>Room.No-{window.localStorage.getItem('roomNo')}</Text>
+        {error && <Text color="red" pb={15}>{error}</Text>}
           <Select
             label="Booking Type"
             data={['Single', 'Double', 'Suite']}
