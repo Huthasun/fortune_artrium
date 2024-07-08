@@ -1,95 +1,117 @@
-import React from 'react'
-import { useState } from 'react';
-// import Fortune from'./assets/pp.png'
-import Fortune from '../assets/pp.png'
-import { Route } from 'react-router-dom'
-import { BrowserRouter as Router, Routes,} from "react-router-dom";
-import HouseKepping from '../Components/HouseKeeping/HouseKepping';
-import {
-    AppShell,
-    Navbar,
-    Header,
-    Footer,
-    Aside,
-    Text,
-    MediaQuery,
-    Burger,
-    useMantineTheme,
-    Image,
-    Group,
-  } from '@mantine/core';
-import Register from '../Components/Register';
-import '../../src/Styling.css'
-import Departure from '../Components/Departure';
+// import React from 'react'
+// import { useState } from 'react';
+// // import Fortune from'./assets/pp.png'
+// import Fortune from '../assets/pp.png'
+// import { Outlet, Route } from 'react-router-dom'
+// import { BrowserRouter as Router, Routes,} from "react-router-dom";
+// import HouseKepping from '../Components/HouseKeeping/HouseKepping';
+// import Header from '../Components/Header';
+// import {
+//     AppShell,
+//     Navbar,
+   
+//     Footer,
+//     Aside,
+//     Text,
+//     MediaQuery,
+//     Burger,
+//     useMantineTheme,
+//     Image,
+//     Group,
+//   } from '@mantine/core';
+// import Register from '../Components/Register';
+// import '../../src/Styling.css'
+// import Departure from '../Components/Departure';
+// import Footer1 from '../Components/Footer1';
+// import SubmitDetails from '../Components/UpdateBookings/SubmitDetails';
+
+// const MainLayout = () => {
+
+//     const theme = useMantineTheme();
+//     const [opened, setOpened] = useState(false);
+
+//   return (
+//     <div> 
+//       <AppShell
+//        header={
+//         <Header/>
+
+//        }
+      
+      
+//        footer={
+//         <Footer1/>
+//        }
+    
+//       >
+//         <Outlet/>
+//     </AppShell>
+//     </div>
+//   )
+// }
+
+// export default MainLayout
+
+// import React, { useState } from 'react';
+// import { Outlet } from 'react-router-dom';
+// import { AppShell, useMantineTheme } from '@mantine/core';
+// import Header from '../Components/Header';
+// import Footer1 from '../Components/Footer1';
+// import '../Styling.css'; // Ensure you have the correct path to your CSS file
+
+// const MainLayout = () => {
+//   const theme = useMantineTheme();
+//   const [opened, setOpened] = useState(false);
+
+//   return (
+//     <AppShell
+//       padding="md"
+//       header={<Header />}
+//       footer={<Footer1 />}
+//       styles={(theme) => ({
+//         main: {
+//           padding: 0,
+//           paddingTop: '70px', // Height of the fixed header
+//           paddingBottom: '50px', // Height of the footer
+//           overflowY: 'auto',
+//         },
+//       })}
+//     >
+//       <Outlet />
+//     </AppShell>
+//   );
+// };
+
+// export default MainLayout;
+
+import React, { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import { AppShell, useMantineTheme } from '@mantine/core';
+import Header from '../Components/Header';
+import Footer1 from '../Components/Footer1';
+import '../Styling.css'; // Ensure you have the correct path to your CSS file
 
 const MainLayout = () => {
-
-    const theme = useMantineTheme();
-    const [opened, setOpened] = useState(false);
+  const theme = useMantineTheme();
+  const [opened, setOpened] = useState(false);
 
   return (
-    <div>
-      <AppShell
-      styles={{
+    <AppShell
+      padding="md"
+      header={<Header />}
+      footer={<Footer1 />}
+      styles={(theme) => ({
         main: {
-          background: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
+          padding: 0,
+          paddingTop: '70px', // Height of the fixed header
+          paddingBottom: '50px', // Height of the footer
+          overflowY: 'auto',
         },
-      }}
-      navbarOffsetBreakpoint="sm"
-      asideOffsetBreakpoint="sm"
-      navbar={
-        <Navbar p="lg" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }} className='nav-bar'>
-          <Navbar.Section>Register</Navbar.Section>
-          <Navbar.Section>HouseKepping</Navbar.Section>
-          <Navbar.Section>Departure</Navbar.Section>
-        </Navbar>
-      }
-      // aside={
-      //   <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
-      //     <Aside p="md" hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
-      //       <Text>Application sidebar</Text>
-      //     </Aside>
-      //   </MediaQuery>
-      // }
-      // footer={
-      //   <Footer height={60} p="md">
-      //     Application footer
-      //   </Footer>
-      // }
-      header={
-        <Header height={{ base: 50, md: 70 }} p="md">
-          <div style={{ display: 'flex', alignItems: 'center', height: '100%', justifyContent:"space-between" }}>
-            {/* <MediaQuery largerThan="sm" styles={{ display: 'none' }}> */}
-             
-              <Burger
-                opened={opened}
-                onClick={() => setOpened((o) => !o)}
-                size="sm"
-                color={theme.colors.gray[6]}
-                mr="xl"
-              />
-              {/* <Image  src={Fortune} alt='logo'/> */}
-              <Group  >
-              <Image src={Fortune} alt='logo' maw={100} />
-              </Group>
-            {/* </MediaQuery> */}
-
-            {/* <Text>Fortune Atrium</Text> */}
-          </div>
-        </Header>
-      }
+      })}
     >
-      {/* <Text><Departure/></Text> */}
-      <Router>
-          <Routes>
-            <Route path='/'element={<Register/>}/>
-            <Route path='/departure'element={<Departure/>}/>
-            <Route path='/housekeeping' element={<HouseKepping/>}/>
-          </Routes>
-        </Router>
+      <Outlet />
     </AppShell>
-    </div>
-  )
-}
+  );
+};
 
-export default MainLayout
+export default MainLayout;

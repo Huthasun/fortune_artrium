@@ -77,112 +77,214 @@
 
 // export default Newregiter
 
-import React, { useState } from 'react';
-import { TextInput, Select, Button, ActionIcon, Text, Card, Group } from '@mantine/core';
-import { useNavigate } from 'react-router-dom';
-import Header from '../Header';
-import { useRecoilValue } from 'recoil';
-import { roomAtom } from '../../Store/Store';
-import { BiArrowBack } from 'react-icons/bi';
+// import React, { useState } from 'react';
+// import { TextInput, Select, Button, ActionIcon, Text, Card, Group } from '@mantine/core';
+// import { useNavigate } from 'react-router-dom';
+// import Header from '../Header';
+// import { useRecoilValue } from 'recoil';
+// import { roomAtom } from '../../Store/Store';
+// import { BiArrowBack } from 'react-icons/bi';
+// import Footer1 from '../Footer1';
 
 
 
-const Newregiter = () => {
-  const [bookingType, setBookingType] = useState('');
-  const [roomNumber, setRoomNumber] = useState('');
-  const [numGuests, setNumGuests] = useState(1);
-  const [numAdults, setNumAdults] = useState(1);
-  const [numKids, setNumKids] = useState(0);
-  const [error, setError] = useState('');
+// const Newregiter = () => {
+//   const [bookingType, setBookingType] = useState('');
+//   const [roomNumber, setRoomNumber] = useState('');
+//   const [numGuests, setNumGuests] = useState(1);
+//   const [numAdults, setNumAdults] = useState(1);
+//   const [numKids, setNumKids] = useState(0);
+//   // const [error, setError] = useState('');
 
-  const navigate = useNavigate();
-  const roomDetails = useRecoilValue(roomAtom)
-       const [selectedOption, setSelectedOption] = useState('Booking');
-  console.log(roomDetails);
-  const handleInputChange = (field, value) => {
-    // setFormData({ ...formData, [field]: value });
-  };
+//   const navigate = useNavigate();
+//   const roomDetails = useRecoilValue(roomAtom)
+//        const [selectedOption, setSelectedOption] = useState('Booking');
+//   console.log(roomDetails);
+//   const handleInputChange = (field, value) => {
+//     // setFormData({ ...formData, [field]: value });
+//   };
 
 
 
  
-  const handleSubmit = () => {
-    // Perform validation here if needed
-    if (!bookingType || !numGuests || !numAdults || !numKids) {
-      setError('Please fill out all fields.');
-      return;
-    } 
-    console.log({
-      bookingType,
-      roomNumber,
-      numGuests,
-      numAdults,
-      numKids
-    });
-    navigate('/guestdetails', { state: { numGuests } }); // Pass numGuests as state
+//   const handleSubmit = () => {
+//     // Perform validation here if needed
+//     // if (!bookingType || !numGuests || !numAdults || !numKids) {
+//     //   setError('Please fill out all fields.');
+//     //   return;
+//     // } 
+//     console.log({
+//       bookingType,
+//       roomNumber,
+//       numGuests,
+//       numAdults,
+//       numKids
+//     });
+//     navigate('/app/guestdetails', { state: { numGuests } }); // Pass numGuests as state
+//   };
+
+//   return (
+//     <div style={{ maxWidth: '100%', boxSizing: 'border-box', boxShadow:"" }}>
+//       {/* <Header />  */}
+
+//       <div style={{padding:"1rem",paddingBottom:0}}>
+//         <Group>
+//       {/* <ActionIcon size={"sm"} onClick={()=>navigate(-1)}><BiArrowBack/></ActionIcon> */}
+//       <Text fz={22} fw={600}>Customer Registration</Text>
+//       </Group>
+//       </div>
+     
+//       <div  style={{ maxWidth: '500px',padding: '1rem',paddingBottom:"0"}}>
+      
+//         <form>
+//         <Text fz={18} fw={600}pb={15}>Room.No-{window.localStorage.getItem('roomNo')}</Text>
+//         {/* {error && <Text color="red" pb={15}>{error}</Text>} */}
+//           <Select
+//             label="Booking Type"
+//             data={['Walk-In','Online']}
+//             value={bookingType}
+//             onChange={setBookingType}
+//             placeholder="Select booking type"
+//             required
+//             style={{marginBottom:15}}
+//           />
+//           {/* <TextInput
+//             label="Room Number"
+//             value={roomNumber}
+//             onChange={event => setRoomNumber(event.currentTarget.value)}
+//             placeholder="Enter room number"
+//             required
+//           /> */}
+//           <div style={{display:'flex',justifyContent:"space-around",}}>
+//           <TextInput
+//             label="Number of Kids"
+//             value={numGuests}
+//             onChange={event => setNumGuests(event.currentTarget.value)}
+//             placeholder="Enter number of guests"
+//             required
+//             style={{marginBottom:15,marginRight:"4px"}}
+//           />
+//           <TextInput
+//             label="Number of Adults"
+//             value={numAdults}
+//             onChange={event => setNumAdults(event.currentTarget.value)}
+//             placeholder="Enter number of adults"
+//             required
+//             style={{marginBottom:15,marginLeft:'4px'}}
+//           />
+//           </div>
+//           <TextInput
+//             label="Number of Guests"
+//             value={numKids}
+//             onChange={event => setNumKids(event.currentTarget.value)}
+//             placeholder="Enter number of kids"
+//             required
+//             style={{marginBottom:15}}
+//           />
+//           <Button onClick={handleSubmit} style={{ marginTop: '17px', width: "35%" ,backgroundColor:"#FE0000"}}>Next</Button>
+//         </form>
+//         {/* <Footer1/> */}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Newregiter;
+import React, { useState } from 'react';
+import { TextInput, Select, Button, Text, Group } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { roomAtom } from '../../Store/Store';
+import { useForm } from '@mantine/form';
+import { BiArrowBack } from 'react-icons/bi';
+
+const Newregister = () => {
+  const navigate = useNavigate();
+  const roomDetails = useRecoilValue(roomAtom);
+
+  const form = useForm({
+    initialValues: {
+      bookingType: '',
+      numAdults: 0,
+      numKids: 0,
+    },
+    validate: {
+      bookingType: (value) => (value ? null : 'Select booking type'),
+      numAdults: (value) => (value > 0 ? null : 'Number of adults must be at least 1'),
+      numKids: (value) => (value >= 0 ? null : 'Number of kids cannot be negative'),
+    },
+  });
+
+  const handleNumAdultsChange = (value) => {
+    const adults = parseInt(value, 10) || 0;
+    form.setFieldValue('numAdults', adults);
+    form.setFieldValue('numGuests', adults + form.values.numKids);
+  };
+
+  const handleNumKidsChange = (value) => {
+    const kids = parseInt(value, 10) || 0;
+    form.setFieldValue('numKids', kids);
+    form.setFieldValue('numGuests', form.values.numAdults + kids);
+  };
+
+  const handleSubmit = (values) => {
+    console.log(values);
+    navigate('/app/guestdetails', { state: { numGuests: values.numGuests } });
   };
 
   return (
-    <div style={{ maxWidth: '100%', boxSizing: 'border-box', boxShadow:"" }}>
-      <Header />
-
-      <div style={{padding:"1rem",paddingBottom:0}}>
+    <div style={{ maxWidth: '100%', boxSizing: 'border-box' }}>
+      <div style={{ padding: '1rem', paddingBottom: 0 }}>
         <Group>
-      {/* <ActionIcon size={"sm"} onClick={()=>navigate(-1)}><BiArrowBack/></ActionIcon> */}
-      <Text fz={22} fw={600}>Customer Registration</Text>
-      </Group>
+          <Text fz={22} fw={600}>Customer Registration</Text>
+        </Group>
       </div>
-     
-      <div  style={{ maxWidth: '500px',padding: '1rem'}}>
-      
-        <form>
-        <Text fz={18} fw={600}pb={15}>Room.No-{window.localStorage.getItem('roomNo')}</Text>
-        {error && <Text color="red" pb={15}>{error}</Text>}
+
+      <div style={{ maxWidth: '500px', padding: '1rem', paddingBottom: '0' }}>
+        <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
+          <Text fz={18} fw={600} pb={15}>Room.No-{window.localStorage.getItem('roomNo')}</Text>
           <Select
             label="Booking Type"
-            data={['Single', 'Double', 'Suite']}
-            value={bookingType}
-            onChange={setBookingType}
+            data={['Walk-In', 'Online']}
+            value={form.values.bookingType}
+            onChange={(value) => form.setFieldValue('bookingType', value)}
             placeholder="Select booking type"
             required
-            style={{marginBottom:15}}
+            error={form.errors.bookingType}
+            style={{ marginBottom: 15 }}
           />
-          {/* <TextInput
-            label="Room Number"
-            value={roomNumber}
-            onChange={event => setRoomNumber(event.currentTarget.value)}
-            placeholder="Enter room number"
-            required
-          /> */}
+          <div style={{ display: 'flex', justifyContent: "space-around" }}>
+            <TextInput
+              label="Number of Adults"
+              value={form.values.numAdults}
+              onChange={(event) => handleNumAdultsChange(event.currentTarget.value)}
+              placeholder="Enter number of adults"
+              required
+              error={form.errors.numAdults}
+              style={{ marginBottom: 15, marginRight: "4px" }}
+            />
+            <TextInput
+            
+              label="Number of Kids"
+              value={form.values.numKids}
+              onChange={(event) => handleNumKidsChange(event.currentTarget.value)}
+              placeholder="Enter number of kids"
+              error={form.errors.numKids}
+              style={{ marginBottom: 15, marginLeft: '4px' }}
+            />
+          </div>
           <TextInput
             label="Number of Guests"
-            value={numGuests}
-            onChange={event => setNumGuests(event.currentTarget.value)}
+            value={form.values.numAdults + form.values.numKids}
             placeholder="Enter number of guests"
-            required
-            style={{marginBottom:15}}
+            readOnly
+            style={{ marginBottom: 15 }}
           />
-          <TextInput
-            label="Number of Adults"
-            value={numAdults}
-            onChange={event => setNumAdults(event.currentTarget.value)}
-            placeholder="Enter number of adults"
-            required
-            style={{marginBottom:15}}
-          />
-          <TextInput
-            label="Number of Kids"
-            value={numKids}
-            onChange={event => setNumKids(event.currentTarget.value)}
-            placeholder="Enter number of kids"
-            required
-            style={{marginBottom:15}}
-          />
-          <Button onClick={handleSubmit} style={{ marginTop: '17px', width: "35%" ,backgroundColor:"#FE0000"}}>Next</Button>
+          <Button type="submit" style={{ marginTop: '17px', width: "35%", backgroundColor: "#FE0000" }}>Next</Button>
         </form>
       </div>
     </div>
   );
 };
 
-export default Newregiter;
+export default Newregister;

@@ -91,7 +91,7 @@ const PendingCard = (props) => {
   const handleModifyClick = () => {
     
 
-    navigate("/updatebooking");
+    navigate("/app/updatebooking");
   };
 
   return (
@@ -131,7 +131,7 @@ const PendingCard = (props) => {
             Pending Amount
           </Text>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'flex-end', flexDirection: 'column', marginLeft: '43px', top: '0' }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', flexDirection: 'column', marginLeft: '26px', top: '0' }}>
         <Text size="md" weight={500} style={{ marginBottom: 10 }}>{selectedRoom.status}</Text>
           <Text size="md" weight={500} style={{ marginBottom: 10 }}>
             {selectedRoom.name}

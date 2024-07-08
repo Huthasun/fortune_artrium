@@ -138,179 +138,158 @@
 // }
 
 // export default SubmitDetails
-
-// import React, { useState, } from 'react';
-// import { TextInput, Button, ActionIcon, Group, Card, Text } from '@mantine/core';
+// import React, { useState } from 'react';
+// import { TextInput, Button, Group, Text } from '@mantine/core';
 // import { useNavigate } from 'react-router-dom';
 // import Header from '../Header';
 // import { useRecoilValue } from 'recoil';
 // import { roomAtom } from '../../Store/Store';
-// // import { BiArrowBack } from 'react-icons/bi';
-// import { DateInput, DatePickerInput, TimeInput } from '@mantine/dates';
+// import { DatePickerInput, TimeInput } from '@mantine/dates';
+// import { useForm } from '@mantine/form';
 
 // const SubmitDetails = () => {
 //   const navigate = useNavigate();
-//   const [roomNumber, setRoomNumber] = useState('');
-//   const [bookingType, setBookingType] = useState('');
-//   const [error, setError] = useState('');
-//   const [formData, setFormData] = useState({
+//   const roomDetails = useRecoilValue(roomAtom);
+//   const [formData, setFormData] = useForm({
+//     initialValues:{
+//       checkInDate: '',
+//     checkInTime: '',
 //     checkOutDate: '',
 //     checkOutTime: '',
-//     checkInDate: '',
-//     checkInTime: '',
+//     tarrif: '',
 //     paidamount: '',
-//     balanceamount: '', 
-//     tarrif: '', // Added tarrif field
+//     balanceamount: '',
+//     },
+//     validate:{
+      
+//     }
 //   });
 
-//   const roomDetails = useRecoilValue(roomAtom);
+//   const [errors, setErrors] = useState({});
 
 //   const handleInputChange = (field, value) => {
-//     setFormData({ ...formData, [field]: value });
+//     console.log(`Updating ${field} with value: `, value); // Debugging
+//     const updatedFormData = { ...formData, [field]: value };
 
-//     // If the field is Check-in Date and it has been changed, update Check-in Time with the current time
-//     // if (field === 'checkInDate') {
-//     //   const currentTime = new Date().toLocaleTimeString('en-IN', {
-//     //     hour12: false,
-//     //     hour: '2-digit',
-//     //     minute: '2-digit',
-//     //   });
-//     //   setFormData({ ...formData, checkInTime: currentTime });
-//     // }
+//     // Automatically calculate balance amount if tarrif and paidamount are provided
+//     if (field === 'tarrif' || field === 'paidamount') {
+//       const tarrif = field === 'tarrif' ? parseFloat(value) : parseFloat(updatedFormData.tarrif);
+//       const paidamount = field === 'paidamount' ? parseFloat(value) : parseFloat(updatedFormData.paidamount);
+//       updatedFormData.balanceamount = tarrif && paidamount ? Math.max(tarrif - paidamount, 0) : '';
+//     }
+
+//     setFormData(updatedFormData);
+//   };
+
+//   const validateFields = () => {
+//     const newErrors = {
+//       checkInDate: !formData.checkInDate ? 'Check-in Date is required' : '',
+//       checkInTime: !formData.checkInTime ? 'Check-in Time is required' : '',
+//       tarrif: !formData.tarrif ? 'Tariff is required' : '',
+//       paidamount: !formData.paidamount ? 'Paid Amount is required' : '',
+//     };
+//     setErrors(newErrors);
+//     return !Object.values(newErrors).some(error => error);
 //   };
 
 //   const handleSubmit = () => {
-//     for (let i = 0; i < formData.length; i++) {
-//       const {checkOutDate,checkOutTime,checkInDate,checkInTime,paidamount,balanceamount,tarrif } = formData[i];
-//       if (!checkOutDate || !checkOutTime || !checkInDate || !checkInTime || !paidamount || !balanceamount || !tarrif) {
-//         setError(`Please fill out all fields for guest ${i + 1}.`);
-//         return;
-//       }
-//     }
-  
-
-//     console.log(formData);
-//     // Further processing logic here
-//     window.localStorage.clear();
-//     navigate('/bookings');
+//     // console.log(validateFields);
+   
+//       console.log(formData);
+//       window.localStorage.clear();
+//       navigate('/app/bookings');
+    
 //   };
-//   const [value, setValue] = useState()
 
 //   return (
 //     <div style={{ maxWidth: '100%', boxSizing: 'border-box' }}>
 //       <Header />
-//       <div style={{ padding: "1rem", paddingBottom: 0 }}>
+//       <div style={{ padding: '1rem', paddingBottom: 0 }}>
 //         <Group>
-//           <Text fz={22} fw={600}>Accommidation Details</Text>
+//           <Text fz={22} fw={600}>Accommodation Details</Text>
 //         </Group>
 //       </div>
-//       <div style={{ padding: "1rem", paddingBottom: 0 }}>
+//       <div style={{ padding: '1rem', paddingBottom: 0 }}>
 //         <Text fz={18} fw={600}>Room.No-{window.localStorage.getItem('roomNo')}</Text>
-//         {error && <Text color="red" pb={15}>{error}</Text>}
 //       </div>
-//       <form>
-//       <div style={{ maxWidth: '500px', margin: '8px auto', padding: '17px' }}>
-//         <div style={{ display: 'flex', flexDirection: 'row', }}>
-//           <DatePickerInput
-//             label="Check-in Date"
-//             placeholder="YYYY-MM-DD"
-//             value={value}
-//             onChange={(date) => handleInputChange('checkInDate', date)}
-//             style={{ width: '55%' }}
-//             required
-//             // mx="auto"
-//             // maw={600}
+//       <form onSubmit={form.onSubmit(() => handleSubmit())}>
+//         <div style={{ maxWidth: '500px', margin: '8px auto', padding: '17px' }}>
+//           <div style={{ display: 'flex', flexDirection: 'row' }}>
+//             <DatePickerInput
+//               label="Check-in Date"
+//               placeholder="YYYY-MM-DD"
+//               // value={formData.checkInDate}
+//               // onChange={(date) => handleInputChange('checkInDate', date)}
+//               style={{ width: '55%' }}
+//               // required
+//               // error={errors.checkInDate}
+//             />
+//             <TimeInput
+//               label="Check-in Time"
+//               // value={formData.checkInTime}
+//               // onChange={(value) => handleInputChange('checkInTime', value)}
+//               style={{ marginLeft: '4px', width: '55%' }}
+//               // required
+//               error={errors.checkInTime}
+//             />
+//           </div>
+//           <div style={{ display: 'flex', flexDirection: 'row', marginTop: '10px' }}>
+//             <DatePickerInput
+//               label="Check-out Date"
+//               placeholder="YYYY-MM-DD"
+//               // value={formData.checkOutDate}
+//               // onChange={(date) => handleInputChange('checkOutDate', date)}
+//               style={{ width: '55%' }}
+//             />
+//             <TimeInput
+//               label="Check-out Time"
+//               // value={formData.checkOutTime}
+//               // onChange={(value) => handleInputChange('checkOutTime', value)}
+//               style={{ marginLeft: '4px', width: '55%', marginBottom: 15 }}
+//             />
+//           </div>
+//           <TextInput
+//             label="Tariff"
+//             type="number"
+//             placeholder="Amount"
+//             value={formData.tarrif}
+//             onChange={(event) => handleInputChange('tarrif', event.currentTarget.value)}
+//             // required
+//             error={errors.tarrif}
+//             style={{ marginBottom: 15 }}
 //           />
-//           <TimeInput
-//             label="Check-in Time"
-//             // placeholder="HH:MM"
-//             // type="number" 
-//             // pattern="\d{2}:\d{2}"
-//             value={formData.checkInTime}
-//             onChange={(value) => handleInputChange('checkInTime', value)}
-//             required
-//             style={{ marginLeft: "4px",width:"55%", }}
-                    
-             
-//               // placeholder="HH:MM"
-//               withAsterisk
+//           <TextInput
+//             label="Paid Amount"
+//             type="number"
+//             placeholder="Amount"
+//             value={formData.paidamount}
+//             onChange={(event) => handleInputChange('paidamount', event.currentTarget.value)}
+//             // required
+//             error={errors.paidamount}
+//             style={{ marginBottom: 15 }}
 //           />
+//           <TextInput
+//             label="Balance Amount"
+//             type="number"
+//             placeholder="Amount"
+//             value={formData.balanceamount}
+//             readOnly
+//             style={{ marginBottom: 15 }}
+//           />
+//           <Button type='submit' style={{ marginTop: '13px', width: '35%', backgroundColor: '#FE0000' }}>Submit</Button>
 //         </div>
-//         <div style={{ display: 'flex', flexDirection: 'row', marginTop: "10px" }}>
-//            <DatePickerInput
-//             label="Check-out Date"
-//             placeholder="YYYY-MM-DD"
-//             value={value}
-//             onChange={(date) => handleInputChange('checkOutDate', date)}
-//             style={{ width: '55%' }}
-//             required
-//             // mx="auto"
-//             // maw={600}
-//           />
-//           {/* <TextInput
-//             label="Check-out Time"
-//             placeholder="HH:MM"
-//             pattern="\d{2}:\d{2}"
-            
-//             onChange={(event) => handleInputChange('checkOutTime', event.target.value)}
-//             required
-//             style={{ marginLeft: "4px", marginBottom: 15,width:"55%" }}
-//           /> */}
-//            <TimeInput
-//             label="Check-out Time"
-//             // placeholder="HH:MM"
-//             // type="number" 
-//             // pattern="\d{2}:\d{2}"
-//             value={formData.checkOutTime}
-//             onChange={(value) => handleInputChange('checkInTime', value)}
-//             required
-//             style={{ marginLeft: "4px",width:"55%",marginBottom: 15 }}
-                    
-             
-//               // placeholder="HH:MM"
-//               withAsterisk
-//           />
-
-//         </div>
-//         <TextInput
-//           label="Tarrif"
-//           type='number'
-//           placeholder="Amount"
-//           value={formData.tarrif}
-//           onChange={(event) => handleInputChange('tarrif', event.target.value)}
-//           required
-//           style={{ marginBottom: 15 }}
-//         />
-//         <TextInput
-//           label="Paid Amount"
-//           type='number'
-//           placeholder="Amount"
-//           value={formData.paidamount}
-//           onChange={(event) => handleInputChange('paidamount', event.target.value)}
-//           required
-//           style={{ marginBottom: 15 }}
-//         />
-//         <TextInput
-//           label="Balance Amount"
-//           type='number'
-//           placeholder="Amount"
-//           value={formData.balanceamount}
-//           onChange={(event) => handleInputChange('balanceamount', event.target.value)}
-//           required
-//           style={{ marginBottom: 15 }}
-//         />
-        
-//         <Button onClick={handleSubmit} style={{ marginTop: '13px', width: "35%", backgroundColor: "#FE0000" }}>Submit</Button>
-//       </div>
 //       </form>
 //     </div>
-    
-//   )
-// }
+//   );
+// };
 
 // export default SubmitDetails;
 
-import React from 'react';
+
+
+
+
+import React   from 'react';
 import { TextInput, Button, Group, Text } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header';
@@ -318,6 +297,8 @@ import { useRecoilValue } from 'recoil';
 import { roomAtom } from '../../Store/Store';
 import { DatePickerInput, TimeInput } from '@mantine/dates';
 import { useForm } from '@mantine/form';
+import Footer1 from '../Footer1';
+import { useEffect } from 'react';
 
 const SubmitDetails = () => {
   const navigate = useNavigate();
@@ -345,16 +326,22 @@ const SubmitDetails = () => {
     },
   });
 
+  useEffect(() => {
+    const tarrif = parseFloat(form.values.tarrif) || 0;
+    const paidamount = parseFloat(form.values.paidamount) || 0;
+    form.setFieldValue('balanceamount', Math.max(tarrif - paidamount, 0));
+  }, [form.values.tarrif, form.values.paidamount]);
+
   const handleSubmit = (values) => {
     console.log(values);
     // Further processing logic here
-    window.localStorage.clear();
-    navigate('/bookings');
+    window.localStorage.removeItem("roomNo");
+    navigate('/app/bookings');
   };
 
   return (
     <div style={{ maxWidth: '100%', boxSizing: 'border-box' }}>
-      <Header />
+      {/* <Header /> */}
       <div style={{ padding: '1rem', paddingBottom: 0 }}>
         <Group>
           <Text fz={22} fw={600}>Accommodation Details</Text>
@@ -364,19 +351,19 @@ const SubmitDetails = () => {
         <Text fz={18} fw={600}>Room.No-{window.localStorage.getItem('roomNo')}</Text>
       </div>
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <div style={{ maxWidth: '500px', margin: '8px auto', padding: '17px' }}>
+        <div style={{ maxWidth: '500px', margin: '8px auto', padding: '17px',paddingBottom:"20px" }}>
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <DatePickerInput
               label="Check-in Date"
               placeholder="YYYY-MM-DD"
               {...form.getInputProps('checkInDate')}
               style={{ width: '55%' }}
-              required
+              // required
             />
             <TimeInput
               label="Check-in Time"
               {...form.getInputProps('checkInTime')}
-              required
+              // required
               style={{ marginLeft: '4px', width: '55%' }}
             />
           </div>
@@ -386,12 +373,12 @@ const SubmitDetails = () => {
               placeholder="YYYY-MM-DD"
               {...form.getInputProps('checkOutDate')}
               style={{ width: '55%' }}
-              required
+              // required
             />
             <TimeInput
               label="Check-out Time"
               {...form.getInputProps('checkOutTime')}
-              required
+              // required
               style={{ marginLeft: '4px', width: '55%', marginBottom: 15 }}
             />
           </div>
@@ -400,7 +387,7 @@ const SubmitDetails = () => {
             type="number"
             placeholder="Amount"
             {...form.getInputProps('tarrif')}
-            required
+            // required
             style={{ marginBottom: 15 }}
           />
           <TextInput
@@ -408,7 +395,7 @@ const SubmitDetails = () => {
             type="number"
             placeholder="Amount"
             {...form.getInputProps('paidamount')}
-            required
+            // required
             style={{ marginBottom: 15 }}
           />
           <TextInput
@@ -416,12 +403,14 @@ const SubmitDetails = () => {
             type="number"
             placeholder="Amount"
             {...form.getInputProps('balanceamount')}
-            required
+            // required
             style={{ marginBottom: 15 }}
           />
-          <Button type="submit" style={{ marginTop: '13px', width: '35%', backgroundColor: '#FE0000' }}>Submit</Button>
+          <Button type="submit" style={{ marginTop: '10px', width: '35%', backgroundColor: '#FE0000' }}>Submit</Button>
         </div>
       </form>
+      {/* <Footer1/> */}
+
     </div>
   );
 };

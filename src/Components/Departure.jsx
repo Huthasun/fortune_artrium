@@ -913,7 +913,7 @@ const Departure = () => {
         setSelectedRoom(room);
         setShowPendingModal(true);
       } else if (room.status === 'completed') {
-        navigate('/register');
+        navigate('/app/register');
       }
     }
   };
@@ -954,9 +954,9 @@ const Departure = () => {
 
   return (
     <div>
-      <Header />
-      <div style={{ maxWidth: 350, margin: '0 auto', alignItems: "center", padding: "0px", paddingTop: "0px" }}>
-        <h1 style={{ display: "flex", justifyContent: "center", }}>Availability</h1>
+      {/* <Header /> */}
+      <div style={{   padding: "0px", paddingTop: "0px" }}>
+        <h1 style={{display:"grid",placeItems:"center"}}>Availability</h1>
       </div>
       <SimpleGrid cols={3} style={{ display: 'grid', placeItems: "center", paddingLeft: '20px', paddingRight: "20px" }}>
         {Object.values(bookingData).map((room) => (
