@@ -600,6 +600,7 @@ import { useForm, hasLength } from '@mantine/form';
 import axios from 'axios';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import {yupResolver} from '@mantine/core'
+import client from '../API/api';
 
 const GuestRegistration = () => {
   const navigate = useNavigate();
@@ -652,7 +653,7 @@ const GuestRegistration = () => {
 
   const handleSubmit = async (values) => {
     try {
-      const response = await axios.post('http://192.168.29.68:80/hms/customer/', values);
+      const response = await client.post('/customer', values);
       console.log('Data saved successfully:', response.data);
       setMessage(response.data.msg);
       setShowSuccess(true); // Show success notification
@@ -744,7 +745,7 @@ const GuestRegistration = () => {
                 data={[
                   { label: "Driver's License", value: 'drivers_license' },
                   { label: 'Passport', value: 'passport' },
-                  { label: 'Addhar ID', value: 'addhar_id' }
+                  { label: 'Aadhaar ID', value: 'addhar_id' }
                 ]}
                 {...form.getInputProps('guestIdProof')}
                 style={{ marginBottom: 15 }}
