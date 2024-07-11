@@ -6,7 +6,7 @@ const client = axios.create(
     {
         // baseURL:"http://192.168.29.68:80/hms",
         // baseURL: "http://35.154.107.192:80"
-        baseURL:"http://hms.automactechnologies.in/hms",
+        baseURL:"https://hms.automactechnologies.in/hms",
 
     }
 )
