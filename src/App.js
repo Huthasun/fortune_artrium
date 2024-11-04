@@ -19,10 +19,18 @@ import Searchbar from './Components/USerManagement/Searchbar';
 import Usermanagement from './Components/USerManagement/Usermanagement';
 import GuestRegistration from './Components/GuestRegistration';
 import PrivateRoutes from './utils/PrivateRoutes';
+import GuestRecords from './Components/UpdateBookings/GuestRecords';
+import Primaryguestdbtable from './Components/Admin/Primaryguestdbtable';
+import BookingDetailsTable from './Components/Admin/BookingGuestsdbtable';
+import AdminLanding from './Components/Admin/AdminLanding';
+import FindGuest from './Components/Cards/FindGuest';
+
 
 
 // import Footer from './Components/Footer';
 const App = () => {
+  const isAdmin = window.localStorage.getItem('role') === 'admin';
+  
 
   return (
     <div className='App'>
@@ -41,38 +49,62 @@ const App = () => {
         {/* <UpdatedBookings/> */}
         {/* <Newregiter/> */}
         {/* <SubmitDetails/> */}
+        {/* <Primaryguestdbtable/> */}
+      
+      
         
-        
+     
         <Router>
           <Routes>
           
-          <Route exact path="/login"  element={ 
-           <LoginForm/>}/>
-          <Route exact path="/app" element={<PrivateRoutes/>}>
-          {/* <Route path="/register" element={<Register/>} /> */}
-          <Route path="bookings" element={<Departure/>} />
-          <Route path="updatebooking" element={<UpdatedBookings/>} />
-          <Route path="guestdetails" element={<RegisterationCard/>}/>
-          <Route path="register" element={<Newregiter/>}/>
-          <Route path="submitdetails" element={<SubmitDetails/>}/>
-          <Route path="search" element={<Searchbar/>}/>
-          <Route path="user" element={<Usermanagement/>}/>
-          <Route path="guestregistration" element={<GuestRegistration/>}/>
+          <Route exact path="/login"  element={<LoginForm/>}/>
+          {/* <Route path="/app/adminlanding" element={<AdminLanding/>}/> */}
+          {/* <Route path="/app/adminlanding" element={<AdminLanding />}> */}
+          <Route
+              path="/app/adminlanding"
+              element={isAdmin ? <AdminLanding /> : <Navigate to="/login" replace />}
+            >
+          <Route path="pmy" element={<Primaryguestdbtable/>}/>
+          <Route path="btd" element={<BookingDetailsTable/>}/>
+        </Route>
+          <Route exact path="/app" element={<PrivateRoutes/>}> 
+           {/* <Route path="/register" element={<Register/>} />  */}
+              <Route path="bookings" element={<Departure/>} />
+              <Route path="register" element={<Newregiter/>}/>
+              <Route path="updatebooking" element={<UpdatedBookings/>} />
+              <Route path="guestdetails" element={<GuestRecords/>}/>
+              <Route path="submitdetails" element={<SubmitDetails/>}/>
+              <Route path="search" element={<Searchbar/>}/>
+              <Route path="user" element={<Usermanagement/>}/>
+              <Route path="guestregistration" element={<GuestRegistration/>}/>
+              <Route path="findguest" element={<FindGuest/>}/>
+              
+
+              
+
+          
        
 
 
           </Route>
 
-          <Route exact path='/' element={ window.localStorage.getItem('username')!==undefined ? <Navigate
+          {/* <Route exact path='/' element={ window.localStorage.getItem('username')!==undefined ? <Navigate
            to={'/app/bookings'}/>:<Navigate to='/login'/>}/>
-
+            */}
+ <Route exact path="/" element={
+              isAdmin
+                ? <Navigate to="/app/adminlanding" replace />
+                : window.localStorage.getItem('username') 
+                  ? <Navigate to="/app/bookings" replace />
+                  : <Navigate to="/login" replace />
+            } />
           
           
           </Routes>
 
          
         </Router>
-        
+         
         
         
         

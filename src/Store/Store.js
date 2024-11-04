@@ -5,4 +5,11 @@ export const roomAtom = atom({
     default:''
 
 })
-console.log(roomAtom);
+// console.log(roomAtom);
+
+export const guestAtom = atom({
+    key:'guest',
+    default:''
+
+})
+// console.log(roomAtom);

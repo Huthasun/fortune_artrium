@@ -10,7 +10,7 @@ import client from '../API/api'; // Assuming this is your configured Axios insta
 
 const LoginForm = () => {
   const [loader, setLoader] = useState(false);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const form = useForm({
     initialValues: {
@@ -23,13 +23,26 @@ const LoginForm = () => {
     },
   });
 
-  useEffect(() => {
-    if (window.location.pathname === "/") {
-      navigate('/login');
-      window.localStorage.getItem('username') === null ? navigate('/login') : navigate('/bookings');
-    }
-  }, [navigate]);
+  // useEffect(() => {
+  //   if (window.location.pathname === "/") {
+  //     navigate('/login');
+  //     window.localStorage.getItem('username') === null ? navigate('/login') : navigate('/bookings');
+  //   }
+  // }, [navigate]);
 
+  
+      // Add this line
+      useEffect(() => {
+        // If the user is already logged in, navigate based on their role
+        const role = window.localStorage.getItem('role');
+        if (role) {
+          if (role === 'admin') {
+            navigate('/app/adminlanding');
+          } else if (role === 'user') {
+            navigate('/app/bookings');
+          }
+        }
+      }, [navigate]);
   const handleLogin = async (values) => {
     setLoader(true);
     try {
@@ -43,7 +56,13 @@ const LoginForm = () => {
       if (response.data && response.data.status === "user validated") {
         console.log("Login successful: " + JSON.stringify(response.data));
         window.localStorage.setItem("username", response.data.username);
-        navigate('/app/bookings');
+        window.localStorage.setItem("role", response.data.role); // Store the user's role
+        // Redirect based on role
+        if (response.data.role === 'admin') {
+          navigate('/app/adminlanding');
+        } else if (response.data.role === 'user') {
+          navigate('/app/bookings');
+        }
       } else {
         setLoader(false);
         
@@ -75,6 +94,11 @@ const LoginForm = () => {
       //   username: "Login failed. Please check your internet connection.",
       //   password: "Login failed. Please check your internet connection.",
       // });
+      // If the API fails due to network error
+  form.setErrors({
+    username: "Network error. Please try again later.",
+    password: "Network error. Please try again later.",
+  });
     }
     
 

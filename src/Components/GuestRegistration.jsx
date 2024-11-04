@@ -594,7 +594,6 @@ import React, { useState } from 'react';
 import { Card, TextInput, Select, Textarea, Radio, Text, Button, Group, Notification, Overlay, NumberInput } from '@mantine/core';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { roomAtom } from '../Store/Store';
 import { BiArrowBack } from 'react-icons/bi';
 import { useForm, hasLength } from '@mantine/form';
 import axios from 'axios';
@@ -649,7 +648,7 @@ const GuestRegistration = () => {
   };
   
   // console.log(form.values);
-  const roomDetails = useRecoilValue(roomAtom);
+  // const roomDetails = useRecoilValue(roomAtom);
 
   const handleSubmit = async (values) => {
     try {

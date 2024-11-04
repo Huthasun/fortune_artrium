@@ -4,9 +4,13 @@ axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'x-csrftoken'
 const client = axios.create(
     {
-        // baseURL:"http://192.168.29.68:80/hms",
+        baseURL:"http://192.168.29.68:80",
+        // baseURL:"http://192.168.1.9:80",
+
         // baseURL: "http://35.154.107.192:80"
-        baseURL:"https://hms.automactechnologies.in/hms",
+        // API Change 
+        // baseURL:"https://hms.automactechnologies.in/",
+        // baseURL:"http://localhost:80"
 
     }
 )

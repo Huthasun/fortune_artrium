@@ -873,132 +873,344 @@
 
 // export default Departure;
 
-import React, { useState, useEffect } from 'react';
-import { SimpleGrid, Button, Text, Modal } from '@mantine/core';
-import Header from './Header';
-import bookingData from './databooking';
-import PendigCard from './Cards/PendigCard';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { roomAtom } from '../Store/Store';
-import Footer1 from './Footer1';
+// import React, { useState, useEffect } from 'react';
+// import { SimpleGrid, Button, Text, Modal } from '@mantine/core';
+// import Header from './Header';
+// import bookingData from './databooking';
+// import PendigCard from './Cards/PendigCard';
+// import { useNavigate } from 'react-router-dom';
+// import Footer1 from './Footer1';
+// import { useRecoilState } from 'recoil';
+// import { roomAtom } from '../Store/Store';
+// import client from '../API/api';
+// import axios from 'axios';
 
-const Departure = () => {
-  const [selectedButton, setSelectedButton] = useState(null);
-  const [showPendingModal, setShowPendingModal] = useState(false);
-  const [selectedRoom, setSelectedRoom] = useState(null);
-  const navigate = useNavigate();
-  const [roomDetails, setRoomDetails] = useRecoilState(roomAtom);
+// const Departure = () => {
+//   const [selectedButton, setSelectedButton] = useState(null);
+//   const [showPendingModal, setShowPendingModal] = useState(false);
+//   const [selectedRoom, setSelectedRoom] = useState(null);
+//   const navigate = useNavigate();
+//   const [roomDetails, setRoomDetails] = useRecoilState(roomAtom);
+//   const [room, setRooms] = useState();
 
-  // Retrieve roomNo from local storage on mount
-  useEffect(() => {
-    const storedRoomNo = localStorage.getItem('roomNo');
-    if (storedRoomNo) {
-      const room = Object.values(bookingData).find((room) => room.roomNo === storedRoomNo);
-      if (room) {
-        setRoomDetails(room);
-        setSelectedButton(storedRoomNo);
+//   // Retrieve roomNo from local storage on mount
+//   useEffect(() => {
+//     const storedRoomNo = localStorage.getItem('roomNo');
+//     if (storedRoomNo) {
+//       const room = Object.values(bookingData).find((room) => room.roomNo === storedRoomNo);
+//       if (room) {
+//         setRoomDetails(room);
+//         setSelectedButton(storedRoomNo);
+//       }
+//     }
+//   }, []);
+
+//   // useEffect(()=>{
+//   //   console.log("hhuthhhhhh");
+    
+//   //   client.get("/api/room-status")
+//   //   .then(resp=>console.log(resp.data)
+//   //   )
+//   // },[])
+//   useEffect(() => {
+//     console.log(";;;;;;;;;;;;;;;;;");
+//     const fetchData = async () => {
+//          try {
+//         const response =  await client.get('api/room-status');
+//         console.log(response.data); // Debugging: log the fetched data
+        
+//         // Update room details based on fetched data
+//         // setRoomDetails(response.data.data);
+//         setRoomDetails(response.data.data)
+        
+//       } catch (error) {
+//         console.error('Error fetching room status:', error);
+//       }
+//     };
+//       fetchData();
+    
+//   }, []);
+
+//   const handleButtonClick = (roomNo) => {
+//     setSelectedButton(roomNo);
+//     localStorage.setItem('roomNo', roomNo); // Save roomNo to local storage
+
+//     const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
+//     if (room) {
+//       setRoomDetails(room);
+//       if (room.status === 'Pending') {
+//         setSelectedRoom(room);
+//         setShowPendingModal(true);
+//       } else if (room.status === 'completed') {
+//         navigate('/app/register');
+//       }
+//     }
+//   };
+
+//   const getButtonText = (roomNo) => {
+//     const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
+//     if (room) {
+//       switch (room.status) {
+//         case 'Pending':
+//           return 'Occupied';
+//         case 'completed':
+//           return 'Vacant';
+//         default:
+//           return 'Housekeeping';
+//       }
+//     }
+//     return 'Housekeeping';
+//   };
+
+//   const getButtonColor = (roomNo) => {
+//     const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
+//     if (room) {
+//       switch (room.status) {
+//         case 'Pending':
+//           return '#FE0000';
+//         case 'completed':
+//           return '#03C03C';
+//         default:
+//           return '#E1C16E';
+//       }
+//     }
+//     return '#E1C16E';
+//   };
+
+//   const handleCloseModal = () => {
+//     setShowPendingModal(false);
+//   };
+
+//   return (
+//     <div>
+//       {/* <Header /> */}
+//       <div style={{   padding: "0px", paddingTop: "0px" }}>
+//         <h1 style={{display:"grid",placeItems:"center"}}>Availability</h1>
+//       </div>
+//       <SimpleGrid cols={3} style={{ display: 'grid', placeItems: "center", paddingLeft: '20px', paddingRight: "20px" }}>
+//         {Object.values(bookingData).map((room) => (
+//           <div key={room.roomNo}>
+//             <Button
+//               style={{
+//                 backgroundColor: getButtonColor(room.roomNo),
+//                 width: '100%',
+//                 height: 'auto',
+//                 minWidth:"100px",
+//                 minHeight:"45px",
+//                 border: selectedButton === room.roomNo ? '2px solid gray' : 'none',
+//                 display: 'flex',
+//                 alignItems: 'center',
+//                 justifyContent: 'center',
+//               }}
+//               onClick={() => handleButtonClick(room.roomNo)}
+//             >
+//               <Text fz="sm" style={{ margin: 0 ,fontSize:"1.5rem"}}>{room.roomNo}</Text>
+//             </Button>
+//             <div style={{ textAlign: 'center', marginTop: '5px' }}>{getButtonText(room.roomNo)}</div>
+//           </div>
+//         ))}
+//       </SimpleGrid>
+
+//       {showPendingModal && (
+//         <Modal
+//           opened={true}
+//           onClose={handleCloseModal}
+//           centered
+//           xOffset={-10}
+//           size={350}
+//         >
+//           {selectedRoom && (
+//             <PendigCard selectedRoom={selectedRoom} />
+//           )}
+//         </Modal>
+//       )}
+//        {/* <Footer1/> */}
+ 
+//     </div>
+//      );
+// };
+
+// export default Departure;
+  import React, { useState, useEffect } from 'react';
+  import { SimpleGrid, Button, Text, Modal } from '@mantine/core';
+  import Header from './Header'; // Assuming Header component exists
+  import bookingData from './databooking'; // Assuming bookingData is an object
+  import PendigCard from './Cards/PendigCard'; // Assuming PendigCard component exists
+  import { useNavigate } from 'react-router-dom';
+  import Footer1 from './Footer1'; // Assuming Footer1 component exists
+  import { useRecoilState } from 'recoil';
+  import { roomAtom } from '../Store/Store';
+  import client from '../API/api';
+  import axios from 'axios';
+  import Housekeeping from './HouseKeeping/HouseKepping';
+
+  const Departure = () => {
+    const [selectedButton, setSelectedButton] = useState(null);
+    const [showPendingModal, setShowPendingModal] = useState(false);
+    const [showHousekeepingModal, setShowHousekeepingModal] = useState(false);
+    const [selectedRoom, setSelectedRoom] = useState(null);
+    const navigate = useNavigate();
+    const [roomDetails, setRoomDetails] = useRecoilState(roomAtom);
+    const [rooms, setRooms] = useState([]); // Use state for fetched rooms
+    const [roomPrice, setRoomPrice] = useState(null); // State to hold room price
+      // Fetch room status from API
+      useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await client.get('/api/room-status');
+            setRooms(response.data.data); // Set fetched rooms
+          } catch (error) {
+            console.error('Error fetching room status:', error);
+          }
+        };
+        fetchData();
+      }, []); // Fetch on component mount
+    // Retrieve roomNo from local storage on mount
+    useEffect(() => {
+      const storedRoomNo = localStorage.getItem('roomNo');
+      if (storedRoomNo) {
+        const room = rooms.find((room) => room.roomNo === storedRoomNo);
+        if (room) {
+          setRoomDetails(room);
+          setSelectedButton(storedRoomNo);
+        }
       }
-    }
-  }, [setRoomDetails]);
+    }, [rooms]); // Update on rooms change
 
-  const handleButtonClick = (roomNo) => {
-    setSelectedButton(roomNo);
-    localStorage.setItem('roomNo', roomNo); // Save roomNo to local storage
-
-    const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
-    if (room) {
-      setRoomDetails(room);
-      if (room.status === 'Pending') {
-        setSelectedRoom(room);
-        setShowPendingModal(true);
-      } else if (room.status === 'completed') {
-        navigate('/app/register');
-      }
+    // Fetch room price by room ID
+  const fetchRoomPrice = async (roomNo) => {
+    try {
+      const response = await client.get(`/rooms/${roomNo}/price`); // Fetch room price
+      return response.data.price; // Return the room price
+    } catch (error) {
+      console.error('Error fetching room price:', error);
+      return null;
     }
   };
 
-  const getButtonText = (roomNo) => {
-    const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
-    if (room) {
-      switch (room.status) {
-        case 'Pending':
+    
+  const refreshRoomStatus = async () => {
+    try {
+      const response = await client.get('/api/room-status');
+      setRooms(response.data.data); // Refresh the room status data
+    } catch (error) {
+      console.error('Error refreshing room status:', error);
+    }
+  };
+
+    const handleButtonClick = async (roomNo) => {
+      setSelectedButton(roomNo);
+      localStorage.setItem('roomNo', roomNo);
+
+      const room = rooms.find((room) => room.roomNo === roomNo);
+      if (room) {
+        setRoomDetails(room);
+        if (room.roomStatus === 'occupied') {
+          setSelectedRoom(room);
+          setShowPendingModal(true); // Open modal for occupied rooms
+        } else if (room.roomStatus === 'vacant') {
+          const price = await fetchRoomPrice(roomNo); // Fetch price for the vacant room
+          if (price !== null) {
+            localStorage.setItem('roomPrice', price); // Save price to local storage
+          }
+          navigate('/app/register', {
+            state: {
+              roomDetails, // Pass room details for the Register component
+              roomPrice, // Pass room price for the Register component (optional)
+            },
+          });
+        } else if (room.roomStatus === 'housekeeping') {
+          setSelectedRoom(room);
+          setShowHousekeepingModal(true);
+        }
+      }
+    };
+
+    const getButtonText = (room) => {
+      switch (room.roomStatus) {
+        case 'occupied':
           return 'Occupied';
-        case 'completed':
+        case 'vacant':
           return 'Vacant';
         default:
           return 'Housekeeping';
       }
-    }
-    return 'Housekeeping';
-  };
+    };
 
-  const getButtonColor = (roomNo) => {
-    const room = Object.values(bookingData).find((room) => room.roomNo === roomNo);
-    if (room) {
-      switch (room.status) {
-        case 'Pending':
-          return '#FE0000';
-        case 'completed':
-          return '#03C03C';
+    const getButtonColor = (room) => {
+      switch (room.roomStatus) {
+        case 'vacant':
+          return '#03C03C'; // Green for vacant
+        case 'occupied':
+          return '#FE0000'; // Red for occupied
         default:
           return '#E1C16E';
       }
-    }
-    return '#E1C16E';
-  };
+    };
 
-  const handleCloseModal = () => {
-    setShowPendingModal(false);
-  };
+    const handleCloseModal = () => {
+      setShowPendingModal(false);
+    };
 
-  return (
-    <div>
-      {/* <Header /> */}
-      <div style={{   padding: "0px", paddingTop: "0px" }}>
-        <h1 style={{display:"grid",placeItems:"center"}}>Availability</h1>
-      </div>
-      <SimpleGrid cols={3} style={{ display: 'grid', placeItems: "center", paddingLeft: '20px', paddingRight: "20px" }}>
-        {Object.values(bookingData).map((room) => (
-          <div key={room.roomNo}>
-            <Button
-              style={{
-                backgroundColor: getButtonColor(room.roomNo),
-                width: '100%',
-                height: 'auto',
-                minWidth:"100px",
-                minHeight:"45px",
-                border: selectedButton === room.roomNo ? '2px solid gray' : 'none',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              onClick={() => handleButtonClick(room.roomNo)}
-            >
-              <Text fz="sm" style={{ margin: 0 ,fontSize:"1.5rem"}}>{room.roomNo}</Text>
-            </Button>
-            <div style={{ textAlign: 'center', marginTop: '5px' }}>{getButtonText(room.roomNo)}</div>
-          </div>
-        ))}
-      </SimpleGrid>
+    const handleCloseHousekeepingModal = () => {
+      setShowHousekeepingModal(false);
+    };
 
-      {showPendingModal && (
-        <Modal
+    return (
+      <div>
+        <Header /> {/* Assuming Header is rendered */}
+        <div style={{ padding: "0px", paddingTop: "0px" }}>
+          <h1 style={{ display: "grid", placeItems: "center" }}>Availability</h1>
+        </div>
+        <SimpleGrid cols={3} style={{ display: 'grid', placeItems: "center", paddingLeft: '20px', paddingRight: "20px" }}>
+          {rooms.map((room) => (
+            <div key={room.roomNo}>
+              <Button
+                style={{
+                  backgroundColor: getButtonColor(room),
+                  width: '100%',
+                  height: 'auto',
+                  minWidth: "100px",
+                  minHeight: "45px",
+                  border: selectedButton === room.roomNo ? '2px solid gray' : 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onClick={() => handleButtonClick(room.roomNo)}
+              >
+                <Text fz="sm" style={{ margin: 0 ,fontSize:"1.5rem"}}>{room.roomNo}</Text>
+              </Button>
+              <div style={{ textAlign: 'center', marginTop: '5px' }}>{getButtonText(room)}</div>
+            </div>
+          ))}
+        </SimpleGrid>
+
+        {showPendingModal && (
+          <Modal
           opened={true}
           onClose={handleCloseModal}
           centered
           xOffset={-10}
           size={350}
         >
-          {selectedRoom && (
-            <PendigCard selectedRoom={selectedRoom} />
-          )}
-        </Modal>
-      )}
-       {/* <Footer1/> */}
- 
-    </div>
-     );
-};
+            {selectedRoom && (
+              <PendigCard selectedRoom={selectedRoom} 
+              onClose={handleCloseModal}
+              refreshRoomStatus={refreshRoomStatus}
+              />
+            )}
+          </Modal>
+        )}
+        {showHousekeepingModal && (
+          <Housekeeping
+            selectedRoom={selectedRoom}
+            onClose={handleCloseHousekeepingModal}
+            refreshRoomStatus={refreshRoomStatus}
+          />
+        )}
+      </div>
+    );
+  };
 
-export default Departure;
+  export default Departure;
