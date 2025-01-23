@@ -224,7 +224,15 @@ export default function AdminLanding() {
           </div>
         }
         padding="xl"
-       size={isMobile ? '50%' : isLaptop ? '25%' : '18%'}       
+        size={opened ? '50%' : '30%'}
+        styles={{
+          drawer: {
+            padding: '10px',
+            height: 'calc(100vh - 150px)', // Limit height to reduce scroll length
+            overflowY: 'auto',
+          },
+        }}
+        
       >
        <div style={{display: "flex", flexDirection: "column", gap: "8px"}}>
     <div 

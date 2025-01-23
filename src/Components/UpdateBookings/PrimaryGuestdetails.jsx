@@ -65,7 +65,24 @@ const PrimaryGuestdetails = () => {
       window.localStorage.setItem('address', form.values.address);
     }, [form.values]);
   
-    
+    const formatAadhaarNumber = (value) => {
+      if (form.values.guestIdProof !== 'addhar_id') return value; // Only format for Aadhaar ID
+      const cleaned = value.replace(/\D/g, ''); // Remove non-digit characters
+      const match = cleaned.match(/^(\d{4})(\d{4})(\d{4})$/);
+      if (match) {
+        return `${match[1]}-${match[2]}-${match[3]}`;
+      }
+      return cleaned; // Return cleaned value if not fully matched
+    };
+  
+     // Phone number handler to ensure it is only numeric and has a max length of 10
+  const handlePhoneNumberChange = (e) => {
+    const value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+    if (value.length <= 10) {
+      form.setFieldValue('phoneNumber', value);
+    }
+  };
+
     // console.log(form.values);
     // const roomDetails = useRecoilValue(roomAtom);
     const handleSubmit = async (values) => {
@@ -142,6 +159,7 @@ const PrimaryGuestdetails = () => {
   // onClick={handleIconClick}
   maxLength={10}
   {...form.getInputProps('phoneNumber')}
+  onChange={handlePhoneNumberChange} 
   style={{ marginBottom: 15 }}
   // This will place the search icon on the right side
   // rightSection={
@@ -177,7 +195,8 @@ const PrimaryGuestdetails = () => {
                   data={[
                     { label: 'Aadhaar ID', value: 'addhar_id' },
                     { label: "Driver's License", value: 'drivers_license' },
-                    { label: 'Passport', value: 'passport' }
+                    { label: 'Passport', value: 'passport' },
+                    { label: 'Voter ID', value: 'voter_id' },
                    
                   ]}
                   {...form.getInputProps('guestIdProof')}
@@ -190,8 +209,10 @@ const PrimaryGuestdetails = () => {
                        
                         style={{ marginBottom: 15 }}
                         error={form.errors.guestIdNumber}
+                        value={formatAadhaarNumber(form.values.guestIdNumber)} // Format ID number
                         maxLength={getMaxLength()}
                         {...form.getInputProps('guestIdNumber')}
+                        onChange={(e) => form.setFieldValue('guestIdNumber', formatAadhaarNumber(e.target.value))}
                         // onChange={(event) => {
                         //   const value = event.target.value.trim(); // Remove leading/trailing whitespace
                         //   form.setFieldValue(`guestIdNumber`, value);

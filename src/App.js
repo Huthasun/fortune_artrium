@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route,Routes,Navigate} from "react-router-dom";
 import { MantineProvider } from '@mantine/core'
 import Register from './Components/Register'
@@ -18,18 +18,38 @@ import MainLayout from './MainLayout/MainLayout';
 import Searchbar from './Components/USerManagement/Searchbar';
 import Usermanagement from './Components/USerManagement/Usermanagement';
 import GuestRegistration from './Components/GuestRegistration';
-import PrivateRoutes from './utils/PrivateRoutes';
 import GuestRecords from './Components/UpdateBookings/GuestRecords';
 import Primaryguestdbtable from './Components/Admin/Primaryguestdbtable';
 import BookingDetailsTable from './Components/Admin/BookingGuestsdbtable';
 import AdminLanding from './Components/Admin/AdminLanding';
 import FindGuest from './Components/Cards/FindGuest';
+import PrivateRoutes from './utils/PrivateRoutes';
+import ExtendBooking from './Components/UpdateBookings/ExtendBooking';
 
 
 
 // import Footer from './Components/Footer';
 const App = () => {
-  const isAdmin = window.localStorage.getItem('role') === 'admin';
+  // const isAdmin = window.localStorage.getItem('role') === 'admin';
+  // console.log(isAdmin);
+  const [isAdmin, setisAdmin] = useState(false)
+  useEffect(()=>{
+    window.localStorage.getItem('role') === 'admin' ? setisAdmin(true): setisAdmin(false)
+
+  },[isAdmin])
+  console.log(isAdmin);
+
+  const PrivateRoutes = () => {
+
+
+    const z = localStorage.getItem("username")
+
+    let auth = { "token": z !== null || undefined ? true : false}
+  return (
+   auth.token ? <MainLayout/> : <Navigate to="/login"/>
+  )
+}
+
   
 
   return (
@@ -60,16 +80,20 @@ const App = () => {
           <Route exact path="/login"  element={<LoginForm/>}/>
           {/* <Route path="/app/adminlanding" element={<AdminLanding/>}/> */}
           {/* <Route path="/app/adminlanding" element={<AdminLanding />}> */}
+
+
           <Route
-              path="/app/adminlanding"
-              element={isAdmin ? <AdminLanding /> : <Navigate to="/login" replace />}
+              path="/app/adminlanding" element={<AdminLanding />}
             >
           <Route path="pmy" element={<Primaryguestdbtable/>}/>
           <Route path="btd" element={<BookingDetailsTable/>}/>
         </Route>
+
+        
           <Route exact path="/app" element={<PrivateRoutes/>}> 
            {/* <Route path="/register" element={<Register/>} />  */}
               <Route path="bookings" element={<Departure/>} />
+
               <Route path="register" element={<Newregiter/>}/>
               <Route path="updatebooking" element={<UpdatedBookings/>} />
               <Route path="guestdetails" element={<GuestRecords/>}/>
@@ -78,6 +102,7 @@ const App = () => {
               <Route path="user" element={<Usermanagement/>}/>
               <Route path="guestregistration" element={<GuestRegistration/>}/>
               <Route path="findguest" element={<FindGuest/>}/>
+              <Route path="extend" element={<ExtendBooking/>}/>
               
 
               
@@ -92,11 +117,8 @@ const App = () => {
            to={'/app/bookings'}/>:<Navigate to='/login'/>}/>
             */}
  <Route exact path="/" element={
-              isAdmin
-                ? <Navigate to="/app/adminlanding" replace />
-                : window.localStorage.getItem('username') 
-                  ? <Navigate to="/app/bookings" replace />
-                  : <Navigate to="/login" replace />
+              window.localStorage.getItem("role") === "admin"
+                ? (<Navigate to="/app/adminlanding"  />): ( <Navigate to="/login"  /> )
             } />
           
           

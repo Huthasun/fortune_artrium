@@ -88,7 +88,7 @@ import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { AppShell, useMantineTheme } from '@mantine/core';
 import Header from '../Components/Header';
-import Footer1 from '../Components/Footer1';
+import {Footer1} from '../Components/Footer1';
 import '../Styling.css'; // Ensure you have the correct path to your CSS file
 
 const MainLayout = () => {

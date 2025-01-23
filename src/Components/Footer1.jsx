@@ -220,14 +220,19 @@ import { useNavigate } from 'react-router-dom';
 import { ActionIcon, Flex, Drawer } from '@mantine/core';
 import { RiHomeLine } from 'react-icons/ri';
 import { IoMenu, IoPersonSharp } from 'react-icons/io5';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks'; // Import the useMediaQuery hook
 import Usermanagement from './USerManagement/Usermanagement';
 
-const Footer1 = () => {
+export const Footer1 = () => {
   const navigate = useNavigate();
   const [opened, { toggle, close }] = useDisclosure(false);
   const [activeIcon, setActiveIcon] = useState('home');
 
+  // Use Mantine's useMediaQuery hook to check screen sizes
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isSmallMobile = useMediaQuery('(max-width: 576px)');
+
+  // Handle icon click to navigate and toggle the drawer
   const handleIconClick = (iconName, route) => {
     if (iconName === 'menu') {
       toggle();
@@ -239,19 +244,26 @@ const Footer1 = () => {
     }
   };
 
+  // Style the icon container based on the screen width
+  const iconContainerStyle = {
+    width: isSmallMobile ? '95%' : isMobile ? '80%' : '90%',
+    maxWidth: '400px',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  };
+
   return (
     <>
-      {/* Main container optimized for short scroll */}
+      {/* Main container */}
       <div style={styles.mainContainer}>
         <div style={styles.contentContainer}>
           {/* Page content goes here */}
-          {/* <p>Your content goes here...</p> */}
         </div>
       </div>
 
-      {/* Footer */}
+      {/* Footer container */}
       <div style={styles.footerContainer}>
-        <Flex style={styles.iconContainer}>
+        <Flex style={iconContainerStyle}>
           <ActionIcon
             size="lg"
             onClick={() => handleIconClick('home', 'bookings')}
@@ -276,7 +288,7 @@ const Footer1 = () => {
         </Flex>
       </div>
 
-      {/* Drawer with limited height */}
+      {/* Drawer for User Details */}
       <Drawer
         opened={opened}
         onClose={close}
@@ -286,14 +298,8 @@ const Footer1 = () => {
         styles={{
           drawer: {
             padding: '10px',
-            height: 'calc(100vh - 150px)', // Drawer is shorter to reduce scroll length
+            height: 'calc(100vh - 150px)', // Limit height to reduce scroll length
             overflowY: 'auto',
-            '@media (max-width: 768px)': {
-              width: '75%',
-            },
-            '@media (max-width: 576px)': {
-              width: '90%',
-            },
           },
         }}
       >
@@ -303,13 +309,12 @@ const Footer1 = () => {
   );
 };
 
-// Optimized styles to limit scroll
+// Optimized styles
 const styles = {
   mainContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    // height: 'calc(100vh - 70px)', // Take up the viewport height minus the footer
     overflowY: 'auto', // Allow scroll only when content overflows
   },
   contentContainer: {
@@ -331,18 +336,4 @@ const styles = {
     alignItems: 'center',
     zIndex: 1000,
   },
-  iconContainer: {
-    width: '90%',
-    maxWidth: '400px',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    '@media (max-width: 768px)': {
-      width: '80%',
-    },
-    '@media (max-width: 576px)': {
-      width: '95%',
-    },
-  },
 };
-
-export default Footer1;

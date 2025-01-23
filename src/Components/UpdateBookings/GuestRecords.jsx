@@ -196,7 +196,7 @@
               Next
             </Button>
             
-            <Button
+            {/* <Button
               style={{
                 width: '94px',
                 height: '31px',
@@ -208,7 +208,7 @@
               onClick={handleFindClick} // Opens the FindGuest modal on click
             >
               Find
-            </Button>
+            </Button> */}
           </div>
         {/* </Box> */}
         

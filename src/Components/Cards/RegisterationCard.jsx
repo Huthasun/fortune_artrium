@@ -810,7 +810,7 @@ const RegistrationCard = ({ guestIndex }) => {
       console.log("arrays to create",arraysToCreate);
       
       for (let i = storedGuests.length; i < arraysToCreate; i++) {
-        storedGuests.push({ guestName: '', gender: '', guestIdProof: '', guestIdNumber: '' });
+        storedGuests.push({ guestName: '', gender: '', guestIdProof: '', guestIdNumber: '',phoneNumber: '' });
       }
     } else if (storedGuests.length > arraysToCreate) {
       storedGuests.splice(arraysToCreate);
@@ -823,7 +823,7 @@ const RegistrationCard = ({ guestIndex }) => {
   // Retrieve current guest details from localStorage
   const getStoredGuest = () => {
     const storedGuests = JSON.parse(localStorage.getItem('guestDetails')) || [];
-    return storedGuests[guestIndex] || { guestName: '', gender: '', guestIdProof: '', guestIdNumber: '' };
+    return storedGuests[guestIndex] || { guestName: '', gender: '', guestIdProof: '', guestIdNumber: '',phoneNumber: '' };
   };
 
   const form = useForm({
@@ -847,6 +847,15 @@ const RegistrationCard = ({ guestIndex }) => {
         return null; // Or any default value you prefer
     }
   };
+  const formatAadhaarNumber = (value) => {
+    if (form.values.guestIdProof !== 'addhar_id') return value; // Only format for Aadhaar ID
+    const cleaned = value.replace(/\D/g, ''); // Remove non-digit characters
+    const match = cleaned.match(/^(\d{4})(\d{4})(\d{4})$/);
+    if (match) {
+      return `${match[1]}-${match[2]}-${match[3]}`;
+    }
+    return cleaned; // Return cleaned value if not fully matched
+  };
 
   // Function to update guest details in localStorage
   const updateGuestDetails = (values) => {
@@ -866,6 +875,12 @@ const RegistrationCard = ({ guestIndex }) => {
     updateGuestDetails(values);
     navigate('/app/submitdetails'); // Proceed to submit details page
   };
+  const handlePhoneNumberChange = (e) => {
+    const value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+    if (value.length <= 10) {
+      form.setFieldValue('phoneNumber', value);
+    }
+  };
 
   return (
     <div style={{ width: '100%', boxSizing: 'border-box', position: 'relative' }}>
@@ -878,7 +893,7 @@ const RegistrationCard = ({ guestIndex }) => {
             style={{ marginBottom: 15 }}
           />
           <Text weight={500}>Gender</Text>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px', padding: '3%' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px', padding: '2.5%',marginRight:"41%" }}>
             <Radio
               label="Male"
               value="male"
@@ -892,6 +907,16 @@ const RegistrationCard = ({ guestIndex }) => {
               onChange={() => form.setFieldValue('gender', 'female')}
             />
           </div>
+          <TextInput
+  hideControls
+  label="Phone Number"
+  placeholder="Enter Phone Number"
+  // onClick={handleIconClick}
+  maxLength={10}
+  {...form.getInputProps('phoneNumber')}
+  onChange={handlePhoneNumberChange} 
+  style={{ marginBottom: 15 }}
+  />
           <Select
             label="Guest ID Proof"
             placeholder="Select identity proof"
@@ -899,6 +924,7 @@ const RegistrationCard = ({ guestIndex }) => {
               { label: 'Aadhaar ID', value: 'addhar_id' },
               { label: "Driver's License", value: 'drivers_license' },
               { label: 'Passport', value: 'passport' },
+              { label: 'Voter ID', value: 'voter_id' },
             ]}
             {...form.getInputProps('guestIdProof')}
             style={{ marginBottom: 15 }}
@@ -907,7 +933,8 @@ const RegistrationCard = ({ guestIndex }) => {
             label="Guest ID Number"
             placeholder="Enter ID number"
             maxLength={getMaxLength()}
-            {...form.getInputProps('guestIdNumber')}
+            value={formatAadhaarNumber(form.values.guestIdNumber)} // Format the ID number
+            onChange={(e) => form.setFieldValue('guestIdNumber', formatAadhaarNumber(e.target.value))} // Update on input change
             style={{ marginBottom: 15 }}
           />
           {/* <Button type="submit" style={{ marginTop: '15px', width: '35%', background: 'red' }}>

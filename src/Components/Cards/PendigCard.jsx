@@ -165,6 +165,9 @@ const PendingCard = ({ selectedRoom, onClose, refreshRoomStatus }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false); // Loading state
 
+// Extract `pmytotalAmount` from `bookingDetails`
+const totalAmount = selectedRoom.bookingDetails?.pmytotalAmount || 'N/A';
+
   const handleCheckOutClick = async () => {
     setIsLoading(true);  // Set loading state to true
     try {
@@ -190,7 +193,11 @@ const PendingCard = ({ selectedRoom, onClose, refreshRoomStatus }) => {
   
 
   const handleModifyClick = () => {
-    navigate("/app/updatebooking");
+    // Save selected room details in local storage
+    localStorage.setItem('selectedRoomData', JSON.stringify(selectedRoom));
+
+    // Navigate to the update booking page
+    navigate('/app/extend');
   };
 
   // Extract only the date part from CheckOutDateTime
@@ -235,7 +242,10 @@ const PendingCard = ({ selectedRoom, onClose, refreshRoomStatus }) => {
               CheckOutDate:
             </Text>
             <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-              Total Amount:
+            Total Amount:
+            </Text>
+            <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+              Paid Amount:
             </Text>
             <Text size="md" weight={500} style={{ marginBottom: 10 }}>
               Pending Amount:
@@ -257,7 +267,10 @@ const PendingCard = ({ selectedRoom, onClose, refreshRoomStatus }) => {
             {getFormattedCheckOutDate(selectedRoom.CheckOutDateTime)}
             </Text>
             <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-              {selectedRoom.totalAmount || 'N/A'}
+            {selectedRoom.pmytotalAmount}
+            </Text>
+            <Text size="md" weight={500} style={{ marginBottom: 10 }}>
+              {selectedRoom.paidAmount || 'N/A'}
             </Text>
             <Text size="md" weight={500} style={{ marginBottom: 10 }}>
               {selectedRoom.balanceAmount || 'N/A'}

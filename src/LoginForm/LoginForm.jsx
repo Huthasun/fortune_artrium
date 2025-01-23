@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TextInput, PasswordInput, Paper, Container, Button, Image, Text } from '@mantine/core';
+import { TextInput, PasswordInput, Paper, Container, Button, Image, Text, Flex, Center } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { FaRegUserCircle } from "react-icons/fa";
 import { CiUnlock } from "react-icons/ci";
@@ -38,11 +38,11 @@ const LoginForm = () => {
         if (role) {
           if (role === 'admin') {
             navigate('/app/adminlanding');
-          } else if (role === 'user') {
+          } else if (role === 'receptionist') {
             navigate('/app/bookings');
           }
         }
-      }, [navigate]);
+      }, []);
   const handleLogin = async (values) => {
     setLoader(true);
     try {
@@ -53,14 +53,16 @@ const LoginForm = () => {
         withCredentials: true 
       });
 
-      if (response.data && response.data.status === "user validated") {
+      if (response.data.status === "user_validated") {
+        setLoader(false);
         console.log("Login successful: " + JSON.stringify(response.data));
         window.localStorage.setItem("username", response.data.username);
         window.localStorage.setItem("role", response.data.role); // Store the user's role
+        window.localStorage.setItem("staffId",response.data.staffId)
         // Redirect based on role
         if (response.data.role === 'admin') {
           navigate('/app/adminlanding');
-        } else if (response.data.role === 'user') {
+        } else if (response.data.role === 'receptionist') {
           navigate('/app/bookings');
         }
       } else {
@@ -112,10 +114,14 @@ const LoginForm = () => {
   return (
     <Container size={350} mt={120}>
       <Paper withBorder shadow="xl" p={30} radius="md">
+      {/* <Flex justify={"center"}> */}
+      <Center>
+      <Image maw={100} src={Fortune} alt='logo'  />
+      </Center>
+           
+          {/* </Flex> */}
         <form onSubmit={form.onSubmit((values) => handleLogin(values))}>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <Image src={Fortune} alt='logo' style={{ width: 200 }} />
-          </div>
+          
           <Text align="center" size="xl" mt="md">Login</Text>
           <TextInput
             label="Username"
@@ -510,3 +516,7 @@ export default LoginForm;
 // }
 
 // export default LoginForm
+
+
+
+
