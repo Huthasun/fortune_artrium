@@ -273,7 +273,7 @@ const totalAmount = selectedRoom.bookingDetails?.pmytotalAmount || 'N/A';
               {selectedRoom.paidAmount || 'N/A'}
             </Text>
             <Text size="md" weight={500} style={{ marginBottom: 10 }}>
-              {selectedRoom.balanceAmount || 'N/A'}
+              {selectedRoom.balanceAmount || '0'}
             </Text>
           </div>
         </SimpleGrid>

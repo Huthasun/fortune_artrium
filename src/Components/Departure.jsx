@@ -1053,19 +1053,40 @@
     const [roomDetails, setRoomDetails] = useRecoilState(roomAtom);
     const [rooms, setRooms] = useState([]); // Use state for fetched rooms
     const [roomPrice, setRoomPrice] = useState(null); // State to hold room price
-      // Fetch room status from API
-      useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await client.get('/api/room-status');
-            setRooms(response.data.data); // Set fetched rooms
-          } catch (error) {
-            console.error('Error fetching room status:', error);
+
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const hotelId = localStorage.getItem('hotelId'); // Get hotelId from localStorage
+          if (hotelId) {
+            const response = await client.get(`/api/room-status?hotelId=${hotelId}`);
+
+              // Filter rooms by hotelId
+        const filteredRooms = response.data.data.filter(room => room.hotelId === parseInt(hotelId));
+            setRooms(filteredRooms); // Set fetched rooms for the specific hotel
+          } else {
+            console.warn('Hotel ID not found in localStorage');
           }
-        };
-        fetchData();
-      }, []); // Fetch on component mount
-    // Retrieve roomNo from local storage on mount
+        } catch (error) {
+          console.error('Error fetching room status:', error);
+        }
+      };
+      fetchData();
+    }, []);
+    // Fetch room status from API
+    //   useEffect(() => {
+    //     const fetchData = async () => {
+    //       try {
+    //         const response = await client.get('/api/room-status');
+    //         setRooms(response.data.data); // Set fetched rooms
+    //       } catch (error) {
+    //         console.error('Error fetching room status:', error);
+    //       }
+    //     };
+    //     fetchData();
+    //   }, []); // Fetch on component mount
+    // // Retrieve roomNo from local storage on mount
     useEffect(() => {
       const storedRoomNo = localStorage.getItem('roomNo');
       if (storedRoomNo) {

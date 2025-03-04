@@ -59,6 +59,7 @@ const LoginForm = () => {
         window.localStorage.setItem("username", response.data.username);
         window.localStorage.setItem("role", response.data.role); // Store the user's role
         window.localStorage.setItem("staffId",response.data.staffId)
+        window.localStorage.setItem("hotelId", response.data.hotelId); // Save hotelId
         // Redirect based on role
         if (response.data.role === 'admin') {
           navigate('/app/adminlanding');
@@ -122,7 +123,7 @@ const LoginForm = () => {
           {/* </Flex> */}
         <form onSubmit={form.onSubmit((values) => handleLogin(values))}>
           
-          <Text align="center" size="xl" mt="md">Login</Text>
+          <Center maw={240} size="xl" mt="md">Login</Center>
           <TextInput
             label="Username"
             placeholder="Enter your username"

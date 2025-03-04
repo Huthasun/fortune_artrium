@@ -712,6 +712,7 @@ const BookingDetailsTable = () => {
   const [openedcalender, setOpenedcalender] = useState(false);
   const columnOptions = [
     { value: 'roomNo', label: 'Room No' },
+    { value: 'hotelName', label: 'Hotel Name' }, // Add this line
     { value: 'bookingType', label: 'Booking Type' },
     { value: 'noOfGuests', label: 'No. Of Guests' },
     { value: 'noOfAdults', label: 'No. Of Adults' },
@@ -816,6 +817,7 @@ const BookingDetailsTable = () => {
   const downloadCSV = () => {
     const csvData = data.map((item) => ({
       RoomNo: item.roomNo || '',
+      HotelName: item.hotelName || '', 
       BookingType: item.bookingType || '', // Assuming this field exists in your data
       NoOfGuests: item.noOfGuests?.toString() || '',
       NoOfAdults: item.noOfAdults?.toString() || '',
@@ -826,9 +828,9 @@ const BookingDetailsTable = () => {
       GuestDetails: item.guestDetails
         ?.map((g) => `${g.name || '-'} (${g.gender || '-'}) (${g.guestIdType || '-'}: ${g.guestIdNumber || '-'}: ${g.phoneNumber || '-'}) `)
         .join('; '),
-      CheckInDate: item.checkInDateTime ? format(new Date(item.checkInDateTime), 'MM/dd/yyyy') : '',
+      CheckInDate: item.checkInDateTime ? format(new Date(item.checkInDateTime), 'dd/MM/yyyy') : '',
       CheckInTime: item.checkInDateTime ? format(new Date(item.checkInDateTime), 'HH:mm') : '',
-      CheckOutDate: item.checkOutDateTime ? format(new Date(item.checkOutDateTime), 'MM/dd/yyyy') : '',
+      CheckOutDate: item.checkOutDateTime ? format(new Date(item.checkOutDateTime), 'dd/MM/yyyy') : '',
       CheckOutTime: item.checkOutDateTime ? format(new Date(item.checkOutDateTime), 'HH:mm') : '',
       ModeOfPayment: item.modeOfPayment || '',
       PaidAmount: item.paidAmount?.toString() || '',
@@ -952,6 +954,7 @@ const BookingDetailsTable = () => {
             
             <tr>
               {visibleColumns.includes('roomNo') && <th>Room No</th>}
+              {visibleColumns.includes('hotelName') && <th>Hotel Name</th>}
               {visibleColumns.includes('bookingType') && <th>Booking Type</th>}
               {visibleColumns.includes('noOfGuests') && <th>No. Of Guests</th>}
               {visibleColumns.includes('noOfAdults') && <th>No. Of Adults</th>}
@@ -979,6 +982,8 @@ const BookingDetailsTable = () => {
               paginatedData.map((item) => (
                 <tr key={item.bookingId}>
                   {visibleColumns.includes('roomNo') && <td>{item.roomNo}</td>}
+                  {visibleColumns.includes('hotelName') && <td>{item.hotelName || '-'}</td>}
+
                   {visibleColumns.includes('bookingType') && <td>{item.bookingType}</td>}
                   {visibleColumns.includes('noOfGuests') && <td>{item.noOfGuests}</td>}
                   {visibleColumns.includes('noOfAdults') && <td>{item.noOfAdults}</td>}
@@ -986,17 +991,44 @@ const BookingDetailsTable = () => {
                   {visibleColumns.includes('primaryGuestName') && <td>
                     {item.primaryGuestName}</td>}
                   {visibleColumns.includes('primaryGuestPhoneNumber') && <td>{item.primaryGuestPhoneNumber}</td>}
-                  {visibleColumns.includes('primaryGuestIdNumber') && <td>
-                    <span > {item.primaryGuestIdNumber}</span>
-                    
-                    </td>}
-                  {visibleColumns.includes('guestDetails') && (
-                    <td>
-                      {item.guestDetails
-                        ?.map((g) => `${g.name || '-'} (${g.gender || '-'}) (${g.guestIdType || '-'} ${g.guestIdNumber || '-'} ${g.phoneNumber || '-'})`)
-                        .join(', ') || '-'}
-                    </td>
-                  )}
+                  <td style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+  {visibleColumns.includes('primaryGuestIdNumber') && (
+    <span>{item.primaryGuestIdNumber}</span>
+  )}
+</td>
+                    {visibleColumns.includes('guestDetails') && (
+  <td>
+    {item.guestDetails && item.guestDetails.length > 0 ? (
+      <div style={{ padding: '10px', border: '1px solid #ddd', borderRadius: '5px' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <thead>
+            <tr style={{ borderBottom: '1px solid #ddd', textAlign: 'left' }}>
+              <th style={{ padding: '5px', fontWeight: '480' }}>Name</th>
+              <th style={{ padding: '5px', fontWeight: '480' }}>Gender</th>
+              <th style={{ padding: '5px', fontWeight: '480' }}>ID Type</th>
+              <th style={{ padding: '5px', fontWeight: '480' }}>ID Number</th>
+              <th style={{ padding: '5px', fontWeight: '480' }}>Phone</th>
+            </tr>
+          </thead>
+          <tbody>
+            {item.guestDetails.map((guest, index) => (
+              <tr key={index} style={{ borderBottom: '1px solid #f0f0f0' }}>
+                <td style={{ padding: '5px' }}>{guest.name || '-'}</td>
+                <td style={{ padding: '5px' }}>{guest.gender || '-'}</td>
+                <td style={{ padding: '5px' }}>{guest.guestIdType || '-'}</td>
+                <td style={{ padding: '5px' }}>{guest.guestIdNumber || '-'}</td>
+                <td style={{ padding: '5px' }}>{guest.phoneNumber || '-'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    ) : (
+      '-'
+    )}
+  </td>
+)}
+
               {visibleColumns.includes('checkInDateTime') && (
             <td>
               <span style={{ display: 'block', textAlign: 'center', fontSize: '14px' }}>
@@ -1016,7 +1048,7 @@ const BookingDetailsTable = () => {
                   >
                     <li>
                       <span style={{  }}>
-                        {item.checkInDateTime ? format(new Date(item.checkInDateTime), 'MM/dd/yyyy') : '-'}
+                        {item.checkInDateTime ? format(new Date(item.checkInDateTime), 'dd/MM/yyyy') : '-'}
                       </span>
                     </li>
                     <li>
@@ -1048,7 +1080,7 @@ const BookingDetailsTable = () => {
                   >
                     <li>
                       <span style={{}}>
-                        {item.checkOutDateTime ? format(new Date(item.checkOutDateTime), 'MM/dd/yyyy') : '-'}
+                        {item.checkOutDateTime ? format(new Date(item.checkOutDateTime), 'dd/MM/yyyy') : '-'}
                       </span>
                     </li>
                     <li>
@@ -1068,24 +1100,33 @@ const BookingDetailsTable = () => {
                   {visibleColumns.includes('balance') && <td>{item.balance}</td>}
                   {visibleColumns.includes('pmytotalAmount') && <td>{item.pmytotalAmount}</td>}
                   <td>
-              {item.paymentDetails && item.paymentDetails.length > 0 ? (
-                <ul style={{ margin: 0, padding: '0 10px', listStyle: 'none' }}>
-                  {item.paymentDetails.map((payment, index) => (
-                    <li key={index} style={{ padding: '2px 0' }}>
-                      <strong style={{fontWeight:"normal"}}>Amount:</strong> ₹{payment.amount}, 
-                      <strong style={{fontWeight:"normal"}}> Mode:</strong> {payment.modeOfPayment}
-                      {payment.date && (
-                        <>
-                          , <strong style={{fontWeight:"normal"}}>Date:</strong> {format(new Date(payment.date), 'MM/dd/yyyy')}
-                        </>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                '-'
-              )}
-            </td>
+  {item.paymentDetails && item.paymentDetails.length > 0 ? (
+    <div style={{ padding: '10px', border: '1px solid #ddd', borderRadius: '5px' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <thead>
+          <tr style={{ borderBottom: '1px solid #ddd', textAlign: 'left' }}>
+            <th style={{ padding: '5px', fontWeight: '480' }}>Amount</th>
+            <th style={{ padding: '5px', fontWeight: '480' }}>Mode</th>
+            <th style={{ padding: '5px', fontWeight: '480' }}>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {item.paymentDetails.map((payment, index) => (
+            <tr key={index} style={{ borderBottom: '1px solid #f0f0f0' }}>
+              <td style={{ padding: '5px' }}>₹{payment.amount}</td>
+              <td style={{ padding: '5px' }}>{payment.modeOfPayment}</td>
+              <td style={{ padding: '5px' }}>
+                {payment.date ? format(new Date(payment.date), 'dd/MM/yyyy') : '-'}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ) : (
+    '-'
+  )}
+</td>
           
                   {visibleColumns.includes('staffName') && <td>{item.username}</td>} {/* Display staffName here */}
                   {visibleColumns.includes('action') && (
@@ -1165,7 +1206,7 @@ const BookingDetailsTable = () => {
         />
         <TextInput
           label="No. Of Kids"
-          value={editBooking?.noOfKids || ''}
+          value={editBooking?.noOfKids || '0'}
           onChange={(e) => setEditBooking({ ...editBooking, noOfKids: e.target.value })}
         /> 
          <TextInput
@@ -1247,7 +1288,7 @@ const BookingDetailsTable = () => {
   label="CheckInDate"
   value={
     editBooking?.checkInDateTime
-      ? format(new Date(editBooking.checkInDateTime), 'MM/dd/yyyy')
+      ? format(new Date(editBooking.checkInDateTime), 'dd/MM/yyyy')
       : ''
   }
   onChange={(e) => {
@@ -1278,7 +1319,7 @@ const BookingDetailsTable = () => {
   label="CheckOutDate"
   value={
     editBooking?.checkOutDateTime
-      ? format(new Date(editBooking.checkOutDateTime), 'MM/dd/yyyy')
+      ? format(new Date(editBooking.checkOutDateTime), 'dd/MM/yyyy')
       : ''
   }
   onChange={(e) => {
@@ -1345,7 +1386,7 @@ const BookingDetailsTable = () => {
         value={editBooking?.pmytotalAmount || ''}
         onChange={(e) => setEditBooking({ ...editBooking, pmytotalAmount: e.target.value })}
       />
-      {editBooking.paymentDetails?.map((payment, index) => (
+      {/* {editBooking.paymentDetails?.map((payment, index) => (
   <div key={index}>
     <label>Mode of Payment</label>
     <input
@@ -1367,7 +1408,7 @@ const BookingDetailsTable = () => {
       }}
     />
   </div>
-))}
+))} */}
       {/* <TextInput
         label="pmytotalAmount"
         value={editBooking?.pmytotalAmount || ''}

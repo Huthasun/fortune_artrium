@@ -766,12 +766,16 @@ useEffect(() => {
       // Clear all local storage items except for roomNo
       const roomNo = window.localStorage.getItem('roomNo');
       const username = window.localStorage.getItem('username')
+      const hotelId = window.localStorage.getItem('hotelId')
       window.localStorage.clear();
       if (roomNo) {
         window.localStorage.setItem('roomNo', roomNo);
       }
       if (username) {
         window.localStorage.setItem('username',username)  
+      }
+      if (hotelId){
+        window.localStorage.setItem('hotelId',hotelId)
       }
       // Navigate to the bookings page
       navigate('/app/bookings');
