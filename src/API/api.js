@@ -7,7 +7,7 @@ const client = axios.create(
         // baseURL:"http://192.168.29.68:80",
         // baseURL:"http://192.168.1.12:80",
 
-        baseURL: "https://13.234.149.251:80"
+        baseURL: "http://13.234.149.251:80"
         // API Change 
         // baseURL:"https://hms.automactechnologies.in/",
         // baseURL:"http://localhost:80"
