@@ -1061,13 +1061,10 @@
           const hotelId = localStorage.getItem('hotelId'); // Get hotelId from localStorage
           if (hotelId) {
             const response = await client.get(`/api/room-status?hotelId=${hotelId}`);
-
-              // Filter rooms by hotelId
-        const filteredRooms = response.data.data.filter(room => room.hotelId === parseInt(hotelId));
-            setRooms(filteredRooms); // Set fetched rooms for the specific hotel
-          } else {
-            console.warn('Hotel ID not found in localStorage');
-          }
+   // Ensure the hotelId is parsed correctly
+   const filteredRooms = response.data.data.filter(room => String(room.hotelId) === String(hotelId));
+   setRooms(filteredRooms);
+          } 
         } catch (error) {
           console.error('Error fetching room status:', error);
         }
@@ -1089,8 +1086,8 @@
     // // Retrieve roomNo from local storage on mount
     useEffect(() => {
       const storedRoomNo = localStorage.getItem('roomNo');
-      if (storedRoomNo) {
-        const room = rooms.find((room) => room.roomNo === storedRoomNo);
+      if (storedRoomNo && rooms.length > 0) {
+        const room = rooms.find(room => String(room.roomNo) === String(storedRoomNo));
         if (room) {
           setRoomDetails(room);
           setSelectedButton(storedRoomNo);
@@ -1110,10 +1107,22 @@
   };
 
     
+  // const refreshRoomStatus = async () => {
+  //   try {
+  //     const response = await client.get('/api/room-status');
+  //     setRooms(response.data.data); // Refresh the room status data
+  //   } catch (error) {
+  //     console.error('Error refreshing room status:', error);
+  //   }
+  // };
   const refreshRoomStatus = async () => {
     try {
-      const response = await client.get('/api/room-status');
-      setRooms(response.data.data); // Refresh the room status data
+      const hotelId = localStorage.getItem('hotelId');
+      if (hotelId) {
+        const response = await client.get(`/api/room-status?hotelId=${hotelId}`);
+        const filteredRooms = response.data.data.filter(room => String(room.hotelId) === String(hotelId));
+        setRooms(filteredRooms);
+      }
     } catch (error) {
       console.error('Error refreshing room status:', error);
     }
@@ -1123,9 +1132,9 @@
       setSelectedButton(roomNo);
       localStorage.setItem('roomNo', roomNo);
 
-      const room = rooms.find((room) => room.roomNo === roomNo);
-      if (room) {
+      const room = rooms.find(room => String(room.roomNo) === String(roomNo));      if (room) {
         setRoomDetails(room);
+        console.log('Selected Room:', room); 
         if (room.roomStatus === 'occupied') {
           setSelectedRoom(room);
           setShowPendingModal(true); // Open modal for occupied rooms
@@ -1136,8 +1145,7 @@
           }
           navigate('/app/register', {
             state: {
-              roomDetails, // Pass room details for the Register component
-              roomPrice, // Pass room price for the Register component (optional)
+              state: { roomDetails: room, roomPrice: price },
             },
           });
         } else if (room.roomStatus === 'housekeeping') {

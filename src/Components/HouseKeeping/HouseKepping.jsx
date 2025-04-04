@@ -109,7 +109,8 @@ const Housekeeping = ({ selectedRoom, onClose ,refreshRoomStatus}) => {
 
   const handleDoneClick = async () => {
     try {
-      await client.put('/api/room-status/update-status', { roomNo: selectedRoom.roomNo, status: 'vacant' });
+      console.log('HouseKeeping hotelId:', selectedRoom.hotelId); // Debug log
+      await client.put('/api/room-status/update-status', { roomNo: selectedRoom.roomNo, status: 'vacant' ,hotelId: selectedRoom.hotelId,});
       refreshRoomStatus(); 
       onClose();
       navigate('/app/bookings'); // Navigate to the bookings page

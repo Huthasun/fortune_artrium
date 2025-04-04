@@ -171,9 +171,10 @@ const totalAmount = selectedRoom.bookingDetails?.pmytotalAmount || 'N/A';
   const handleCheckOutClick = async () => {
     setIsLoading(true);  // Set loading state to true
     try {
+      console.log('PendingCard hotelId:', selectedRoom.hotelId);
       const response = await client.put(
         '/api/room-status/update-status',
-        { roomNo: selectedRoom.roomNo, status: 'housekeeping' }  // Send room number and status for update
+        { roomNo: selectedRoom.roomNo, status: 'housekeeping',hotelId: selectedRoom.hotelId }  // Send room number and status for update
       );
   
       if (response.status === 200) {

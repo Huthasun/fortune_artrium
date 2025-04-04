@@ -740,11 +740,20 @@ useEffect(() => {
 
       // Combine all necessary data
 
+      const hotelId = Number(window.localStorage.getItem('hotelId')); // Convert to number
+if (isNaN(hotelId)) {
+  console.error('Invalid hotelId:', window.localStorage.getItem('hotelId')); // Debugging log
+  alert('Invalid hotelId. Please check if hotel selection is correct.');
+  return; // Stop execution if hotelId is invalid
+}
+
+
       
       const combinedData = {
         primaryGuestDetails,
         guestDetails,
         staffId: window.localStorage.getItem('staffId'),
+        hotelId,
         bookingType: window.localStorage.getItem('bookingType'),
         numAdults: window.localStorage.getItem('numAdults'),
         numKids: window.localStorage.getItem('numKids'),
@@ -766,7 +775,7 @@ useEffect(() => {
       // Clear all local storage items except for roomNo
       const roomNo = window.localStorage.getItem('roomNo');
       const username = window.localStorage.getItem('username')
-      const hotelId = window.localStorage.getItem('hotelId')
+      // const hotelId = window.localStorage.getItem('hotelId')
       window.localStorage.clear();
       if (roomNo) {
         window.localStorage.setItem('roomNo', roomNo);
