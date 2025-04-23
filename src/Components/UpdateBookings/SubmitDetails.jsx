@@ -787,7 +787,7 @@ if (isNaN(hotelId)) {
         window.localStorage.setItem('hotelId',hotelId)
       }
       // Navigate to the bookings page
-      navigate('/app/bookings');
+      navigate('/app/tabs');
     } catch (error) {
       console.error('Error saving booking:', error.response?.data || error); // Detailed error log
       alert(error.response?.data?.message || 'Failed to save booking details. Please check input data.');

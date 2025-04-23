@@ -10,7 +10,7 @@ import RegisterationCard from './Components/Cards/RegisterationCard';
 import PendigCard from './Components/Cards/PendigCard';
 import CompletedCard from './Components/Cards/CompletedCard';
 import Header from './Components/Header';
-import UpdatedBookings from './Components/UpdateBookings/UpadatedBookings';
+// import UpdatedBookings from './Components/UpdateBookings/UpadatedBookings';
 import Newregiter from './Components/UpdateBookings/Newregiter';
 import SubmitDetails from './Components/UpdateBookings/SubmitDetails';
 import Footer1 from './Components/Footer1';
@@ -25,6 +25,7 @@ import AdminLanding from './Components/Admin/AdminLanding';
 import FindGuest from './Components/Cards/FindGuest';
 import PrivateRoutes from './utils/PrivateRoutes';
 import ExtendBooking from './Components/UpdateBookings/ExtendBooking';
+import TabsOverview from '../src/Components/UpdateBookings/TabsOverview';
 
 
 
@@ -92,10 +93,12 @@ const App = () => {
         
           <Route exact path="/app" element={<PrivateRoutes/>}> 
            {/* <Route path="/register" element={<Register/>} />  */}
+           <Route path="tabs" element={<TabsOverview/>} />
+
               <Route path="bookings" element={<Departure/>} />
 
               <Route path="register" element={<Newregiter/>}/>
-              <Route path="updatebooking" element={<UpdatedBookings/>} />
+              {/* <Route path="updatebooking" element={<UpdatedBookings/>} /> */}
               <Route path="guestdetails" element={<GuestRecords/>}/>
               <Route path="submitdetails" element={<SubmitDetails/>}/>
               <Route path="search" element={<Searchbar/>}/>

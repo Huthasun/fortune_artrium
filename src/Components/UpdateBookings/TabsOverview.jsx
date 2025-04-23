@@ -511,57 +511,64 @@ import { Tabs } from '@mantine/core';
 import Bookings from '../Modifications/Bookings';
 import Accomidation from '../Modifications/Accomidation';
 import Depart from '../Modifications/Depart';
+import Departure from '../Departure';
 
-const UpdatedBookings = () => {
+const TabsOverview = () => {
   const [selectedOption, setSelectedOption] = useState('Bookings');
 
   return (
-    <div style={{marginTop:"1rem"}}>
-      
-      <Tabs  defaultValue="bookings" color='red'>
-      
+    <div style={{ marginTop: 0 }}> {/* Reduced the gap here */}
+      <Tabs defaultValue="bookings" color="red">
         <Tabs.List grow>
-        
-          <Tabs.Tab
-            value="bookings"
-            onClick={() => setSelectedOption('Bookings')}
-            style={{ fontSize: '1rem', fontWeight: 'bold', fontFamily: 'Arial', color: selectedOption === 'Bookings' ? 'red' : 'inherit' }}
-          >
-            Bookings
-          </Tabs.Tab>
           <Tabs.Tab
             value="accommodation"
             onClick={() => setSelectedOption('Accommodation')}
-            style={{ fontSize: '1rem', fontWeight: 'bold', fontFamily: 'Arial', color: selectedOption === 'Accommodation' ? 'red' : 'inherit' }}
+            style={{
+              fontSize: '1rem',
+              fontWeight: 'bold',
+              fontFamily: 'Arial',
+              color: selectedOption === 'Accommodation' ? 'red' : '#555',
+              borderBottom: selectedOption === 'Accommodation' ? '3px solid red' : '3px solid transparent',
+              transition: 'all 0.3s ease',
+              padding: '0.5rem 1rem',
+              position: 'relative',
+              overflow: 'hidden',
+              boxShadow: selectedOption === 'Accommodation' ? '0 2px 8px rgba(255, 0, 0, 0.2)' : 'none'
+            }}
           >
-            Accommodation
+            Overview
           </Tabs.Tab>
+
           <Tabs.Tab
-            value="depart"
-            onClick={() => setSelectedOption('Depart')}
-            style={{ fontSize: '1rem', fontWeight: 'bold', fontFamily: 'Arial', color: selectedOption === 'Depart' ? 'red' : 'inherit' }}
+            value="bookings"
+            onClick={() => setSelectedOption('Bookings')}
+            style={{
+              fontSize: '1rem',
+              fontWeight: 'bold',
+              fontFamily: 'Arial',
+              color: selectedOption === 'Bookings' ? 'red' : '#555',
+              borderBottom: selectedOption === 'Bookings' ? '3px solid red' : '3px solid transparent',
+              transition: 'all 0.3s ease',
+              padding: '1rem 1rem',
+              position: 'relative',
+              overflow: 'hidden',
+              boxShadow: selectedOption === 'Bookings' ? '0 2px 8px rgba(255, 0, 0, 0.2)' : 'none'
+            }}
           >
-            Depart
+            Rooms View
           </Tabs.Tab>
-          
         </Tabs.List>
-       
-
-
-        <Tabs.Panel value="bookings" pt="xs">
-          <Bookings/>
-        </Tabs.Panel>
 
         <Tabs.Panel value="accommodation" pt="xs">
-         <Accomidation/>
+          <Accomidation />
         </Tabs.Panel>
 
-        <Tabs.Panel value="depart" pt="xs">
-        <Depart/>
+        <Tabs.Panel value="bookings" pt="xs">
+          <Departure />
         </Tabs.Panel>
       </Tabs>
     </div>
   );
 };
 
-export default UpdatedBookings;
+export default TabsOverview;

@@ -39,7 +39,7 @@ const LoginForm = () => {
           if (role === 'admin') {
             navigate('/app/adminlanding');
           } else if (role === 'receptionist') {
-            navigate('/app/bookings');
+            navigate('/app/tabs');
           }
         }
       }, []);
@@ -64,7 +64,7 @@ const LoginForm = () => {
         if (response.data.role === 'admin') {
           navigate('/app/adminlanding');
         } else if (response.data.role === 'receptionist') {
-          navigate('/app/bookings');
+          navigate('/app/tabs');
         }
       } else {
         setLoader(false);

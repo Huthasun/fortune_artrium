@@ -181,7 +181,7 @@ const totalAmount = selectedRoom.bookingDetails?.pmytotalAmount || 'N/A';
         // alert('Room status updated to housekeeping successfully!');
         // You can refresh the page, navigate to another page, or update state here.
         refreshRoomStatus(); 
-        navigate('/app/bookings');  // Redirect to a rooms list or dashboard page
+        navigate('/app/tabs');  // Redirect to a rooms list or dashboard page
         onClose();
       }
     } catch (error) {
@@ -201,13 +201,14 @@ const totalAmount = selectedRoom.bookingDetails?.pmytotalAmount || 'N/A';
     navigate('/app/extend');
   };
 
-  // Extract only the date part from CheckOutDateTime
   const getFormattedCheckOutDate = (dateTimeString) => {
     if (!dateTimeString) return 'N/A';
     const date = new Date(dateTimeString);
-    return date.toLocaleDateString(); // Formats to local date format (MM/DD/YYYY or DD/MM/YYYY depending on locale)
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   };
-
   return (
     <>
       <Modal

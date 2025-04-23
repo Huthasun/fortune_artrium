@@ -266,7 +266,7 @@ export const Footer1 = () => {
         <Flex style={iconContainerStyle}>
           <ActionIcon
             size="lg"
-            onClick={() => handleIconClick('home', 'bookings')}
+            onClick={() => handleIconClick('home', 'tabs')}
             style={{ color: activeIcon === 'home' ? 'red' : 'gray' }}
           >
             <RiHomeLine size="24" />

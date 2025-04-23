@@ -24,3 +24,30 @@ code {
 .mantine-1gp3704 {
   padding-left: 0vw;
 }
+.mantine-q8qkjd {
+  flex: 0 0 100%; /* Default for mobile */
+}
+
+@media (min-width: 576px) {
+  .mantine-q8qkjd {
+    flex: 0 0 80%;
+  }
+}
+
+@media (min-width: 768px) {
+  .mantine-q8qkjd {
+    flex: 0 0 60%;
+  }
+}
+
+@media (min-width: 992px) {
+  .mantine-q8qkjd {
+    flex: 0 0 45%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .mantine-q8qkjd {
+    flex: 0 0 35%;
+  }
+}
