@@ -650,6 +650,7 @@ const ExtendBooking = () => {
             pay: '',
             bookingId: '',
             balanceAmount: '',
+            balance:'',
         },
         validate: {
             checkInDate: (value) => (value ? null : 'Check-in Date is required'),
@@ -761,10 +762,14 @@ const ExtendBooking = () => {
         if (form.values.pay) {
             const newPayment = parseFloat(form.values.pay) || 0;
             const updatedPaidAmount = initialPaidAmount + newPayment;
+            const totalAmount = parseFloat(form.values.totalamount || 0);
+            const updatedBalance = totalAmount - updatedPaidAmount;
             form.setValues({
                 ...form.values,
-                paidamount: updatedPaidAmount,
-                balanceAmount: parseFloat(form.values.totalamount) - updatedPaidAmount,
+                // paidamount: updatedPaidAmount,
+                paidamount: updatedPaidAmount.toFixed(2),
+                balanceAmount: updatedBalance.toFixed(2),
+                // balanceAmount: parseFloat(form.values.totalamount) - updatedPaidAmount,
             });
         }
     }, [form.values.pay]);
@@ -801,6 +806,7 @@ const ExtendBooking = () => {
             pmytotalAmount: values.totalamount,
             roomNo: selectedRoom.roomNo,
             tarrif: values.tarrif,
+            balance:values.balanceAmount
         };
 
         const combinedRoomStatusData = {

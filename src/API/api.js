@@ -5,8 +5,9 @@ axios.defaults.xsrfHeaderName = 'x-csrftoken'
 const client = axios.create(
     {
         // baseURL:"http://192.168.29.68:80",
-        // baseURL:"http://192.168.1.3:80",
-         baseURL:"https://hmsbackend.automactechnologies.in/",
+        // baseURL:"http://192.168.1.6:80",
+        //  baseURL:"https://hmsbackend.automactechnologies.in/",
+        baseURL:"https://hms-backend-vvnr.onrender.com/"
 
         // baseURL: "http://13.234.149.251:80"
         // API Change 
