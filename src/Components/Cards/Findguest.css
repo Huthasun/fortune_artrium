@@ -1,0 +1,117 @@
+/* MAIN CONTAINER */
+.history-container {
+  width: 95%;
+  margin: auto;
+  margin-top: 20px;
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 14px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+}
+
+/* TITLE */
+.history-container h2 {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 18px;
+}
+
+/* SEARCH SECTION */
+.search-box {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 15px;
+}
+
+.search-box button {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #1e40af;
+  color: #fff;
+  font-size: 14px;
+  border: none;
+}
+
+/* GUEST INFO BOX */
+.guest-info {
+  background: #eef3ff;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 15px;
+  font-size: 15px;
+  border-left: 4px solid #1e40af;
+}
+
+/* TABLE RESPONSIVE WRAPPER */
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-top: 18px;
+  background: #fff;
+  border-radius: 10px;
+  overflow-x: auto;
+  display: block;
+}
+
+/* TABLE HEADER */
+.history-table th {
+  background: #1e40af;
+  color: white;
+  padding: 10px 8px;
+  font-size: 13px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* TABLE CELLS */
+.history-table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+/* ROW HOVER */
+.history-table tr:hover {
+  background: #f1f5ff;
+}
+
+/* NO DATA MSG */
+.no-data {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* MOBILE VIEW FIXES */
+@media (max-width: 480px) {
+  .history-container {
+    margin-top: 10px;
+    padding: 12px;
+  }
+
+  .guest-info p {
+    margin: 6px 0;
+    font-size: 14px;
+  }
+
+  .search-box input {
+    font-size: 14px;
+  }
+
+  .search-box button {
+    font-size: 13px;
+  }
+}

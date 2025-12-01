@@ -222,6 +222,8 @@ import { RiHomeLine } from 'react-icons/ri';
 import { IoMenu, IoPersonSharp } from 'react-icons/io5';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'; // Import the useMediaQuery hook
 import Usermanagement from './USerManagement/Usermanagement';
+import { IoMdSearch } from 'react-icons/io';
+import { BiSearch } from 'react-icons/bi';
 
 export const Footer1 = () => {
   const navigate = useNavigate();
@@ -271,12 +273,13 @@ export const Footer1 = () => {
           >
             <RiHomeLine size="24" />
           </ActionIcon>
-          <ActionIcon
-            size="lg"
-            onClick={() => handleIconClick('guest', 'guestregistration')}
-            style={{ color: activeIcon === 'guest' ? 'red' : 'gray' }}
-          >
-            <IoPersonSharp size="24" />
+        <ActionIcon
+  size="lg"
+  onClick={() => handleIconClick('guest', 'findguest')}
+  style={{ color: activeIcon === 'guest' ? 'red' : 'gray' }}
+>
+  <BiSearch size="28" />
+            {/* <IoPersonSharp size="24" /> */}
           </ActionIcon>
           <ActionIcon
             size="lg"
@@ -294,13 +297,17 @@ export const Footer1 = () => {
         onClose={close}
         title="User Details"
         overlayProps={{ opacity: 0.5, blur: 4 }}
-        size={opened ? '50%' : '30%'}
+        size="50%"
         styles={{
           drawer: {
             padding: '10px',
-            height: 'calc(100vh - 150px)', // Limit height to reduce scroll length
+           height: "50vh",          // ⭐ FIX — only half screen height
+      maxHeight: "50vh",
             overflowY: 'auto',
           },
+          content: {
+      height: "100%",
+          }
         }}
       >
         <Usermanagement />
