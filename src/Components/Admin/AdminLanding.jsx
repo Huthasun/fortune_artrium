@@ -448,7 +448,7 @@ import {
 } from '@mantine/core';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useMediaQuery } from '@mantine/hooks';
-import { IconCreditCard, IconCash, IconCurrencyRupee, IconRefresh, IconEye } from '@tabler/icons-react';
+import { IconCreditCard, IconCash, IconCurrencyRupee, IconRefresh, IconEye, IconBuildingSkyscraper } from '@tabler/icons-react';
 import Fortune from '../../assets/fj.jpg';
 import client from '../../API/api';
 
@@ -616,8 +616,8 @@ export default function AdminLanding() {
   </Badge>
 
   {/* 👁 Icon that navigates to your component */}
-  <IconEye
-    size={22}
+  <IconBuildingSkyscraper
+    size={30}
     style={{ cursor: 'pointer' }}
     onClick={() => navigate(`/app/adminlanding/rooms?hotelId=${selectedHotel}`)}
   />
@@ -740,10 +740,21 @@ export default function AdminLanding() {
           }}>
             Admin Menu
           </div>
+          
         }
         padding="xl"
         size="50%"
-        styles={{ drawer: { padding: '10px', height: 'calc(100vh - 150px)', overflowY: 'auto' } }}
+        styles={{
+          drawer: {
+            padding: '10px',
+           height: "50vh",          // ⭐ FIX — only half screen height
+      maxHeight: "50vh",
+            overflowY: 'auto',
+          },
+          content: {
+      height: "100%",
+          }
+        }}
       >
         <Stack spacing="md">
           {navLinks.map((link) => (
@@ -768,7 +779,7 @@ export default function AdminLanding() {
               {link.label}
             </div>
           ))}
-          <Button variant="outline" color="red" onClick={handleLogout} style={{width:"50%"}}>
+          <Button variant="outline" color="red" onClick={handleLogout} style={{width:"50%",marginLeft:"2%"}}>
             Logout
           </Button>
         </Stack>

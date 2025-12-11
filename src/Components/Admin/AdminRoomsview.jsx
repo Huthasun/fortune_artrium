@@ -251,6 +251,7 @@ import client from '../../API/api';
 import axios from 'axios';
 import Housekeeping from '../Admin/AdminHousekeeping';
 import { useSearchParams } from "react-router-dom";
+import { IoIosArrowBack } from 'react-icons/io';
 
 const AdminRoomsview = () => {
   const [selectedButton, setSelectedButton] = useState(null);
@@ -273,6 +274,8 @@ const AdminRoomsview = () => {
   const [serviceBusy, setServiceBusy] = useState(false); // disable multiple clicks while API runs
   const [refreshKey, setRefreshKey] = useState(0);
 const [roomStatusTriggerVal, setRoomStatusTriggerVal] = useRecoilState(roomStatusTrigger);
+const [serviceReason, setServiceReason] = useState("");
+
 
 
   useEffect(() => {
@@ -479,11 +482,43 @@ const [roomStatusTriggerVal, setRoomStatusTriggerVal] = useRecoilState(roomStatu
   return (
     <div>
       {/* <Header /> */}
-      <div style={{ padding: "0px", paddingTop: "0px" }}>
-        <h1 style={{ display: "grid", placeItems: "center" }}>Availability</h1>
-      </div>
+    <div 
+  style={{ 
+    padding: "10px 20px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative"
+  }}
+>
+  {/* BACK ICON LEFT SIDE */}
+  <div
+    onClick={() => navigate('/app/adminlanding')}
+    style={{
+      position: "absolute",
+      left: "10px",
+      width: "40px",
+      height: "40px",
+      borderRadius: "50%",
+      backgroundColor: "#E8F5E9",  // green color
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      cursor: "pointer",
+    boxShadow: "0px 4px 10px rgba(0,0,0,0.18)", // soft shadow
+      border: "1px solid #C8E6C9" // light border for better look
+    }}
+  >
+    <IoIosArrowBack
+     size={18} color="#2E7D32" />
+  </div>
 
-      <SimpleGrid  key={refreshKey} cols={3} style={{ display: 'grid', placeItems: "center", paddingLeft: '20px', paddingRight: "20px" }}>
+  {/* CENTER TITLE */}
+  <h1 style={{ margin: 0 }}>Availability</h1>
+</div>
+
+
+      <SimpleGrid  key={refreshKey} cols={3} style={{ display: 'grid', placeItems: "center", paddingLeft: '20px', paddingRight: "20px",paddingTop:"10px" }}>
         {rooms.map((room) => {
           const hasGreenBorder = isRoomInGreenBorder(room.roomNo);
 
@@ -557,30 +592,53 @@ const [roomStatusTriggerVal, setRoomStatusTriggerVal] = useRecoilState(roomStatu
            withCloseButton={true} 
       >
         <div style={{ padding: 12 }}>
-          <Text fz="lg" fw={700} mb={8}>
-            {serviceRoom?.roomStatus === 'service' ? 'Mark room as Vacant?' : 'Send room to Manintenance?'}
-          </Text>
-          <Text fz="sm" color="dimmed" mb={16}>
-            {serviceRoom?.roomStatus === 'service'
-              ? `This will make Room ${serviceRoom?.roomNo} vacant again.`
-              : `This will mark Room ${serviceRoom?.roomNo} as under manintenance (clears booking data).`}
-          </Text>
+  <Text fz="lg" fw={700} mb={8}>
+    {serviceRoom?.roomStatus === 'service' ? 'Mark room as Vacant?' : 'Send room to Maintenance?'}
+  </Text>
 
-          <div style={{ display: 'flex', gap: 10 }}>
-            <Button
-              fullWidth
-              variant="outline"
-              color="gray"
-              onClick={() => { setShowServiceModal(false); setServiceRoom(null); }}
-            >
-              Cancel
-            </Button>
+  <Text fz="sm" color="dimmed" mb={16}>
+    {serviceRoom?.roomStatus === 'service'
+      ? `This will make Room ${serviceRoom?.roomNo} vacant again.`
+      : `This will mark Room ${serviceRoom?.roomNo} as under maintenance (clears booking data).`}
+  </Text>
 
-            <Button fullWidth onClick={applyServiceChange} loading={serviceBusy}>
-              Confirm
-            </Button>
-          </div>
-        </div>
+  {/* 🔥 COMMENT / REASON INPUT */}
+  <textarea
+    placeholder="Enter reason (required)"
+    value={serviceReason}
+    onChange={(e) => setServiceReason(e.target.value)}
+    style={{
+      width: "100%",
+      height: "70px",
+      padding: "8px",
+      borderRadius: "6px",
+      border: "1px solid #ccc",
+      marginBottom: "12px",
+      resize: "none"
+    }}
+  />
+
+  <div style={{ display: 'flex', gap: 10 }}>
+    <Button
+      fullWidth
+      variant="outline"
+      color="gray"
+      onClick={() => { setShowServiceModal(false); setServiceRoom(null); }}
+    >
+      Cancel
+    </Button>
+
+    <Button 
+      fullWidth 
+      onClick={applyServiceChange} 
+      loading={serviceBusy}
+      disabled={!serviceReason.trim()}
+    >
+      Confirm
+    </Button>
+  </div>
+</div>
+
       </Modal>
     </div>
   );
