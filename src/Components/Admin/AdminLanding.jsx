@@ -448,7 +448,7 @@ import {
 } from '@mantine/core';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useMediaQuery } from '@mantine/hooks';
-import { IconCreditCard, IconCash, IconCurrencyRupee, IconRefresh } from '@tabler/icons-react';
+import { IconCreditCard, IconCash, IconCurrencyRupee, IconRefresh, IconEye } from '@tabler/icons-react';
 import Fortune from '../../assets/fj.jpg';
 import client from '../../API/api';
 
@@ -610,9 +610,18 @@ export default function AdminLanding() {
       <Card key={hotelId} shadow="sm" padding="lg" radius="md" withBorder>
         <Text weight={600} size="lg" mb="sm">Hotel {hotelId} Dashboard</Text>
 
-        <Badge color="teal" variant="light" mb="md">
-          Last Updated: {lastUpdated}
-        </Badge>
+        <Group position="apart" mb="md">
+  <Badge color="teal" variant="light">
+    Last Updated: {lastUpdated}
+  </Badge>
+
+  {/* 👁 Icon that navigates to your component */}
+  <IconEye
+    size={22}
+    style={{ cursor: 'pointer' }}
+    onClick={() => navigate(`/app/adminlanding/rooms?hotelId=${selectedHotel}`)}
+  />
+</Group>
 
         <Card.Section withBorder p="md" mb="md">
           <Text weight={500} mb="xs">Total Revenue</Text>

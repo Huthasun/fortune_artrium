@@ -1038,8 +1038,9 @@ import bookingData from './databooking';
 import PendigCard from './Cards/PendigCard';
 import { useNavigate } from 'react-router-dom';
 import Footer1 from './Footer1';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { roomAtom } from '../Store/Store';
+import { roomStatusTrigger } from '../Store/Store';
 import client from '../API/api';
 import axios from 'axios';
 import Housekeeping from './HouseKeeping/HouseKepping';
@@ -1063,6 +1064,7 @@ const Departure = () => {
 
     return () => clearInterval(interval);
   }, []);
+  const roomStatusChanged = useRecoilValue(roomStatusTrigger);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -1078,7 +1080,7 @@ const Departure = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [roomStatusChanged]);
 
   useEffect(() => {
     const storedRoomNo = localStorage.getItem('roomNo');
@@ -1168,6 +1170,8 @@ const Departure = () => {
         return 'Occupied';
       case 'vacant':
         return 'Vacant';
+      case 'service':
+        return 'Service';
       default:
         return 'Housekeeping';
     }
@@ -1179,6 +1183,8 @@ const Departure = () => {
         return '#03C03C';
       case 'occupied':
         return '#FE0000';
+      case 'service':
+        return '#CFCFCF';
       default:
         return '#E1C16E';
     }

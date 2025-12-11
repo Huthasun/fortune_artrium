@@ -26,6 +26,7 @@ import FindGuest from './Components/Cards/FindGuest';
 import PrivateRoutes from './utils/PrivateRoutes';
 import ExtendBooking from './Components/UpdateBookings/ExtendBooking';
 import TabsOverview from '../src/Components/UpdateBookings/TabsOverview';
+import AdminRoomsview from './Components/Admin/AdminRoomsview';
 
 
 
@@ -88,6 +89,7 @@ const App = () => {
             >
           <Route path="pmy" element={<Primaryguestdbtable/>}/>
           <Route path="btd" element={<BookingDetailsTable/>}/>
+          <Route path="rooms" element={<AdminRoomsview/>} /> 
         </Route>
 
         

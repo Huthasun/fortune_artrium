@@ -12,4 +12,8 @@ export const guestAtom = atom({
     default:''
 
 })
+export const roomStatusTrigger = atom({
+    key: 'roomStatusTrigger',
+    default: 0
+})
 // console.log(roomAtom);

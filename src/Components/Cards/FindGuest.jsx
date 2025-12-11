@@ -133,47 +133,96 @@
 
 // export default FindGuest;
 import { useState } from "react";
-import axios from "axios";
 import "../Cards/Findguest.css";
 import client from "../../API/api";
 
 export default function BookingHistory() {
-  const [phone, setPhone] = useState("");
+  const [query, setQuery] = useState("");       // phone / name / id
   const [records, setRecords] = useState([]);
   const [guest, setGuest] = useState(null);
+  const [errorMsg, setErrorMsg] = useState("");
 
+  // const handleSearch = async () => {
+  //   setErrorMsg("");
+  //   setRecords([]);
+  //   setGuest(null);
+
+  //   if (!query.trim()) {
+  //     setErrorMsg("Please enter phone / name / ID");
+  //     return;
+  //   }
+
+  //   let paramKey = "";
+  //   let value = query.trim();
+
+  //   // Detect Phone Number
+  //   if (/^\d{5,}$/.test(value)) {
+  //     paramKey = "phoneNumber";
+  //   }
+  //   // Detect Guest ID (alphanumeric)
+  //   else if (/^[a-zA-Z0-9]+$/.test(value)) {
+  //     paramKey = "guestIdNumber";
+  //   }
+  //   // Otherwise treat as Guest Name
+  //   else {
+  //     paramKey = "name";
+  //   }
+
+  //   try {
+  //     const res = await client.get(`/bookings/booking-history?${paramKey}=${value}`);
+
+  //     setRecords(res.data.bookingHistory);
+  //     setGuest(res.data.guestDetails);
+  //   } catch (err) {
+  //     console.log(err);
+  //     setErrorMsg("No records found");
+  //     setRecords([]);
+  //     setGuest(null);
+  //   }
+  // };
   const handleSearch = async () => {
-    if (!phone) {
-      alert("Please enter phone number");
-      return;
-    }
+  setErrorMsg("");
+  setRecords([]);
+  setGuest(null);
 
-    try {
-      const res = await client.get(`/bookings/booking-history?phoneNumber=${phone}`);
-      setRecords(res.data.bookingHistory);
-      setGuest(res.data.guestDetails);
-    } catch (err) {
-      console.log(err);
-      setRecords([]);
-      setGuest(null);
-      alert("No records found");
-    }
-  };
+  const value = query.trim();
+  if (!value) {
+    setErrorMsg("Please enter phone / name / ID");
+    return;
+  }
+
+  try {
+    const res = await client.get(
+      `/bookings/booking-history?phoneNumber=${value}&guestIdNumber=${value}&name=${value}`
+    );
+
+    setRecords(res.data.bookingHistory);
+    setGuest(res.data.guestDetails);
+  } catch (err) {
+    console.log(err);
+    setErrorMsg("No records found");
+    setRecords([]);
+    setGuest(null);
+  }
+};
+
 
   return (
     <div className="history-container">
       <h2>Guest Booking History</h2>
 
-      {/* Search Section */}
+      {/* Search Box */}
       <div className="search-box">
         <input
           type="text"
-          placeholder="Enter Phone Number"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          placeholder="Enter Phone / Name / ID"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
         />
         <button onClick={handleSearch}>Search</button>
       </div>
+
+      {errorMsg && <p className="error">{errorMsg}</p>}
 
       {/* Guest Info */}
       {guest && (
@@ -184,7 +233,7 @@ export default function BookingHistory() {
         </div>
       )}
 
-      {/* Table Section */}
+      {/* Table */}
       {records.length > 0 && (
         <table className="history-table">
           <thead>
@@ -201,30 +250,24 @@ export default function BookingHistory() {
           <tbody>
             {records.map((rec, i) => (
               <tr key={i}>
-                {/* Room No */}
                 <td>{rec.roomNo || "-"}</td>
 
-                {/* Check-In */}
                 <td>
                   {rec.checkInDateTime
                     ? new Date(rec.checkInDateTime).toLocaleString()
                     : "-"}
                 </td>
 
-                {/* Check-Out */}
                 <td>
                   {rec.checkOutDateTime
                     ? new Date(rec.checkOutDateTime).toLocaleString()
                     : "-"}
                 </td>
 
-                {/* Duration */}
                 <td>{rec.numOfDays || "-"}</td>
 
-                {/* Total Amount */}
                 <td>₹ {rec.pmytotalAmount || 0}</td>
 
-                {/* Staff Name */}
                 <td>{rec.username || "-"}</td>
               </tr>
             ))}
