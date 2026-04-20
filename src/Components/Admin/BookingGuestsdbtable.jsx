@@ -760,6 +760,7 @@ const BookingDetailsTable = () => {
   const [dateRange, setDateRange] = useState([null, null]);
   const [opened, setOpened] = useState(false);
   const [totalPaidToday, setTotalPaidToday] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
   const columnOptions = [
     { value: 'roomNo', label: 'Room No' },
@@ -804,7 +805,7 @@ const BookingDetailsTable = () => {
   useEffect(() => {
     setVisibleColumns(columnOptions.map((opt) => opt.value));
     fetchData();
-  }, []);
+  }, [activePage]);
 
   useEffect(() => {
     // Apply both search and date range filters
@@ -845,7 +846,9 @@ const BookingDetailsTable = () => {
 
   const fetchData = async () => {
     try {
-      const response = await client.get('/bookings/get_all_bookings');
+    const response = await client.get(
+  `/bookings/get_all_bookings?page=${activePage}&limit=10`
+);
       if (response.data && response.data.data) {
         const sortedData = response.data.data.sort((a, b) => {
           const dateA = new Date(a.checkInDateTime || a.createdAt).getTime();
@@ -853,6 +856,7 @@ const BookingDetailsTable = () => {
           return dateB - dateA;
         });
         setData(sortedData);
+        setTotalPages(response.data.totalPages); // 👈 important
         
         // Calculate today's total paid amount
         const today = new Date();
@@ -948,10 +952,11 @@ const BookingDetailsTable = () => {
     }
   };
 
-  const paginatedData = filteredData.slice(
-    (activePage - 1) * itemsPerPage,
-    activePage * itemsPerPage
-  );
+  // const paginatedData = filteredData.slice(
+  //   (activePage - 1) * itemsPerPage,
+  //   activePage * itemsPerPage
+  // );
+  const paginatedData = filteredData;
 
   const getMaxLength = (guestIdProof) => {
     switch (guestIdProof) {
@@ -1239,7 +1244,8 @@ const BookingDetailsTable = () => {
           </tbody>
         </Table>
         <Pagination
-          total={Math.ceil(filteredData.length / itemsPerPage)}
+          // total={Math.ceil(filteredData.length / itemsPerPage)}
+            total={totalPages}
           page={activePage}
           onChange={setActivePage}
           siblings={1}

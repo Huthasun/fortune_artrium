@@ -71,7 +71,7 @@ const totalAmount = selectedRoom.bookingDetails?.pmytotalAmount || 'N/A';
         }}
       >
         <SimpleGrid cols={2}>
-          {/* Div for Labels */}
+          
           <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '10px' }}>
             <Text size="md" weight={500} style={{ marginBottom: 10 }}>
               Room No:
@@ -96,7 +96,7 @@ const totalAmount = selectedRoom.bookingDetails?.pmytotalAmount || 'N/A';
             </Text>
           </div>
 
-          {/* Div for Values */}
+          
           <div style={{ display: 'flex', justifyContent: 'flex-end', flexDirection: 'column', marginLeft: '26px', top: '0' }}>
             <Text size="md" weight={500} style={{ marginBottom: 10 }}>
               {selectedRoom.roomNo || 'N/A'}

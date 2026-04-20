@@ -40,7 +40,7 @@ const LoginForm = () => {
             navigate('/app/adminlanding');
           } else if (role === 'receptionist') {
             navigate('/app/tabs');
-          }
+          } 
         }
       }, []);
   const handleLogin = async (values) => {
