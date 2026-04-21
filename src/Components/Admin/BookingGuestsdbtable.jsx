@@ -836,7 +836,7 @@ const BookingDetailsTable = () => {
     });
 
     setFilteredData(filtered);
-    setActivePage(1); // Reset to first page when filters change
+    // setActivePage(1); // Reset to first page when filters change
   }, [data, search, dateRange]);
 
   const isDateInRange = (dateString, startDate, endDate) => {
